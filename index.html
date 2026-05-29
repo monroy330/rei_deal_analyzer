@@ -523,6 +523,41 @@
     </div>
   </div>
 
+  <!-- GHL Integration -->
+  <div class="branding-bar" style="margin-bottom:20px">
+    <div class="branding-toggle" onclick="toggleGHL()">
+      <div class="branding-toggle-left">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        GHL Integration — Pre-fill from Opportunity
+      </div>
+      <div class="branding-chevron" id="ghl-chevron">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="branding-fields" id="ghl-fields">
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.6">
+        Paste this URL into the <strong style="color:var(--text)">"Deal Analyzer Link"</strong> field value inside your <strong style="color:var(--text)">Update Opportunity</strong> GHL workflow action. When the workflow fires it will open the calculator pre-filled with the property data from the opportunity.
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <label style="font-size:11px;font-weight:600;color:var(--text-subtle);text-transform:uppercase;letter-spacing:0.6px">GHL Workflow URL Template</label>
+        <div style="position:relative">
+          <textarea readonly rows="3" id="ghl-url-template" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-size:11px;font-weight:500;color:var(--text-muted);font-family:'Courier New',monospace;outline:none;resize:none;line-height:1.6;cursor:text">https://reidealanalyzer.netlify.app/?mode=wholesale&prop-address={{opportunity.full_property_address}}&prop-beds={{opportunity.beds}}&prop-baths={{opportunity.baths}}&prop-sqft={{opportunity.finished_sqft}}&prop-year={{opportunity.year_built}}&w-arv={{opportunity.arv}}&w-comps={{opportunity.comps}}</textarea>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+          <span style="font-size:11px;color:var(--text-subtle)">GHL will replace the <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:10px">&#123;&#123;opportunity.*&#125;&#125;</code> tags with real data when the workflow runs.</span>
+          <button class="btn-brand-link" onclick="copyGHLTemplate()">
+            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy URL Template
+          </button>
+        </div>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;font-size:11px;color:var(--text-muted);line-height:1.7">
+        <strong style="color:var(--text);display:block;margin-bottom:4px">Fields that will be pre-filled:</strong>
+        Property Address · Beds · Baths · Sq Ft · Year Built · ARV · Comp Notes
+      </div>
+    </div>
+  </div>
+
   <!-- Property Section -->
   <div class="property-section">
     <div class="property-row">
@@ -1623,6 +1658,17 @@ function shareURL(mode){
   navigator.clipboard.writeText(url).then(()=>showToast('Link copied to clipboard ✓'));
 }
 
+// ── GHL Integration ───────────────────────────────────────
+let ghlOpen = false;
+function toggleGHL() {
+  ghlOpen = !ghlOpen;
+  $('ghl-fields').classList.toggle('open', ghlOpen);
+  $('ghl-chevron').classList.toggle('open', ghlOpen);
+}
+function copyGHLTemplate() {
+  const url = $('ghl-url-template').value;
+  navigator.clipboard.writeText(url).then(() => showToast('GHL URL template copied ✓'));
+}
 function saveToCRM(){ showToast('GHL integration coming soon — contact your admin to connect'); }
 
 document.addEventListener('DOMContentLoaded',()=>{
