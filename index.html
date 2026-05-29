@@ -1499,6 +1499,11 @@ function loadFromURL(){
   const mode=params.get('mode');
   setMode(mode);
   params.forEach((v,k)=>{ const skip=['mode','bc1','bc2','bg','brand','r-downMode','r-taxesMode','r-insuranceMode']; if(!skip.includes(k)&&$(k)) $(k).value=v; });
+  // GHL strips newlines in URL params — convert pipe separators back to line breaks
+  const compsEl = $('w-comps');
+  if (compsEl && compsEl.value) {
+    compsEl.value = compsEl.value.replace(/\s*\|\s*/g, '\n').replace(/\\n/g, '\n');
+  }
   if(mode==='wholesale'){ calcWholesale(); }
   else {
     if(params.get('r-downMode')) setDownMode(params.get('r-downMode'));
