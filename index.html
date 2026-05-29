@@ -228,9 +228,9 @@
     .equity-rate-input::-webkit-outer-spin-button,.equity-rate-input::-webkit-inner-spin-button { -webkit-appearance:none; }
     .equity-rate-input:focus { border-color:var(--accent); }
     .equity-table { width:100%; border-collapse:collapse; }
-    .equity-table th { padding:8px 18px; text-align:left; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.6px; color:var(--text-subtle); border-bottom:1px solid var(--border); }
+    .equity-table th { padding:8px 12px; text-align:left; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.6px; color:var(--text-subtle); border-bottom:1px solid var(--border); }
     .equity-table th:not(:first-child) { text-align:right; }
-    .equity-table td { padding:10px 18px; font-size:12px; font-weight:500; color:var(--text-muted); border-bottom:1px solid var(--border); }
+    .equity-table td { padding:10px 12px; font-size:12px; font-weight:500; color:var(--text-muted); border-bottom:1px solid var(--border); }
     .equity-table td:not(:first-child) { text-align:right; font-weight:600; color:var(--text); font-variant-numeric:tabular-nums; }
     .equity-table tr:last-child td { border-bottom:none; }
     .equity-empty { padding:16px 18px; font-size:12px; color:var(--text-subtle); font-style:italic; }
@@ -1185,8 +1185,8 @@ function calcRental(){
   // Equity table
   if(price>0&&loanAmt>0){
     const rows=buildEquityRows(price,loanAmt,rate,termMo,apprRate,annualCF);
-    let et=`<table class="equity-table"><thead><tr><th>Year</th><th>Prop Value</th><th>Loan Balance</th><th>Equity</th><th>Total Return</th></tr></thead><tbody>`;
-    rows.forEach(r=>{ et+=`<tr><td class="yr-label" style="font-weight:600;color:var(--text)">Yr ${r.yr}</td><td>${fmt(r.propVal)}</td><td>${fmt(r.balance)}</td><td style="color:var(--green)">${fmt(r.equity)}</td><td style="color:var(--accent-light)">${fmt(r.totalReturn)}</td></tr>`; });
+    let et=`<table class="equity-table"><thead><tr><th>Yr</th><th>Value</th><th>Balance</th><th>Equity</th></tr></thead><tbody>`;
+    rows.forEach(r=>{ et+=`<tr><td style="font-weight:600;color:var(--text)">${r.yr}</td><td>${fmt(r.propVal)}</td><td>${fmt(r.balance)}</td><td style="color:var(--green)">${fmt(r.equity)}</td></tr>`; });
     et+='</tbody></table>';
     $('r-equity-body').innerHTML=et;
   } else { $('r-equity-body').innerHTML='<div class="equity-empty">Enter purchase price and loan details to see projections</div>'; }
