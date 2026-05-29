@@ -429,7 +429,7 @@
   <!-- Header -->
   <header>
     <a class="logo" href="#">
-      <div class="logo-icon" id="logo-icon-inner">
+      <div class="logo-icon">
         <svg viewBox="0 0 24 24" fill="#fff"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22" style="fill:none;stroke:#fff;stroke-width:2"/></svg>
       </div>
       <div>
@@ -453,43 +453,18 @@
     </div>
     <div class="branding-fields" id="branding-fields">
 
-      <!-- Text fields + logo on same row -->
-      <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start">
-        <!-- Logo upload -->
+      <div class="branding-row">
         <div class="branding-field">
-          <label>Logo</label>
-          <div class="logo-upload-area">
-            <div class="logo-preview" id="logo-preview-box" onclick="$('logo-file-input').click()">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            </div>
-            <div class="logo-upload-right">
-              <button class="logo-upload-btn" onclick="$('logo-file-input').click()">
-                <svg viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
-                Upload Logo
-              </button>
-              <button class="logo-clear-btn" id="logo-clear-btn" onclick="clearLogo()" style="display:none">Remove logo</button>
-              <span class="logo-hint">PNG, JPG, SVG · Max 2MB</span>
-            </div>
-          </div>
-          <input type="file" class="hidden-file" id="logo-file-input" accept="image/*" onchange="handleLogoUpload(event)" />
+          <label>Company Name</label>
+          <input type="text" id="b-company" placeholder="Your Company" oninput="onBrandChange()" />
         </div>
-
-        <!-- Text fields -->
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div class="branding-row">
-            <div class="branding-field">
-              <label>Company Name</label>
-              <input type="text" id="b-company" placeholder="Your Company" oninput="onBrandChange()" />
-            </div>
-            <div class="branding-field">
-              <label>Tagline</label>
-              <input type="text" id="b-tagline" placeholder="Fast Closings · Top Dollar" oninput="onBrandChange()" />
-            </div>
-            <div class="branding-field">
-              <label>Phone / Email</label>
-              <input type="text" id="b-contact" placeholder="(555) 000-0000" oninput="onBrandChange()" />
-            </div>
-          </div>
+        <div class="branding-field">
+          <label>Tagline</label>
+          <input type="text" id="b-tagline" placeholder="Fast Closings · Top Dollar" oninput="onBrandChange()" />
+        </div>
+        <div class="branding-field">
+          <label>Phone / Email</label>
+          <input type="text" id="b-contact" placeholder="(555) 000-0000" oninput="onBrandChange()" />
         </div>
       </div>
 
@@ -520,41 +495,6 @@
         </button>
       </div>
 
-    </div>
-  </div>
-
-  <!-- GHL Integration -->
-  <div class="branding-bar" style="margin-bottom:20px">
-    <div class="branding-toggle" onclick="toggleGHL()">
-      <div class="branding-toggle-left">
-        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        GHL Integration — Pre-fill from Opportunity
-      </div>
-      <div class="branding-chevron" id="ghl-chevron">
-        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </div>
-    <div class="branding-fields" id="ghl-fields">
-      <div style="font-size:12px;color:var(--text-muted);line-height:1.6">
-        Paste this URL into the <strong style="color:var(--text)">"Deal Analyzer Link"</strong> field value inside your <strong style="color:var(--text)">Update Opportunity</strong> GHL workflow action. When the workflow fires it will open the calculator pre-filled with the property data from the opportunity.
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <label style="font-size:11px;font-weight:600;color:var(--text-subtle);text-transform:uppercase;letter-spacing:0.6px">GHL Workflow URL Template</label>
-        <div style="position:relative">
-          <textarea readonly rows="3" id="ghl-url-template" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-size:11px;font-weight:500;color:var(--text-muted);font-family:'Courier New',monospace;outline:none;resize:none;line-height:1.6;cursor:text">https://reidealanalyzer.netlify.app/?mode=wholesale&prop-address={{opportunity.full_property_address}}&prop-beds={{opportunity.beds}}&prop-baths={{opportunity.baths}}&prop-sqft={{opportunity.finished_sqft}}&prop-year={{opportunity.year_built}}&w-arv={{opportunity.arv}}&w-comps={{opportunity.comps}}</textarea>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
-          <span style="font-size:11px;color:var(--text-subtle)">GHL will replace the <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:10px">&#123;&#123;opportunity.*&#125;&#125;</code> tags with real data when the workflow runs.</span>
-          <button class="btn-brand-link" onclick="copyGHLTemplate()">
-            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-            Copy URL Template
-          </button>
-        </div>
-      </div>
-      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;font-size:11px;color:var(--text-muted);line-height:1.7">
-        <strong style="color:var(--text);display:block;margin-bottom:4px">Fields that will be pre-filled:</strong>
-        Property Address · Beds · Baths · Sq Ft · Year Built · ARV · Comp Notes
-      </div>
     </div>
   </div>
 
@@ -945,7 +885,6 @@ function showToast(msg) {
 }
 
 // ── Brand color ──────────────────────────────────────────
-let brandLogoBase64 = null; // stored separately (too large for URL)
 let _saveTimer = null;
 
 function getBrandGradient() {
@@ -991,51 +930,8 @@ function onBrandChange() {
 function updateBranding() {
   $('header-company').textContent = txt('b-company') || 'REI Deal Analyzer';
   $('header-tagline').textContent = txt('b-tagline');
-  // Update header logo icon
-  const logoBox = $('logo-icon-inner');
-  if (logoBox) {
-    if (brandLogoBase64) {
-      logoBox.innerHTML = `<img src="${brandLogoBase64}" alt="logo" />`;
-    } else {
-      logoBox.innerHTML = `<svg viewBox="0 0 24 24" fill="#fff"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22" style="fill:none;stroke:#fff;stroke-width:2"/></svg>`;
-    }
-  }
 }
 
-// ── Logo upload ───────────────────────────────────────────
-function handleLogoUpload(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  if (file.size > 2 * 1024 * 1024) { showToast('Logo too large — max 2MB'); return; }
-  const reader = new FileReader();
-  reader.onload = ev => {
-    brandLogoBase64 = ev.target.result;
-    applyLogoPreview();
-    onBrandChange();
-  };
-  reader.readAsDataURL(file);
-}
-
-function applyLogoPreview() {
-  const box = $('logo-preview-box');
-  const clearBtn = $('logo-clear-btn');
-  if (brandLogoBase64) {
-    box.innerHTML = `<img src="${brandLogoBase64}" alt="logo" style="width:100%;height:100%;object-fit:contain;" />`;
-    if (clearBtn) clearBtn.style.display = 'block';
-  } else {
-    box.innerHTML = `<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--text-subtle);fill:none;stroke-width:1.5;stroke-linecap:round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
-    if (clearBtn) clearBtn.style.display = 'none';
-  }
-  updateBranding();
-}
-
-function clearLogo() {
-  brandLogoBase64 = null;
-  $('logo-file-input').value = '';
-  applyLogoPreview();
-  try { localStorage.removeItem('rei_brand_logo'); } catch(e){}
-  scheduleSave();
-}
 
 // ── localStorage persistence ──────────────────────────────
 function scheduleSave() {
@@ -1056,7 +952,6 @@ function saveBrandToStorage() {
       useGrad:  $('b-use-gradient')?.checked ?? true,
     };
     localStorage.setItem('rei_brand', JSON.stringify(data));
-    if (brandLogoBase64) localStorage.setItem('rei_brand_logo', brandLogoBase64);
   } catch(e) { console.warn('localStorage save failed', e); }
   flashSaved();
 }
@@ -1073,8 +968,6 @@ function loadBrandFromStorage() {
     if (d.color2)   { $('b-color2').value  = d.color2;  $('b-color2-hex').value = d.color2hex || d.color2; }
     if (d.useGrad !== undefined) $('b-use-gradient').checked = d.useGrad;
     onColorChange();
-    const logo = localStorage.getItem('rei_brand_logo');
-    if (logo) { brandLogoBase64 = logo; applyLogoPreview(); }
     updateBranding();
     return true;
   } catch(e) { return false; }
@@ -1370,7 +1263,7 @@ function sheetHead({company,tagline,contact,address,deal,pitch,expiry,comps,prop
   return `
     <div class="sheet-head" style="background:${gradient}">
       <div class="sheet-brand">
-        <div class="sheet-brand-icon">${brandLogoBase64 ? `<img src="${brandLogoBase64}" alt="logo" style="width:100%;height:100%;object-fit:contain;padding:4px" />` : `<svg viewBox="0 0 24 24" fill="#fff"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22" style="fill:none;stroke:#fff;stroke-width:2"/></svg>`}</div>
+        <div class="sheet-brand-icon"><svg viewBox="0 0 24 24" fill="#fff"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22" style="fill:none;stroke:#fff;stroke-width:2"/></svg></div>
         <div><div class="sheet-brand-name">${esc(company)}</div><div class="sheet-brand-tagline">${esc(tagline)}</div></div>
       </div>
       <div class="sheet-type-badge">${esc(badge)}</div>
@@ -1658,17 +1551,6 @@ function shareURL(mode){
   navigator.clipboard.writeText(url).then(()=>showToast('Link copied to clipboard ✓'));
 }
 
-// ── GHL Integration ───────────────────────────────────────
-let ghlOpen = false;
-function toggleGHL() {
-  ghlOpen = !ghlOpen;
-  $('ghl-fields').classList.toggle('open', ghlOpen);
-  $('ghl-chevron').classList.toggle('open', ghlOpen);
-}
-function copyGHLTemplate() {
-  const url = $('ghl-url-template').value;
-  navigator.clipboard.writeText(url).then(() => showToast('GHL URL template copied ✓'));
-}
 function saveToCRM(){ showToast('GHL integration coming soon — contact your admin to connect'); }
 
 document.addEventListener('DOMContentLoaded',()=>{
