@@ -107,6 +107,7 @@
     .property-field textarea { min-height:58px; line-height:1.5; }
     .property-field input:focus, .property-field textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
     .property-field input::placeholder, .property-field textarea::placeholder { color:var(--text-subtle); }
+    .property-field input[type="date"]::-webkit-calendar-picker-indicator { filter:invert(0.5); cursor:pointer; }
     @media(max-width:640px) { .property-row-3,.property-row-4 { grid-template-columns:1fr 1fr; } }
     @media(max-width:480px) { .property-row,.property-row-3,.property-row-4 { grid-template-columns:1fr; } }
 
@@ -527,7 +528,7 @@
       </div>
       <div class="property-field">
         <label>Offer Expires</label>
-        <input type="text" id="prop-expiry" placeholder="e.g. June 15, 2026" />
+        <input type="date" id="prop-expiry" />
       </div>
     </div>
   </div>
@@ -1214,7 +1215,8 @@ function openSheet(mode){
   const address  = txt('prop-address')||'Property Address Not Set';
   const deal     = txt('prop-deal');
   const pitch    = txt('prop-pitch');
-  const expiry   = txt('prop-expiry');
+  const expiryRaw = txt('prop-expiry');
+  const expiry   = expiryRaw ? new Date(expiryRaw + 'T00:00:00').toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : '';
   const comps    = txt('w-comps');
   const beds     = txt('prop-beds');
   const baths    = txt('prop-baths');
