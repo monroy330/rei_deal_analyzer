@@ -1330,17 +1330,6 @@ function buildWholesaleSheet({company,tagline,contact,address,deal,pitch,expiry,
       </div>
     </div>
 
-    <div class="sheet-section">
-      <div class="sheet-section-title">ARV Offer Scenarios</div>
-      <div class="sheet-arv-grid">
-        ${[['65% Rule','Conservative',s65],['70% Rule','Standard',s70],['75% Rule','Aggressive',s75]].map(([rule,sub,v])=>`
-          <div class="sheet-arv-box">
-            <div class="sheet-arv-box-label">${rule}</div>
-            <div class="sheet-arv-box-val" style="color:${v>0?'#16a34a':'#dc2626'}">${v>=0?fmt(v):'-'+fmt(v)}</div>
-            <div style="font-size:10px;color:#9ca3af;margin-top:3px">${sub}</div>
-          </div>`).join('')}
-      </div>
-    </div>
 
     ${hasDualExit?buildDualExit():''}
 
