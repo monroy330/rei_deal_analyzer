@@ -258,14 +258,6 @@
     .btn-sheet { background:var(--surface2); color:var(--text-muted); border-color:var(--border-active); }
     .btn-sheet:hover { color:var(--text); border-color:var(--accent); }
     .btn svg { width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-    .crm-row { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    .crm-left { display:flex; align-items:center; gap:8px; }
-    .crm-icon { width:28px; height:28px; background:var(--surface2); border:1px solid var(--border); border-radius:7px; display:flex; align-items:center; justify-content:center; }
-    .crm-icon svg { width:14px; height:14px; stroke:var(--text-muted); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
-    .crm-label { font-size:12px; font-weight:500; color:var(--text-muted); }
-    .crm-sub { font-size:11px; color:var(--text-subtle); }
-    .btn-crm { padding:7px 14px; border-radius:7px; font-size:12px; font-weight:600; cursor:pointer; border:1px solid var(--border-active); background:var(--surface2); color:var(--text-muted); font-family:inherit; white-space:nowrap; transition:all 0.15s; }
-    .btn-crm:hover { color:var(--text); border-color:var(--accent); }
 
     /* ── Toast ── */
     .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(60px); background:var(--surface2); border:1px solid var(--border-active); border-radius:var(--radius-sm); padding:10px 18px; font-size:13px; font-weight:500; color:var(--text); box-shadow:0 8px 30px #00000060; transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1); z-index:200; white-space:nowrap; }
@@ -679,13 +671,6 @@
           </button>
         </div>
 
-        <div class="crm-row">
-          <div class="crm-left">
-            <div class="crm-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-            <div><div class="crm-label">Save to CRM</div><div class="crm-sub">Push this deal to your GHL opportunity</div></div>
-          </div>
-          <button class="btn-crm" onclick="saveToCRM()">Connect GHL →</button>
-        </div>
       </div>
     </div>
   </div>
@@ -849,13 +834,6 @@
           </button>
         </div>
 
-        <div class="crm-row">
-          <div class="crm-left">
-            <div class="crm-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-            <div><div class="crm-label">Save to CRM</div><div class="crm-sub">Push this analysis to your GHL opportunity</div></div>
-          </div>
-          <button class="btn-crm" onclick="saveToCRM()">Connect GHL →</button>
-        </div>
       </div>
     </div>
   </div>
@@ -1551,7 +1529,6 @@ function shareURL(mode){
   navigator.clipboard.writeText(url).then(()=>showToast('Link copied to clipboard ✓'));
 }
 
-function saveToCRM(){ showToast('GHL integration coming soon — contact your admin to connect'); }
 
 document.addEventListener('DOMContentLoaded',()=>{
   // 1. Load saved brand from localStorage first
