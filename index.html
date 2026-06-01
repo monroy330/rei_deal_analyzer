@@ -727,7 +727,7 @@
               </div>
               <div class="field">
                 <label>Vacancy Rate</label>
-                <div class="input-wrap"><span class="input-suffix">%</span><input type="number" class="has-suffix" id="r-vacancy" placeholder="5" oninput="calcRental()" /></div>
+                <div class="input-wrap"><span class="input-suffix">%</span><input type="number" class="has-suffix" id="r-vacancy" placeholder="3" oninput="calcRental()" /></div>
               </div>
             </div>
           </div>
@@ -736,22 +736,22 @@
             <div class="field-group-label">Monthly Expenses</div>
             <div class="fields">
               <div class="field">
-                <label>Property Taxes <span style="color:var(--text-subtle);font-weight:400" id="r-taxes-label">(monthly)</span></label>
+                <label>Property Taxes <span style="color:var(--text-subtle);font-weight:400" id="r-taxes-label">(yearly)</span></label>
                 <div class="field-row">
-                  <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="r-taxes" placeholder="200" oninput="calcRental()" /></div>
+                  <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="r-taxes" placeholder="2,400" oninput="calcRental()" /></div>
                   <div class="unit-toggle">
-                    <button class="unit-btn active" id="r-taxes-mo" onclick="setTaxesMode('mo')">Mo</button>
-                    <button class="unit-btn" id="r-taxes-yr" onclick="setTaxesMode('yr')">Yr</button>
+                    <button class="unit-btn" id="r-taxes-mo" onclick="setTaxesMode('mo')">Mo</button>
+                    <button class="unit-btn active" id="r-taxes-yr" onclick="setTaxesMode('yr')">Yr</button>
                   </div>
                 </div>
               </div>
               <div class="field">
-                <label>Insurance <span style="color:var(--text-subtle);font-weight:400" id="r-insurance-label">(monthly)</span></label>
+                <label>Insurance <span style="color:var(--text-subtle);font-weight:400" id="r-insurance-label">(yearly)</span></label>
                 <div class="field-row">
-                  <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="r-insurance" placeholder="100" oninput="calcRental()" /></div>
+                  <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="r-insurance" placeholder="1,200" oninput="calcRental()" /></div>
                   <div class="unit-toggle">
-                    <button class="unit-btn active" id="r-insurance-mo" onclick="setInsuranceMode('mo')">Mo</button>
-                    <button class="unit-btn" id="r-insurance-yr" onclick="setInsuranceMode('yr')">Yr</button>
+                    <button class="unit-btn" id="r-insurance-mo" onclick="setInsuranceMode('mo')">Mo</button>
+                    <button class="unit-btn active" id="r-insurance-yr" onclick="setInsuranceMode('yr')">Yr</button>
                   </div>
                 </div>
               </div>
@@ -962,6 +962,26 @@ function loadBrandFromStorage() {
   } catch(e) { return false; }
 }
 
+// ── Rental defaults localStorage ─────────────────────────
+const RENTAL_PREF_FIELDS = ['r-rate','r-term','r-vacancy','r-mgmt'];
+
+function saveRentalPrefs() {
+  try {
+    const data = {};
+    RENTAL_PREF_FIELDS.forEach(id => { if($(id)?.value) data[id] = $(id).value; });
+    localStorage.setItem('rei_rental_prefs', JSON.stringify(data));
+  } catch(e) {}
+}
+
+function loadRentalPrefs() {
+  try {
+    const raw = localStorage.getItem('rei_rental_prefs');
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    RENTAL_PREF_FIELDS.forEach(id => { if(data[id] && $(id) && !$(id).value) $(id).value = data[id]; });
+  } catch(e) {}
+}
+
 function flashSaved() {
   const el = $('brand-saved-dot');
   if (!el) return;
@@ -1070,7 +1090,7 @@ function resetWholesale(){
 }
 
 // ── Toggle states ─────────────────────────────────────────
-let downMode='pct', taxesMode='mo', insuranceMode='mo';
+let downMode='pct', taxesMode='yr', insuranceMode='yr';
 
 function setDownMode(mode){
   downMode=mode;
@@ -1100,7 +1120,7 @@ function setInsuranceMode(mode){
 
 // ── Rental Calc ───────────────────────────────────────────
 let _rData = {};
-function calcRental(){
+function calcRental(){ saveRentalPrefs();
   const price       = val('r-price');
   const rehab       = val('r-rehab');
   const downRaw     = val('r-down');
@@ -1501,19 +1521,22 @@ function loadFromURL(){
   updateBranding();
   const mode=params.get('mode');
   setMode(mode);
-  params.forEach((v,k)=>{ const skip=['mode','bc1','bc2','bg','brand','r-downMode','r-taxesMode','r-insuranceMode']; if(!skip.includes(k)&&$(k)) $(k).value=v; });
+  // Number inputs — strip formatting chars (commas, $, spaces) Rentcast may include
+  const numericFields = new Set(['w-arv','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other',
+    'r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance',
+    'r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr']);
+  params.forEach((v,k)=>{ const skip=['mode','bc1','bc2','bg','brand','r-downMode','r-taxesMode','r-insuranceMode']; if(!skip.includes(k)&&$(k)) $(k).value = numericFields.has(k) ? v.replace(/[$,\s]/g,'') : v; });
   // GHL strips newlines in URL params — convert pipe separators back to line breaks
   ['w-comps','r-comps'].forEach(id => {
     const el = $(id);
     if (el && el.value) el.value = el.value.replace(/\s*\|\s*/g, '\n').replace(/\\n/g, '\n');
   });
-  if(mode==='wholesale'){ calcWholesale(); }
-  else {
-    if(params.get('r-downMode')) setDownMode(params.get('r-downMode'));
-    if(params.get('r-taxesMode')) setTaxesMode(params.get('r-taxesMode'));
-    if(params.get('r-insuranceMode')) setInsuranceMode(params.get('r-insuranceMode'));
-    calcRental();
-  }
+  // Always apply rental toggle states and run both calcs so fields are ready whichever tab opens
+  if(params.get('r-downMode')) setDownMode(params.get('r-downMode'));
+  if(params.get('r-taxesMode')) setTaxesMode(params.get('r-taxesMode'));
+  if(params.get('r-insuranceMode')) setInsuranceMode(params.get('r-insuranceMode'));
+  calcWholesale();
+  calcRental();
 }
 
 // Update shareURL to also encode brand colors
@@ -1541,7 +1564,9 @@ function shareURL(mode){
 document.addEventListener('DOMContentLoaded',()=>{
   // 1. Load saved brand from localStorage first
   loadBrandFromStorage();
-  // 2. Apply any URL params (deal share or brand link) — overrides localStorage for that session
+  // 2. Load saved rental preferences (rate, term, vacancy, mgmt)
+  loadRentalPrefs();
+  // 3. Apply any URL params (deal share or brand link) — overrides localStorage for that session
   loadFromURL();
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeSheet(); });
 });
