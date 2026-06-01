@@ -336,9 +336,9 @@
     .sheet-arv-box-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#9ca3af; margin-bottom:6px; }
     .sheet-arv-box-val { font-size:19px; font-weight:800; letter-spacing:-0.5px; font-variant-numeric:tabular-nums; }
 
-    /* Comp notes */
-    .sheet-comp-notes { padding:12px 36px; background:#fffbeb; border-bottom:1px solid #fef3c7; font-size:12px; color:#78350f; line-height:1.5; }
-    .sheet-comp-notes strong { display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#92400e; margin-bottom:4px; }
+    /* Comp notes — subtle footer style */
+    .sheet-comp-notes { padding:10px 36px; border-top:1px solid #f0eef8; font-size:11px; color:#9ca3af; line-height:1.6; }
+    .sheet-comp-notes strong { display:inline; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#c4c9d4; margin-right:6px; }
 
     /* Sheet Metrics */
     .sheet-metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:20px 36px; border-bottom:1px solid #f0eef8; }
@@ -605,7 +605,7 @@
             <div class="field-group-label">ARV Support</div>
             <div class="fields">
               <div class="field">
-                <label>Comp Notes <span style="color:var(--text-subtle);font-weight:400">(shown on deal sheet)</span></label>
+                <label>Sale Comps <span style="color:var(--text-subtle);font-weight:400">(shown on deal sheet)</span></label>
                 <textarea id="w-comps" rows="3" placeholder="3 comps within 0.5mi, sold in last 90 days:&#10;· 1842 Oak St — $248k (30 days ago)&#10;· 204 Elm Ave — $261k (45 days ago)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;outline:none;resize:vertical;min-height:72px;line-height:1.5;transition:border-color 0.15s,box-shadow 0.15s;" onfocus="this.style.borderColor='var(--accent)';this.style.boxShadow='0 0 0 3px var(--accent-glow)'" onblur="this.style.borderColor='';this.style.boxShadow=''"></textarea>
               </div>
             </div>
@@ -770,6 +770,16 @@
               <div class="field">
                 <label>Other Expenses</label>
                 <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="r-other" placeholder="0" oninput="calcRental()" /></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-group-label">Rent Comps</div>
+            <div class="fields">
+              <div class="field">
+                <label>Rent Comps <span style="color:var(--text-subtle);font-weight:400">(shown on deal sheet)</span></label>
+                <textarea id="r-comps" rows="3" placeholder="123 Oak St — $1,750/mo (2bed/2bath)&#10;456 Elm Ave — $1,800/mo (3bed/2bath)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;outline:none;resize:vertical;min-height:72px;line-height:1.5;transition:border-color 0.15s,box-shadow 0.15s;" onfocus="this.style.borderColor='var(--accent)';this.style.boxShadow='0 0 0 3px var(--accent-glow)'" onblur="this.style.borderColor='';this.style.boxShadow=''"></textarea>
               </div>
             </div>
           </div>
@@ -1203,7 +1213,7 @@ function buildEquityRows(price,loanAmt,monthlyRate,termMo,apprRate,annualCF){
 }
 
 function resetRental(){
-  ['r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc'].forEach(id=>$(id).value='');
+  ['r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-comps'].forEach(id=>$(id).value='');
   calcRental();
 }
 
@@ -1257,8 +1267,7 @@ function sheetHead({company,tagline,contact,address,deal,pitch,expiry,comps,prop
       <div class="sheet-date">${dateStr}</div>
     </div>
     ${expiry?`<div class="sheet-expiry" style="background:rgba(0,0,0,0.2)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Offer expires: <strong>${esc(expiry)}</strong></div>`:''}
-    ${pitch?`<div class="sheet-pitch">"${esc(pitch)}"</div>`:''}
-    ${comps?`<div class="sheet-comp-notes"><strong>ARV Support</strong>${esc(comps).replace(/\n/g,'<br>')}</div>`:''}`;
+    ${pitch?`<div class="sheet-pitch">"${esc(pitch)}"</div>`:''}`;
 }
 
 function sheetFooter(company,contact){
@@ -1336,6 +1345,7 @@ function buildWholesaleSheet({company,tagline,contact,address,deal,pitch,expiry,
     ${hasDualExit?buildDualExit():''}
 
     </div>
+    ${comps?`<div class="sheet-comp-notes"><strong>Sale Comps</strong>${esc(comps).replace(/\n/g,'<br>')}</div>`:''}
     ${sheetFooter(company,contact)}`;
 }
 
@@ -1374,6 +1384,7 @@ function buildDualExit(){
 
 function buildRentalSheet({company,tagline,contact,address,deal,pitch,expiry,propDetails,dateStr,gradient}){
   const d=_rData;
+  const rentComps = txt('r-comps');
   if(!d.price||!d.rent) return '<div style="padding:40px;text-align:center;color:#666;font-family:Inter,sans-serif">No data — fill in the Rental calculator first.</div>';
 
   const cfColor  = d.cashflow>200?'green':d.cashflow>=0?'yellow':'red';
@@ -1442,6 +1453,7 @@ function buildRentalSheet({company,tagline,contact,address,deal,pitch,expiry,pro
 
     ${equityHtml}
     </div>
+    ${rentComps?`<div class="sheet-comp-notes"><strong>Rent Comps</strong>${esc(rentComps).replace(/\n/g,'<br>')}</div>`:''}
     ${sheetFooter(company,contact)}`;
 }
 
@@ -1454,7 +1466,7 @@ function shareURL(mode){
   if(mode==='wholesale'){
     ['w-arv','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
   } else {
-    ['r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
+    ['r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr','r-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
     params.set('r-downMode',downMode); params.set('r-taxesMode',taxesMode); params.set('r-insuranceMode',insuranceMode);
   }
   const url=location.origin+location.pathname+'?'+params.toString();
@@ -1491,10 +1503,10 @@ function loadFromURL(){
   setMode(mode);
   params.forEach((v,k)=>{ const skip=['mode','bc1','bc2','bg','brand','r-downMode','r-taxesMode','r-insuranceMode']; if(!skip.includes(k)&&$(k)) $(k).value=v; });
   // GHL strips newlines in URL params — convert pipe separators back to line breaks
-  const compsEl = $('w-comps');
-  if (compsEl && compsEl.value) {
-    compsEl.value = compsEl.value.replace(/\s*\|\s*/g, '\n').replace(/\\n/g, '\n');
-  }
+  ['w-comps','r-comps'].forEach(id => {
+    const el = $(id);
+    if (el && el.value) el.value = el.value.replace(/\s*\|\s*/g, '\n').replace(/\\n/g, '\n');
+  });
   if(mode==='wholesale'){ calcWholesale(); }
   else {
     if(params.get('r-downMode')) setDownMode(params.get('r-downMode'));
@@ -1518,7 +1530,7 @@ function shareURL(mode){
   if(mode==='wholesale'){
     ['w-arv','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
   } else {
-    ['r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
+    ['r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr','r-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
     params.set('r-downMode',downMode); params.set('r-taxesMode',taxesMode); params.set('r-insuranceMode',insuranceMode);
   }
   const url=location.origin+location.pathname+'?'+params.toString();
