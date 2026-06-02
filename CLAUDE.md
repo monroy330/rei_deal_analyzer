@@ -7,6 +7,14 @@ A single-page web app for a real estate wholesaler (Gabe Monroy) who runs deals 
 - Free / no permission needed: editing files, testing in the local preview, and **local** `git commit`s.
 - Normal flow: edit → test locally → **ASK** → commit → push. Always pause for a yes before the push.
 
+## End-of-session memory check (Claude: do this proactively — don't wait to be asked)
+When a session is wrapping up — Gabe says things like "that's all", "we're good", "done for now", "thanks", or we just finished a meaningful change — pause and run a quick memory check:
+- Scan the session for **durable** facts or decisions not already in this file (architecture, conventions, product decisions, gotchas, workflow). Ignore transient/one-off details.
+- If something's worth keeping: propose the exact line(s) to add and **ask for approval before editing**. Keep it lean — prefer 0–2 tight lines over paragraphs.
+- If nothing's worth saving, say so in one sentence; don't force it.
+- Never edit this file or `git push` without Gabe's OK.
+Gabe usually can't track what's important mid-build, so it's on Claude to raise this at the end.
+
 ## Stack & files
 - **`index.html`** — the entire app (production; what Netlify deploys). Vanilla HTML/CSS/JS, no build step, no dependencies except the Google Fonts CDN.
 - `brrrr-preview.html` — local sandbox copy used to test before promoting. NOT tracked/deployed. (Currently identical to `index.html`. Optional — fine to delete; if kept, sync changes into `index.html` before deploying.)
