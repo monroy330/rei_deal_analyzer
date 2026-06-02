@@ -18,7 +18,7 @@ Gabe usually can't track what's important mid-build, so it's on Claude to raise 
 ## Stack & files
 - **`index.html`** — the entire app (production; what Netlify deploys). Vanilla HTML/CSS/JS, no build step, no dependencies except the Google Fonts CDN.
 - `brrrr-preview.html` — local sandbox copy used to test before promoting. NOT tracked/deployed. (Currently identical to `index.html`. Optional — fine to delete; if kept, sync changes into `index.html` before deploying.)
-- `brrrr-server.py`, `.claude/launch.json` — local preview server config only.
+- `brrrr-server.py`, `.claude/launch.json` — local preview server config only. (If this folder is renamed/moved: `brrrr-server.py` is path-independent, but `.claude/launch.json` has absolute paths — just regenerate it.)
 
 ## Deploy / hosting
 - GitHub: `monroy330/rei_deal_analyzer`, branch **`main`** (auth token is embedded in the remote URL).
