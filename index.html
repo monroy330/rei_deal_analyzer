@@ -168,6 +168,7 @@
     .deal-score.green { background:var(--green-bg); color:var(--green); }
     .deal-score.yellow { background:var(--yellow-bg); color:var(--yellow); }
     .deal-score.red { background:var(--red-bg); color:var(--red); }
+    .deal-score.neutral { background:var(--surface2); color:var(--text-muted); }
     .deal-score .dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
 
     /* ── ARV Scenarios ── */
@@ -217,6 +218,49 @@
     .metric-box-value { font-size:20px; font-weight:700; letter-spacing:-0.5px; color:var(--text); font-variant-numeric:tabular-nums; }
     .metric-box-value.positive { color:var(--green); } .metric-box-value.caution { color:var(--yellow); } .metric-box-value.negative { color:var(--red); }
     .metric-box-sub { font-size:11px; color:var(--text-muted); margin-top:3px; }
+    .metric-box-label { display:flex; align-items:center; }
+
+    /* ── Formula tooltip ── */
+    .tip { display:inline-flex; align-items:center; justify-content:center; width:13px; height:13px; border-radius:50%; border:1px solid var(--text-subtle); color:var(--text-subtle); font-size:9px; font-weight:700; font-style:normal; cursor:help; margin-left:5px; position:relative; line-height:1; text-transform:none; letter-spacing:0; flex-shrink:0; vertical-align:middle; }
+    .tip:hover { border-color:var(--accent-light); color:var(--accent-light); }
+    .tip::after { content:attr(data-tip); position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); background:#06060b; color:#e8e8f0; font-size:11px; font-weight:500; line-height:1.45; padding:7px 10px; border-radius:7px; border:1px solid var(--border-active); width:max-content; max-width:210px; white-space:normal; text-align:center; opacity:0; visibility:hidden; transition:opacity 0.15s; z-index:60; box-shadow:0 8px 24px #00000077; pointer-events:none; }
+    .tip::before { content:''; position:absolute; bottom:calc(100% + 3px); left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:#06060b; opacity:0; visibility:hidden; transition:opacity 0.15s; z-index:60; }
+    .tip:hover::after, .tip:hover::before { opacity:1; visibility:visible; }
+
+    /* ── BRRRR Score ── */
+    .brrrr-score-row { display:flex; align-items:baseline; justify-content:center; gap:4px; margin:4px 0 6px; }
+    .brrrr-score-num { font-size:52px; font-weight:800; letter-spacing:-3px; line-height:1; color:var(--text); }
+    .brrrr-score-num.green { color:var(--green); }
+    .brrrr-score-num.yellow { color:var(--yellow); }
+    .brrrr-score-num.red { color:var(--red); }
+    .brrrr-score-denom { font-size:22px; font-weight:500; color:var(--text-muted); letter-spacing:-1px; }
+    .brrrr-metrics-5 { grid-template-columns:repeat(5,1fr); }
+    .brrrr-insight { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:15px 18px; display:flex; align-items:flex-start; gap:12px; }
+    .brrrr-insight-icon { flex-shrink:0; width:16px; height:16px; color:var(--text-muted); margin-top:2px; }
+    .brrrr-insight-icon svg { width:100%; height:100%; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .brrrr-insight p { font-size:13px; line-height:1.65; color:var(--text-muted); margin:0; }
+
+    /* ── Phase labels & Cash-Flow spotlight ── */
+    .phase-label { display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.7px; color:var(--text-muted); margin:8px 2px 2px; }
+    .phase-label .phase-num { width:18px; height:18px; border-radius:50%; background:var(--accent); color:#fff; font-size:10px; display:inline-flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0; }
+    .phase-label .phase-hint { font-size:10px; font-weight:500; color:var(--text-subtle); text-transform:none; letter-spacing:0; margin-left:2px; }
+    .cf-spotlight { background:linear-gradient(135deg,var(--surface2),var(--surface)); border:1px solid var(--border-active); border-radius:var(--radius); padding:16px 22px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .cf-spotlight-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.7px; color:var(--text-muted); margin-bottom:4px; }
+    .cf-spotlight-value { font-size:32px; font-weight:800; letter-spacing:-1.5px; line-height:1; font-variant-numeric:tabular-nums; color:var(--text); }
+    .cf-spotlight-value.positive { color:var(--green); } .cf-spotlight-value.caution { color:var(--yellow); } .cf-spotlight-value.negative { color:var(--red); }
+    .cf-spotlight-sub { font-size:11px; color:var(--text-subtle); margin-top:4px; }
+    .cf-spotlight-tag { font-size:11px; font-weight:600; padding:5px 12px; border-radius:20px; white-space:nowrap; }
+    .cf-spotlight-tag.green { background:var(--green-bg); color:var(--green); } .cf-spotlight-tag.yellow { background:var(--yellow-bg); color:var(--yellow); } .cf-spotlight-tag.red { background:var(--red-bg); color:var(--red); }
+
+    /* ── Max Price (target return) ── */
+    .maxprice-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px 18px; padding:16px 18px; }
+    .maxprice-item-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.6px; color:var(--text-subtle); margin-bottom:4px; }
+    .maxprice-item-value { font-size:18px; font-weight:700; letter-spacing:-0.4px; font-variant-numeric:tabular-nums; color:var(--text); }
+    .maxprice-item-value.green { color:var(--green); } .maxprice-item-value.caution { color:var(--yellow); } .maxprice-item-value.negative { color:var(--red); }
+    .maxprice-gap-row { grid-column:1 / -1; border-top:1px solid var(--border); padding-top:12px; display:flex; align-items:center; justify-content:space-between; }
+    .maxprice-gap-label { font-size:12px; color:var(--text-muted); }
+    .maxprice-gap-value { font-size:14px; font-weight:700; font-variant-numeric:tabular-nums; }
+    .maxprice-gap-value.green { color:var(--green); } .maxprice-gap-value.caution { color:var(--yellow); } .maxprice-gap-value.negative { color:var(--red); }
 
     /* ── Equity ── */
     .equity-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
@@ -250,7 +294,9 @@
     .reverse-sub { font-size:11px; color:var(--text-subtle); width:100%; margin-top:-4px; }
 
     /* ── Buttons ── */
-    .actions { display:flex; gap:8px; margin-top:4px; }
+    .actions { display:flex; gap:8px; margin-top:4px; flex-wrap:wrap; }
+    .btn-copy { background:var(--surface2); color:var(--accent-light); border-color:var(--border-active); }
+    .btn-copy:hover { color:#fff; background:var(--accent); border-color:var(--accent); }
     .btn { flex:1; padding:10px 16px; border-radius:var(--radius-sm); font-size:12px; font-weight:600; cursor:pointer; border:1px solid var(--border); font-family:inherit; transition:all 0.15s; display:flex; align-items:center; justify-content:center; gap:6px; letter-spacing:-0.1px; }
     .btn-primary { background:var(--accent); border-color:var(--accent); color:#fff; }
     .btn-primary:hover { background:var(--accent-light); border-color:var(--accent-light); }
@@ -339,6 +385,11 @@
     /* Comp notes — subtle footer style */
     .sheet-comp-notes { padding:10px 36px; border-top:1px solid #f0eef8; font-size:11px; color:#9ca3af; line-height:1.6; }
     .sheet-comp-notes strong { display:inline; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#c4c9d4; margin-right:6px; }
+    .sheet-finance-note { margin:0 36px 16px; background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; padding:10px 13px; font-size:11px; color:#9a3412; line-height:1.5; }
+    .sheet-finance-note strong { color:#7c2d12; }
+    .sheet-comps-box { margin:0 36px 4px; }
+    .sheet-comps-list { background:#f8fafc; border:1px solid #e8e6f0; border-radius:8px; padding:12px 14px; font-size:12px; color:#475569; line-height:1.7; white-space:pre-line; }
+    .sheet-summary-text { font-size:13px; line-height:1.7; color:#334155; }
 
     /* Sheet Metrics */
     .sheet-metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:20px 36px; border-bottom:1px solid #f0eef8; }
@@ -391,6 +442,7 @@
     /* ── Responsive ── */
     @media(max-width:640px) {
       .sheet-head,.sheet-property,.sheet-pitch,.sheet-comp-notes,.sheet-hero,.sheet-section,.sheet-metrics,.sheet-footer,.dual-exit,.upfront-box { padding-left:20px; padding-right:20px; }
+      .sheet-finance-note,.sheet-comps-box { margin-left:20px; margin-right:20px; }
       .sheet-row.total-row { margin:8px -20px 0; padding:12px 20px; }
       .profit-highlight { margin:20px 20px 0; }
       .sheet-expiry { padding-left:20px; padding-right:20px; }
@@ -403,9 +455,14 @@
       .sheet-action-row { padding:16px 20px 20px; }
       .sheet-arv-grid { grid-template-columns:1fr 1fr 1fr; }
     }
+    @media(max-width:860px) {
+      .brrrr-metrics-5 { grid-template-columns:repeat(3,1fr); }
+    }
     @media(max-width:480px) {
       .result-hero-value { font-size:32px; }
+      .brrrr-score-num { font-size:40px; }
       .metrics-grid { grid-template-columns:1fr; }
+      .brrrr-metrics-5 { grid-template-columns:1fr 1fr; }
       header { flex-wrap:wrap; gap:10px; }
     }
     @media print {
@@ -537,6 +594,7 @@
   <div class="mode-toggle">
     <button class="mode-btn active" onclick="setMode('wholesale')" id="btn-wholesale">Wholesale / MAO</button>
     <button class="mode-btn" onclick="setMode('rental')" id="btn-rental">Rental / Buy &amp; Hold</button>
+    <button class="mode-btn" onclick="setMode('brrrr')" id="btn-brrrr">BRRRR</button>
   </div>
 
   <!-- ══════ WHOLESALE ══════ -->
@@ -556,6 +614,10 @@
                 <label>After Repair Value (ARV)</label>
                 <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="w-arv" placeholder="250,000" oninput="calcWholesale()" /></div>
               </div>
+              <div class="field">
+                <label>Seller Asking Price <span style="color:var(--text-subtle);font-weight:400">(optional — compares to your MAO)</span></label>
+                <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="w-asking" placeholder="Optional" oninput="calcWholesale()" /></div>
+              </div>
             </div>
           </div>
 
@@ -571,12 +633,12 @@
                 <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="w-fee" placeholder="10,000" oninput="calcWholesale()" /></div>
               </div>
               <div class="field">
-                <label>Holding Costs</label>
+                <label>Holding Costs<span class="tip" data-tip="Enter a lump-sum Total, or switch to Monthly to calculate it as monthly cost × number of months.">i</span></label>
                 <div class="field-row">
                   <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="w-holding" placeholder="3,000" oninput="calcWholesale()" /></div>
                   <div class="unit-toggle">
-                    <button class="unit-btn active" id="w-hold-lump" onclick="setHoldMode('lump')">$</button>
-                    <button class="unit-btn" id="w-hold-calc" onclick="setHoldMode('calc')">Mo×</button>
+                    <button class="unit-btn active" id="w-hold-lump" onclick="setHoldMode('lump')">Total</button>
+                    <button class="unit-btn" id="w-hold-calc" onclick="setHoldMode('calc')">Monthly</button>
                   </div>
                 </div>
                 <div id="w-holding-calc-row" style="display:none;margin-top:6px">
@@ -621,6 +683,7 @@
           <div class="result-hero-value" id="w-mao-display">—</div>
           <div class="result-hero-sub">Your offer ceiling to make this deal work</div>
           <div class="deal-score" id="w-deal-score" style="display:none"></div>
+          <div class="result-hero-sub" id="w-position-detail" style="display:none;margin-top:10px;color:var(--text-muted)"></div>
         </div>
 
         <div class="offer-range-card">
@@ -708,6 +771,10 @@
                 </div>
               </div>
               <div class="field">
+                <label>Closing Costs <span style="color:var(--text-subtle);font-weight:400">(optional)</span></label>
+                <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="r-closing" placeholder="Optional" oninput="calcRental()" /></div>
+              </div>
+              <div class="field">
                 <label>Interest Rate</label>
                 <div class="input-wrap"><span class="input-suffix">%</span><input type="number" class="has-suffix" id="r-rate" placeholder="7.5" step="0.1" oninput="calcRental()" /></div>
               </div>
@@ -727,7 +794,7 @@
               </div>
               <div class="field">
                 <label>Vacancy Rate</label>
-                <div class="input-wrap"><span class="input-suffix">%</span><input type="number" class="has-suffix" id="r-vacancy" placeholder="3" oninput="calcRental()" /></div>
+                <div class="input-wrap"><span class="input-suffix">%</span><input type="number" class="has-suffix" id="r-vacancy" placeholder="Typical: 3" oninput="calcRental()" /></div>
               </div>
             </div>
           </div>
@@ -789,28 +856,57 @@
 
       <!-- Rental Results -->
       <div class="results-stack">
+
+        <!-- Rental Score Hero -->
         <div class="result-hero">
-          <div class="result-hero-label">Monthly Cash Flow</div>
-          <div class="result-hero-value" id="r-cashflow-display">—</div>
-          <div class="result-hero-sub">After all expenses and debt service</div>
+          <div class="result-hero-label">Rental Score</div>
+          <div class="brrrr-score-row">
+            <span class="brrrr-score-num" id="r-score-number">—</span>
+            <span class="brrrr-score-denom" id="r-score-denom"></span>
+          </div>
+          <div class="result-hero-sub" id="r-score-headline">Enter deal numbers to see your rental analysis</div>
           <div class="deal-score" id="r-deal-score" style="display:none"></div>
         </div>
 
-        <div class="metrics-grid">
-          <div class="metric-box"><div class="metric-box-label">Annual Cash Flow</div><div class="metric-box-value" id="r-annual">—</div><div class="metric-box-sub">Per year</div></div>
-          <div class="metric-box"><div class="metric-box-label">Cash-on-Cash</div><div class="metric-box-value" id="r-coc">—</div><div class="metric-box-sub">Return on cash invested</div></div>
-          <div class="metric-box"><div class="metric-box-label">Cap Rate</div><div class="metric-box-value" id="r-cap">—</div><div class="metric-box-sub">NOI ÷ Purchase Price</div></div>
-          <div class="metric-box"><div class="metric-box-label">GRM</div><div class="metric-box-value" id="r-grm">—</div><div class="metric-box-sub">Gross Rent Multiplier</div></div>
+        <!-- Cash Flow spotlight -->
+        <div class="cf-spotlight">
+          <div class="cf-spotlight-left">
+            <div class="cf-spotlight-label">Monthly Cash Flow</div>
+            <div class="cf-spotlight-value" id="r-cashflow-display">—</div>
+            <div class="cf-spotlight-sub" id="r-cashflow-sub">After all expenses &amp; debt service</div>
+          </div>
+          <div class="cf-spotlight-tag" id="r-cashflow-tag" style="display:none"></div>
         </div>
 
+        <!-- Supporting metrics -->
+        <div class="metrics-grid">
+          <div class="metric-box"><div class="metric-box-label">Cash-on-Cash<span class="tip" data-tip="Cash-on-Cash = Annual Cash Flow ÷ Total Cash Required">i</span></div><div class="metric-box-value" id="r-coc">—</div><div class="metric-box-sub">Annual CF ÷ cash required</div></div>
+          <div class="metric-box"><div class="metric-box-label">DSCR<span class="tip" data-tip="DSCR = Net Operating Income ÷ Annual Debt Service (P&I)">i</span></div><div class="metric-box-value" id="r-dscr">—</div><div class="metric-box-sub" id="r-dscr-sub">NOI ÷ debt service</div></div>
+          <div class="metric-box"><div class="metric-box-label">Cap Rate<span class="tip" data-tip="Cap Rate = Net Operating Income ÷ Purchase Price">i</span></div><div class="metric-box-value" id="r-cap">—</div><div class="metric-box-sub">NOI ÷ purchase price</div></div>
+          <div class="metric-box"><div class="metric-box-label">Total Cash Required<span class="tip" data-tip="Total Cash Required = Down Payment + Closing + Rehab">i</span></div><div class="metric-box-value" id="r-cash-required">—</div><div class="metric-box-sub">Down + closing + rehab</div></div>
+        </div>
+
+        <!-- Auto-generated Insight -->
+        <div class="brrrr-insight" id="r-insight" style="display:none">
+          <div class="brrrr-insight-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <p id="r-insight-text"></p>
+        </div>
+
+        <!-- Max Price for Target Return -->
         <div class="reverse-card">
-          <div class="reverse-header"><div class="reverse-title">Max Price for Target Return</div></div>
-          <div class="reverse-body">
-            <span class="reverse-label">To hit</span>
-            <div class="reverse-input-wrap"><input type="number" class="reverse-input" id="r-target-coc" placeholder="10" oninput="calcRental()" /><span class="reverse-suffix">%</span></div>
-            <span class="reverse-label">CoC, max price:</span>
-            <div class="reverse-result" id="r-max-price">—</div>
-            <div class="reverse-sub">Based on current rent &amp; expense inputs</div>
+          <div class="reverse-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+            <div class="reverse-title">Max Price for Target Return</div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="reverse-label">Target</span>
+              <div class="reverse-input-wrap"><input type="number" class="reverse-input" id="r-target-coc" placeholder="10" oninput="calcRental()" /><span class="reverse-suffix">%</span></div>
+            </div>
+          </div>
+          <div class="maxprice-grid">
+            <div><div class="maxprice-item-label">Current Price</div><div class="maxprice-item-value" id="r-current-price">—</div></div>
+            <div><div class="maxprice-item-label">Max Price to Hit Target</div><div class="maxprice-item-value" id="r-max-price">—</div></div>
+            <div class="maxprice-gap-row"><span class="maxprice-gap-label" id="r-gap-label">Enter a target return &amp; purchase price</span><span class="maxprice-gap-value" id="r-gap-value"></span></div>
           </div>
         </div>
 
@@ -837,11 +933,247 @@
           <button class="btn btn-secondary" onclick="resetRental()">
             <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg> Reset
           </button>
+          <button class="btn btn-copy" onclick="copyRentalToBRRRR()">
+            <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg> Copy to BRRRR
+          </button>
           <button class="btn btn-sheet" onclick="openSheet('rental')">
             <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Deal Sheet
           </button>
           <button class="btn btn-primary" onclick="shareURL('rental')">
             <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ BRRRR ══════ -->
+  <div class="section" id="section-brrrr">
+    <div class="grid">
+
+      <!-- Inputs -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header-icon">
+            <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+          </div>
+          <div>
+            <div class="card-title">BRRRR Analysis</div>
+            <div class="card-subtitle">Buy · Rehab · Rent · Refinance · Repeat</div>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <div class="field-group">
+            <div class="field-group-label">Acquisition</div>
+            <div class="fields">
+              <div class="field">
+                <label>Purchase Price</label>
+                <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-price" placeholder="120,000" oninput="calcBRRRR()" /></div>
+              </div>
+              <div class="field">
+                <label>Rehab Cost</label>
+                <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-rehab" placeholder="30,000" oninput="calcBRRRR()" /></div>
+              </div>
+              <div class="field">
+                <label>Closing Costs <span style="color:var(--text-subtle);font-weight:400">(purchase)</span></label>
+                <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-closing" placeholder="3,000" oninput="calcBRRRR()" /></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-group-label">After Repair Value &amp; Refinance</div>
+            <div class="fields">
+              <div class="field">
+                <label>After Repair Value (ARV)</label>
+                <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-arv" placeholder="200,000" oninput="calcBRRRR()" /></div>
+              </div>
+              <div class="field">
+                <label>Refinance LTV</label>
+                <div class="input-wrap"><span class="input-suffix">%</span><input type="number" class="has-suffix" id="b-ltv" placeholder="75" oninput="calcBRRRR()" /></div>
+              </div>
+              <div class="field">
+                <label>Refi Interest Rate</label>
+                <div class="input-wrap"><span class="input-suffix">%</span><input type="number" class="has-suffix" id="b-rate" placeholder="7.5" step="0.1" oninput="calcBRRRR()" /></div>
+              </div>
+              <div class="field">
+                <label>Refi Loan Term</label>
+                <div class="input-wrap"><span class="input-suffix">yrs</span><input type="number" class="has-suffix" id="b-term" placeholder="30" oninput="calcBRRRR()" /></div>
+              </div>
+              <div class="field">
+                <label>Refinance Costs <span style="color:var(--text-subtle);font-weight:400">(optional)</span></label>
+                <div class="field-row">
+                  <div class="input-wrap"><span class="input-prefix" id="b-refi-affix">$</span><input type="number" class="has-prefix" id="b-refi" placeholder="Optional" oninput="calcBRRRR()" /></div>
+                  <div class="unit-toggle">
+                    <button class="unit-btn active" id="b-refi-usd" onclick="setRefiMode('usd')">$</button>
+                    <button class="unit-btn" id="b-refi-pct" onclick="setRefiMode('pct')">%</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-group-label">Rental Income</div>
+            <div class="fields">
+              <div class="field">
+                <label>Monthly Rent</label>
+                <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-rent" placeholder="1,800" oninput="calcBRRRR()" /></div>
+              </div>
+              <div class="field">
+                <label>Vacancy Rate</label>
+                <div class="input-wrap"><span class="input-suffix">%</span><input type="number" class="has-suffix" id="b-vacancy" placeholder="Typical: 3" oninput="calcBRRRR()" /></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-group-label">Monthly Expenses</div>
+            <div class="fields">
+              <div class="field">
+                <label>Property Taxes <span style="color:var(--text-subtle);font-weight:400" id="b-taxes-label">(yearly)</span></label>
+                <div class="field-row">
+                  <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-taxes" placeholder="2,400" oninput="calcBRRRR()" /></div>
+                  <div class="unit-toggle">
+                    <button class="unit-btn" id="b-taxes-mo" onclick="setBTaxesMode('mo')">Mo</button>
+                    <button class="unit-btn active" id="b-taxes-yr" onclick="setBTaxesMode('yr')">Yr</button>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label>Insurance <span style="color:var(--text-subtle);font-weight:400" id="b-insurance-label">(yearly)</span></label>
+                <div class="field-row">
+                  <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-insurance" placeholder="1,200" oninput="calcBRRRR()" /></div>
+                  <div class="unit-toggle">
+                    <button class="unit-btn" id="b-insurance-mo" onclick="setBInsuranceMode('mo')">Mo</button>
+                    <button class="unit-btn active" id="b-insurance-yr" onclick="setBInsuranceMode('yr')">Yr</button>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label>Property Management</label>
+                <div class="input-wrap"><span class="input-suffix">%</span><input type="number" class="has-suffix" id="b-mgmt" placeholder="8" oninput="calcBRRRR()" /></div>
+              </div>
+              <div class="field">
+                <label>Maintenance / Reserves</label>
+                <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-maintenance" placeholder="150" oninput="calcBRRRR()" /></div>
+              </div>
+              <div class="field">
+                <label>HOA <span style="color:var(--text-subtle);font-weight:400">(monthly)</span></label>
+                <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-hoa" placeholder="0" oninput="calcBRRRR()" /></div>
+              </div>
+              <div class="field">
+                <label>Other Expenses <span style="color:var(--text-subtle);font-weight:400">(monthly)</span></label>
+                <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-other" placeholder="0" oninput="calcBRRRR()" /></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-group-label">Rent Comps</div>
+            <div class="fields">
+              <div class="field">
+                <label>Rent Comps <span style="color:var(--text-subtle);font-weight:400">(shown on deal sheet)</span></label>
+                <textarea id="b-comps" rows="3" placeholder="123 Oak St — $1,750/mo (2bed/2bath)&#10;456 Elm Ave — $1,800/mo (3bed/2bath)" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;outline:none;resize:vertical;min-height:72px;line-height:1.5;transition:border-color 0.15s,box-shadow 0.15s;" onfocus="this.style.borderColor='var(--accent)';this.style.boxShadow='0 0 0 3px var(--accent-glow)'" onblur="this.style.borderColor='';this.style.boxShadow=''"></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="results-stack">
+
+        <!-- BRRRR Score Hero -->
+        <div class="result-hero">
+          <div class="result-hero-label">BRRRR Score</div>
+          <div class="brrrr-score-row">
+            <span class="brrrr-score-num" id="b-score-number">—</span>
+            <span class="brrrr-score-denom" id="b-score-denom"></span>
+          </div>
+          <div class="result-hero-sub" id="b-score-headline">Enter deal numbers to see your BRRRR analysis</div>
+          <div class="deal-score" id="b-deal-score" style="display:none"></div>
+        </div>
+
+        <!-- Phase 1: Did the BRRRR work? -->
+        <div class="phase-label"><span class="phase-num">1</span> Did the BRRRR Work? <span class="phase-hint">— refinance &amp; equity</span></div>
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="metric-box-label">Capital Recovery<span class="tip" data-tip="Capital Recovery = Cash Returned from Refi ÷ Total Cash Invested">i</span></div>
+            <div class="metric-box-value" id="b-cap-recovery">—</div>
+            <div class="metric-box-sub">Cash returned ÷ invested</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-box-label">Cash Left in Deal<span class="tip" data-tip="Cash Left in Deal = Total Cash Invested − Cash Returned from Refi">i</span></div>
+            <div class="metric-box-value" id="b-cash-left-display">—</div>
+            <div class="metric-box-sub" id="b-cash-left-pct-sub">% of ARV</div>
+          </div>
+          <div class="metric-box" style="grid-column:1 / -1">
+            <div class="metric-box-label">Equity Captured<span class="tip" data-tip="Equity Captured = ARV − Total Cash Invested">i</span></div>
+            <div class="metric-box-value" id="b-equity-captured">—</div>
+            <div class="metric-box-sub">ARV − total cash invested</div>
+          </div>
+        </div>
+
+        <!-- Phase 2: Is it a good rental? -->
+        <div class="phase-label"><span class="phase-num">2</span> Is It a Good Rental? <span class="phase-hint">— long-term performance</span></div>
+        <div class="cf-spotlight">
+          <div class="cf-spotlight-left">
+            <div class="cf-spotlight-label">Monthly Cash Flow</div>
+            <div class="cf-spotlight-value" id="b-cashflow">—</div>
+            <div class="cf-spotlight-sub" id="b-cashflow-sub">After refi mortgage &amp; all expenses</div>
+          </div>
+          <div class="cf-spotlight-tag" id="b-cashflow-tag" style="display:none"></div>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="metric-box-label">Cash-on-Cash<span class="tip" data-tip="Cash-on-Cash = Annual Cash Flow ÷ Cash Left in Deal">i</span></div>
+            <div class="metric-box-value" id="b-coc">—</div>
+            <div class="metric-box-sub" id="b-coc-sub">Ann. CF ÷ cash left</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-box-label">Annual Cash Flow</div>
+            <div class="metric-box-value" id="b-annual-cf">—</div>
+            <div class="metric-box-sub">Per year</div>
+          </div>
+        </div>
+
+        <!-- Auto-generated Insight -->
+        <div class="brrrr-insight" id="b-insight" style="display:none">
+          <div class="brrrr-insight-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <p id="b-insight-text"></p>
+        </div>
+
+        <!-- BRRRR Breakdown -->
+        <div class="breakdown-card">
+          <div class="breakdown-header">BRRRR Breakdown</div>
+          <div class="breakdown-rows" id="b-breakdown">
+            <div class="breakdown-row"><span class="row-label" style="color:var(--text-subtle);font-style:italic">Enter deal numbers to see breakdown</span></div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+          <button class="btn btn-secondary" onclick="resetBRRRR()">
+            <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+            Reset
+          </button>
+          <button class="btn btn-copy" onclick="copyBRRRRToRental()">
+            <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+            Copy to Rental
+          </button>
+          <button class="btn btn-sheet" onclick="openSheet('brrrr')">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Deal Sheet
+          </button>
+          <button class="btn btn-primary" onclick="shareURL('brrrr')">
+            <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Share
           </button>
         </div>
 
@@ -862,6 +1194,7 @@
 // ── Helpers ──────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 const val = id => parseFloat($( id)?.value) || 0;
+const isBlank = id => { const el=$( id); return !el || String(el.value).trim()===''; };
 const txt = id => $( id)?.value?.trim() || '';
 
 function fmt(n) { return '$' + Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}); }
@@ -1005,7 +1338,7 @@ function copyBrandLink() {
 
 // ── Mode Toggle ───────────────────────────────────────────
 function setMode(mode) {
-  ['wholesale','rental'].forEach(m=>{
+  ['wholesale','rental','brrrr'].forEach(m=>{
     $('section-'+m).classList.toggle('active',m===mode);
     $('btn-'+m).classList.toggle('active',m===mode);
   });
@@ -1037,9 +1370,10 @@ function calcWholesale() {
   const closing = val('w-closing');
   const profit  = val('w-profit');
   const other   = val('w-other');
+  const asking  = val('w-asking');
   const costs   = repairs + fee + holding + closing + profit + other;
   const mao     = arv - costs;
-  _wData = { arv, repairs, fee, holding, closing, profit, other, costs, mao };
+  _wData = { arv, repairs, fee, holding, closing, profit, other, costs, mao, asking };
 
   // ARV scenarios
   ['65','70','75'].forEach(p=>{
@@ -1058,14 +1392,34 @@ function calcWholesale() {
     ['w-offer-open','w-offer-target','w-offer-max'].forEach(id=>$(id).textContent='—');
   }
 
-  const display=$('w-mao-display'), score=$('w-deal-score');
-  if(!arv){ display.textContent='—'; display.className='result-hero-value'; score.style.display='none'; $('w-breakdown').innerHTML='<div class="breakdown-row"><span class="row-label" style="color:var(--text-subtle);font-style:italic">Enter deal numbers to see breakdown</span></div>'; return; }
+  const display=$('w-mao-display'), score=$('w-deal-score'), posDetail=$('w-position-detail');
+  if(!arv){ display.textContent='—'; display.className='result-hero-value'; score.style.display='none'; posDetail.style.display='none'; $('w-breakdown').innerHTML='<div class="breakdown-row"><span class="row-label" style="color:var(--text-subtle);font-style:italic">Enter deal numbers to see breakdown</span></div>'; return; }
 
   display.textContent = mao>=0 ? fmt(mao) : '-'+fmt(mao);
-  const spreadPct = mao/arv*100;
-  if(mao<=0){ display.className='result-hero-value negative'; score.className='deal-score red'; score.innerHTML='<span class="dot"></span> No Deal — Costs exceed ARV'; }
-  else if(spreadPct<55){ display.className='result-hero-value caution'; score.className='deal-score yellow'; score.innerHTML='<span class="dot"></span> Thin Margin — Proceed with caution'; }
-  else { display.className='result-hero-value positive'; score.className='deal-score green'; score.innerHTML='<span class="dot"></span> Strong Deal — Good spread on ARV'; }
+  // Pricing guidance, not property "deal quality": judge the seller's asking price vs your MAO.
+  if(mao<=0){
+    display.className='result-hero-value negative';
+    score.className='deal-score red'; score.innerHTML='<span class="dot"></span> No Deal — Costs exceed ARV';
+    posDetail.style.display='none';
+  } else {
+    display.className='result-hero-value positive';
+    if(asking>0){
+      if(asking<=mao){
+        score.className='deal-score green'; score.innerHTML='<span class="dot"></span> Strong Negotiation Position';
+        posDetail.innerHTML=`Seller asking <strong style="color:var(--text)">${fmt(asking)}</strong> — ${fmt(mao-asking)} below your MAO. You have room to negotiate.`;
+      } else if(asking<=mao*1.05){
+        score.className='deal-score yellow'; score.innerHTML='<span class="dot"></span> At Target Range';
+        posDetail.innerHTML=`Seller asking <strong style="color:var(--text)">${fmt(asking)}</strong> — ${fmt(asking-mao)} above your MAO. Close enough to negotiate.`;
+      } else {
+        score.className='deal-score red'; score.innerHTML='<span class="dot"></span> Price Reduction Needed';
+        posDetail.innerHTML=`Seller asking <strong style="color:var(--text)">${fmt(asking)}</strong> — ${fmt(asking-mao)} above your MAO. Needs a price reduction or better terms.`;
+      }
+      posDetail.style.display='block';
+    } else {
+      score.className='deal-score neutral'; score.innerHTML='<span class="dot"></span> Add seller\'s asking price to gauge your position';
+      posDetail.style.display='none';
+    }
+  }
   score.style.display='inline-flex';
 
   const rows=[
@@ -1085,12 +1439,38 @@ function calcWholesale() {
 }
 
 function resetWholesale(){
-  ['w-arv','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-hold-mo','w-hold-months','w-comps'].forEach(id=>$(id).value='');
+  ['w-arv','w-asking','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-hold-mo','w-hold-months','w-comps'].forEach(id=>$(id).value='');
   calcWholesale();
 }
 
 // ── Toggle states ─────────────────────────────────────────
-let downMode='pct', taxesMode='yr', insuranceMode='yr';
+let downMode='pct', taxesMode='yr', insuranceMode='yr', brrrrRefiMode='usd', brrrrTaxesMode='yr', brrrrInsuranceMode='yr';
+
+function setBTaxesMode(mode){
+  brrrrTaxesMode=mode;
+  $('b-taxes-mo').classList.toggle('active',mode==='mo');
+  $('b-taxes-yr').classList.toggle('active',mode==='yr');
+  $('b-taxes-label').textContent=mode==='mo'?'(monthly)':'(yearly)';
+  $('b-taxes').placeholder=mode==='mo'?'200':'2,400';
+  calcBRRRR();
+}
+function setBInsuranceMode(mode){
+  brrrrInsuranceMode=mode;
+  $('b-insurance-mo').classList.toggle('active',mode==='mo');
+  $('b-insurance-yr').classList.toggle('active',mode==='yr');
+  $('b-insurance-label').textContent=mode==='mo'?'(monthly)':'(yearly)';
+  $('b-insurance').placeholder=mode==='mo'?'100':'1,200';
+  calcBRRRR();
+}
+function setRefiMode(mode){
+  brrrrRefiMode=mode;
+  $('b-refi-usd').classList.toggle('active',mode==='usd');
+  $('b-refi-pct').classList.toggle('active',mode==='pct');
+  const span=$('b-refi-affix'), input=$('b-refi');
+  if(mode==='pct'){ span.className='input-suffix'; span.textContent='%'; input.className='has-suffix'; }
+  else { span.className='input-prefix'; span.textContent='$'; input.className='has-prefix'; }
+  input.value=''; calcBRRRR();
+}
 
 function setDownMode(mode){
   downMode=mode;
@@ -1120,13 +1500,28 @@ function setInsuranceMode(mode){
 
 // ── Rental Calc ───────────────────────────────────────────
 let _rData = {};
+// ════════════════════════════════════════════════════════════════════
+//  RENTAL SCORE (0–100)  ·  transparent · weighted · threshold-based
+//  Tier factor:  green = 1.0  ·  orange = 0.5  ·  red = 0.0
+//  Score = 40·CoC + 25·CashFlow + 20·DSCR + 15·CapRate
+//    Cash-on-Cash %    : green ≥10  · orange ≥6    · red <6
+//    Monthly Cash Flow : green ≥250 · orange ≥100  · red <100
+//    DSCR              : green ≥1.25· orange ≥1.10 · red <1.10  (cash purchase = no debt = green)
+//    Cap Rate %        : green ≥8   · orange ≥6    · red <6
+//  Down payment, rate & term are GATED (structural) — never assumed 0.
+//  Closing is optional ($/%); blank = 0. Cap rate = NOI ÷ purchase price.
+// ════════════════════════════════════════════════════════════════════
 function calcRental(){ saveRentalPrefs();
   const price       = val('r-price');
   const rehab       = val('r-rehab');
   const downRaw     = val('r-down');
   const downAmt     = downMode==='pct' ? price*(downRaw/100) : downRaw;
-  const rate        = val('r-rate')/100/12;
-  const termMo      = val('r-term')*12;
+  const closingRaw  = val('r-closing');
+  const closingAmt  = closingRaw;                            // plain $ (matches BRRRR)
+  const rateAnnual  = val('r-rate');
+  const termYrs     = val('r-term');
+  const rate        = rateAnnual/100/12;
+  const termMo      = termYrs*12;
   const rent        = val('r-rent');
   const vacancyPct  = val('r-vacancy')/100;
   const taxesRaw    = val('r-taxes');
@@ -1140,9 +1535,36 @@ function calcRental(){ saveRentalPrefs();
   const apprRate    = (val('r-appr')||3)/100;
   const targetCoc   = val('r-target-coc');
 
-  const loanAmt = price - downAmt;
+  const setM=(id,cls,v)=>{const el=$(id);el.textContent=v;el.className='metric-box-value '+(cls||'');};
+  const blankR=(headline,hint)=>{
+    $('r-score-number').textContent='—'; $('r-score-denom').textContent='';
+    $('r-score-number').className='brrrr-score-num';
+    $('r-score-headline').textContent=headline;
+    $('r-deal-score').style.display='none';
+    $('r-insight').style.display='none';
+    ['r-coc','r-dscr','r-cap','r-cash-required'].forEach(id=>setM(id,'','—'));
+    const cf=$('r-cashflow-display'); cf.textContent='—'; cf.className='cf-spotlight-value';
+    $('r-cashflow-sub').textContent=hint||'After all expenses & debt service';
+    $('r-cashflow-tag').style.display='none';
+    $('r-current-price').textContent = price>0?fmt(price):'—'; $('r-current-price').className='maxprice-item-value';
+    $('r-max-price').textContent='—'; $('r-max-price').className='maxprice-item-value';
+    $('r-gap-label').textContent=hint||'Enter deal numbers'; $('r-gap-value').textContent=''; $('r-gap-value').className='maxprice-gap-value';
+    $('r-breakdown').innerHTML='<div class="breakdown-row"><span class="row-label" style="color:var(--text-subtle);font-style:italic">'+(hint||'Enter deal numbers to see breakdown')+'</span></div>';
+    $('r-equity-body').innerHTML='<div class="equity-empty">Enter purchase price and loan details to see projections</div>';
+    _rData={};
+  };
+
+  // ── Gating ──
+  const hasCore = price>0 && rent>0;
+  if(!hasCore){ blankR('Enter deal numbers to see your rental analysis'); return; }
+  if(isBlank('r-down')){ blankR('Enter financing terms to calculate','Enter a down payment to calculate financing & returns.'); return; }
+  const loanAmt = Math.max(0, price - downAmt);
+  const financed = loanAmt > 0;
+  if(financed && (rateAnnual<=0 || termYrs<=0)){ blankR('Enter financing terms to calculate','Enter interest rate & loan term to calculate financing.'); return; }
+
+  // ── Core math ──
   let mortgage = 0;
-  if(loanAmt>0&&rate>0&&termMo>0) mortgage = loanAmt*(rate*Math.pow(1+rate,termMo))/(Math.pow(1+rate,termMo)-1);
+  if(financed && rate>0 && termMo>0) mortgage = loanAmt*(rate*Math.pow(1+rate,termMo))/(Math.pow(1+rate,termMo)-1);
 
   const effectiveRent = rent*(1-vacancyPct);
   const mgmtCost      = effectiveRent*mgmtPct;
@@ -1152,55 +1574,119 @@ function calcRental(){ saveRentalPrefs();
   const annualCF      = cashflow*12;
   const noi           = (effectiveRent-opExp)*12;
   const capRate       = price>0 ? (noi/price)*100 : 0;
-  const closingEst    = price*0.03;
-  const totalCashIn   = downAmt + rehab + closingEst;
-  const coc           = totalCashIn>0 ? (annualCF/totalCashIn)*100 : 0;
+  const totalCashIn   = downAmt + closingAmt + rehab;
+  const closingEst    = closingAmt;                          // alias kept for deal sheet
   const grm           = rent>0 ? price/(rent*12) : 0;
 
-  _rData={price,rehab,downAmt,loanAmt,mortgage,rent,effectiveRent,taxes,insurance,mgmtCost,maintenance,hoa,other,opExp,totalExp,cashflow,annualCF,noi,capRate,coc,grm,totalCashIn,apprRate,termMo,rate,closingEst};
+  // CoC (safe denominator)
+  let coc, cocDisplay, cocTier;
+  if(totalCashIn>0){ coc=(annualCF/totalCashIn)*100; cocDisplay=fmtPct(coc); cocTier=coc>=10?1:coc>=6?0.5:0; }
+  else { coc=Infinity; cocDisplay = cashflow>=0?'Infinite':'N/A'; cocTier = cashflow>=0?1:0; }
 
-  // Reverse calc
-  if(targetCoc>0&&rent>0){
+  // DSCR
+  let dscr, dscrDisplay, dscrTier, dscrSub;
+  if(!financed || mortgage<=0){ dscr=Infinity; dscrDisplay='N/A'; dscrSub='No debt (cash purchase)'; dscrTier=1; }
+  else { dscr=noi/(mortgage*12); dscrDisplay=dscr.toFixed(2)+'x'; dscrSub='NOI ÷ debt service'; dscrTier=dscr>=1.25?1:dscr>=1.10?0.5:0; }
+
+  const cfTier  = cashflow>=250?1:cashflow>=100?0.5:0;
+  const capTier = capRate>=8?1:capRate>=6?0.5:0;
+
+  _rData={price,rehab,downAmt,loanAmt,mortgage,rent,effectiveRent,taxes,insurance,mgmtCost,maintenance,hoa,other,opExp,totalExp,cashflow,annualCF,noi,capRate,coc,grm,totalCashIn,apprRate,termMo,rate,closingEst,dscr};
+
+  // ── Weighted score ──
+  const score = Math.round(40*cocTier + 25*cfTier + 20*dscrTier + 15*capTier);
+  const tierCls    = t => t>=1?'positive':t>=0.5?'caution':'negative';
+  let scoreColor = score>=75?'green':score>=40?'yellow':'red';
+  let badgeLabel = (score>=90?'Excellent':score>=75?'Strong':score>=60?'Solid':score>=40?'Fair':'Weak')+' Rental';
+  // Guardrail: a money-losing rental is never a green "go".
+  if (cashflow < 0)    { scoreColor='red';    badgeLabel='Loses Money Monthly'; }
+  else if (cfTier===0) { if(scoreColor==='green') scoreColor='yellow'; }
+
+  // ── Two-part headline ──
+  const cfLabel = cashflow<0?'Negative Cash Flow':cashflow<100?'Thin Cash Flow':cashflow<250?'Moderate Cash Flow':'Strong Cash Flow';
+  const retLabel = (coc===Infinity||coc>=10)?'Strong Return':coc>=6?'Below Target Return':'Weak Return';
+
+  // ── Score hero ──
+  $('r-score-number').textContent=score; $('r-score-denom').textContent='/100';
+  $('r-score-number').className='brrrr-score-num '+scoreColor;
+  $('r-score-headline').textContent=`${cfLabel} • ${retLabel}`;
+  const badge=$('r-deal-score'); badge.className='deal-score '+scoreColor; badge.innerHTML='<span class="dot"></span> '+badgeLabel; badge.style.display='inline-flex';
+
+  // ── Cash Flow spotlight ──
+  const cfEl=$('r-cashflow-display');
+  cfEl.textContent=(cashflow>=0?'':'-')+fmt(Math.abs(cashflow))+'/mo';
+  cfEl.className='cf-spotlight-value '+tierCls(cfTier);
+  $('r-cashflow-sub').textContent=`${(annualCF>=0?'':'-')+fmt(Math.abs(annualCF))}/yr after all expenses & debt service`;
+  const cfTag=$('r-cashflow-tag'); cfTag.className='cf-spotlight-tag '+(cfTier>=1?'green':cfTier>=0.5?'yellow':'red');
+  cfTag.textContent=cfLabel; cfTag.style.display='inline-block';
+
+  // ── Supporting metrics ──
+  setM('r-coc', tierCls(cocTier), cocDisplay);
+  setM('r-dscr', tierCls(dscrTier), dscrDisplay); $('r-dscr-sub').textContent=dscrSub;
+  setM('r-cap', tierCls(capTier), fmtPct(capRate));
+  setM('r-cash-required', '', fmt(totalCashIn));
+
+  // ── Max Price for Target Return (mode-aware closing) ──
+  $('r-current-price').textContent=fmt(price); $('r-current-price').className='maxprice-item-value';
+  if(targetCoc>0){
     const dpPct = downMode==='pct' ? (downRaw/100) : null;
     let lo=0,hi=10000000;
     for(let i=0;i<60;i++){
       const mid=(lo+hi)/2;
       const dAmt = dpPct!==null ? mid*dpPct : downAmt;
-      const lAmt = mid-dAmt;
+      const lAmt = Math.max(0, mid-dAmt);
       let mtg=0;
       if(lAmt>0&&rate>0&&termMo>0) mtg=lAmt*(rate*Math.pow(1+rate,termMo))/(Math.pow(1+rate,termMo)-1);
       const eff=rent*(1-vacancyPct), mgmt=eff*mgmtPct;
       const exp=taxes+insurance+mgmt+maintenance+hoa+other+mtg;
-      const cf12=(eff-exp)*12, cin=dAmt+rehab+(mid*0.03);
+      const closeMid = closingRaw;
+      const cf12=(eff-exp)*12, cin=dAmt+rehab+closeMid;
       const c=cin>0?(cf12/cin)*100:0;
       if(c>targetCoc) lo=mid; else hi=mid;
     }
-    $('r-max-price').textContent = lo>0 ? fmt((lo+hi)/2) : 'N/A';
-  } else { $('r-max-price').textContent='—'; }
-
-  const cfDisplay=$('r-cashflow-display'), score=$('r-deal-score');
-  if(!price||!rent){
-    cfDisplay.textContent='—'; cfDisplay.className='result-hero-value'; score.style.display='none';
-    ['r-annual','r-coc','r-cap','r-grm'].forEach(id=>{$(id).textContent='—';$(id).className='metric-box-value';});
-    $('r-breakdown').innerHTML='<div class="breakdown-row"><span class="row-label" style="color:var(--text-subtle);font-style:italic">Enter deal numbers to see breakdown</span></div>';
-    $('r-equity-body').innerHTML='<div class="equity-empty">Enter purchase price and loan details to see projections</div>';
-    return;
+    const maxPrice=(lo+hi)/2;
+    if(maxPrice<=1){
+      $('r-max-price').textContent='N/A'; $('r-max-price').className='maxprice-item-value negative';
+      $('r-gap-label').textContent='Target return not achievable at any price with these inputs'; $('r-gap-value').textContent=''; $('r-gap-value').className='maxprice-gap-value';
+    } else {
+      const gap=price-maxPrice;
+      $('r-max-price').textContent=fmt(maxPrice);
+      const tol=maxPrice*0.10;
+      if(gap<=0){
+        $('r-max-price').className='maxprice-item-value green';
+        $('r-gap-label').textContent='At or below target price';
+        $('r-gap-value').textContent=fmt(Math.abs(gap))+' under'; $('r-gap-value').className='maxprice-gap-value green';
+      } else if(gap<=tol){
+        $('r-max-price').className='maxprice-item-value caution';
+        $('r-gap-label').textContent='Slightly over target';
+        $('r-gap-value').textContent=fmt(gap)+' over'; $('r-gap-value').className='maxprice-gap-value caution';
+      } else {
+        $('r-max-price').className='maxprice-item-value negative';
+        $('r-gap-label').textContent='Meaningfully over target';
+        $('r-gap-value').textContent=fmt(gap)+' over'; $('r-gap-value').className='maxprice-gap-value negative';
+      }
+    }
+  } else {
+    $('r-max-price').textContent='—'; $('r-max-price').className='maxprice-item-value';
+    $('r-gap-label').textContent='Enter a target return to solve for max price'; $('r-gap-value').textContent=''; $('r-gap-value').className='maxprice-gap-value';
   }
 
-  cfDisplay.textContent=(cashflow>=0?'':'-')+fmt(cashflow);
-  cfDisplay.className='result-hero-value '+(cashflow>200?'positive':cashflow>=0?'caution':'negative');
-  if(cashflow>200){ score.className='deal-score green'; score.innerHTML='<span class="dot"></span> Positive Cash Flow — Strong rental deal'; }
-  else if(cashflow>=0){ score.className='deal-score yellow'; score.innerHTML='<span class="dot"></span> Break Even — Minimal cash flow'; }
-  else { score.className='deal-score red'; score.innerHTML='<span class="dot"></span> Negative Cash Flow — Deal loses money monthly'; }
-  score.style.display='inline-flex';
+  // ── Insight (investor voice: verdict → strengths → what to watch) ──
+  const rVerdict = score>=90?'Excellent rental.':score>=75?'Strong rental.':score>=60?'Solid rental.':score>=40?'Marginal rental — review carefully.':'Weak rental.';
+  let rBody = ` It produces ${(cashflow>=0?'':'-')+fmt(Math.abs(cashflow))}/month`;
+  rBody += coc===Infinity ? ` at an effectively infinite cash-on-cash return (no cash left in)` : ` at a ${fmtPct(coc)} cash-on-cash return`;
+  rBody += (!financed||mortgage<=0) ? ` (cash purchase, no debt).` : ` with a ${dscr.toFixed(2)}x DSCR and ${fmtPct(capRate)} cap rate.`;
+  let rWatch;
+  if (cashflow<0)                              rWatch = ` It loses money each month — revisit rent, purchase price, or expenses before proceeding.`;
+  else if (cashflow<100)                       rWatch = ` Monthly cash flow is thin — confirm your rent and expense assumptions.`;
+  else if (coc!==Infinity && coc<6)            rWatch = ` The return is below most buy-and-hold targets; you may be paying too much for the income.`;
+  else if (coc!==Infinity && coc<10)           rWatch = ` The return is slightly below a 10% target — a lower price or better terms would strengthen it.`;
+  else if (financed && mortgage>0 && dscr<1.10) rWatch = ` DSCR is tight — many lenders want 1.25+, so financing may be harder.`;
+  else                                         rWatch = ` The numbers work on both cash flow and return.`;
+  $('r-insight-text').textContent = rVerdict + rBody + rWatch;
+  $('r-insight').style.display = 'flex';
 
-  const setM=(id,v,good,warn)=>{const el=$(id);el.textContent=v;el.className='metric-box-value '+(good?'positive':warn?'caution':'negative');};
-  setM('r-annual',(annualCF>=0?'':'-')+fmt(annualCF),annualCF>0,annualCF===0);
-  setM('r-coc',fmtPct(coc),coc>=8,coc>=0);
-  setM('r-cap',fmtPct(capRate),capRate>=6,capRate>=4);
-  $('r-grm').textContent=grm.toFixed(1)+'x';
-  $('r-grm').className='metric-box-value '+(grm<10?'positive':grm<14?'caution':'negative');
-
+  // ── Breakdown ──
   const expRows=[
     {label:'Mortgage (P&I)',value:mortgage},{label:'Property Taxes',value:taxes},{label:'Insurance',value:insurance},
     {label:'Property Management',value:mgmtCost},{label:'Maintenance / Reserves',value:maintenance},
@@ -1209,17 +1695,17 @@ function calcRental(){ saveRentalPrefs();
   let html=`<div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--green)"></span>Effective Gross Income</span><span class="row-value">${fmt(effectiveRent)}/mo</span></div>`;
   html+=expRows.map(r=>`<div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>${r.label}</span><span class="row-value deduct">−${fmt(r.value)}/mo</span></div>`).join('');
   html+='<div class="breakdown-divider"></div>';
-  html+=`<div class="breakdown-row total"><span class="row-label">Net Monthly Cash Flow</span><span class="row-value">${cashflow>=0?'':'-'}${fmt(cashflow)}/mo</span></div>`;
+  html+=`<div class="breakdown-row total"><span class="row-label">Net Monthly Cash Flow</span><span class="row-value">${cashflow>=0?'':'-'}${fmt(Math.abs(cashflow))}/mo</span></div>`;
   $('r-breakdown').innerHTML=html;
 
-  // Equity table
+  // ── Equity table ──
   if(price>0&&loanAmt>0){
     const rows=buildEquityRows(price,loanAmt,rate,termMo,apprRate,annualCF);
     let et=`<table class="equity-table"><thead><tr><th>Yr</th><th>Value</th><th>Balance</th><th>Equity</th></tr></thead><tbody>`;
     rows.forEach(r=>{ et+=`<tr><td style="font-weight:600;color:var(--text)">${r.yr}</td><td>${fmt(r.propVal)}</td><td>${fmt(r.balance)}</td><td style="color:var(--green)">${fmt(r.equity)}</td></tr>`; });
     et+='</tbody></table>';
     $('r-equity-body').innerHTML=et;
-  } else { $('r-equity-body').innerHTML='<div class="equity-empty">Enter purchase price and loan details to see projections</div>'; }
+  } else { $('r-equity-body').innerHTML='<div class="equity-empty">Cash purchase — no loan. Enter a down payment below 100% to see leveraged projections.</div>'; }
 }
 
 function buildEquityRows(price,loanAmt,monthlyRate,termMo,apprRate,annualCF){
@@ -1233,7 +1719,7 @@ function buildEquityRows(price,loanAmt,monthlyRate,termMo,apprRate,annualCF){
 }
 
 function resetRental(){
-  ['r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-comps'].forEach(id=>$(id).value='');
+  ['r-price','r-rehab','r-down','r-closing','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-comps'].forEach(id=>$(id).value='');
   calcRental();
 }
 
@@ -1256,9 +1742,10 @@ function openSheet(mode){
   const gradient = getBrandGradient();
   const propDetails = [beds&&`${beds} Bed`,baths&&`${baths} Bath`,sqft&&`${sqft} sqft`,year&&`Built ${year}`].filter(Boolean);
 
-  $('sheet-modal').innerHTML = mode==='wholesale'
-    ? buildWholesaleSheet({company,tagline,contact,address,deal,pitch,expiry,comps,propDetails,dateStr,gradient})
-    : buildRentalSheet({company,tagline,contact,address,deal,pitch,expiry,propDetails,dateStr,gradient});
+  $('sheet-modal').innerHTML =
+      mode==='wholesale' ? buildWholesaleSheet({company,tagline,contact,address,deal,pitch,expiry,comps,propDetails,dateStr,gradient})
+    : mode==='brrrr'     ? buildBRRRRSheet({company,tagline,contact,address,deal,pitch,expiry,propDetails,dateStr,gradient})
+    :                      buildRentalSheet({company,tagline,contact,address,deal,pitch,expiry,propDetails,dateStr,gradient});
   $('sheet-overlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
@@ -1299,15 +1786,14 @@ function buildWholesaleSheet({company,tagline,contact,address,deal,pitch,expiry,
   const d=_wData;
   if(!d.arv) return '<div style="padding:40px;text-align:center;color:#666;font-family:Inter,sans-serif">No data — fill in the Wholesale calculator first.</div>';
 
-  // Buyer-facing: purchase price = MAO (fee already absorbed, never shown)
-  const buyerCosts = d.repairs + d.holding + d.closing + d.other; // no fee
-  const totalCashIn = d.mao + buyerCosts; // what buyer actually spends = purchase + their costs
-  // Actually: buyer pays MAO for the property, then spends on repairs/holding/closing on top
-  const totalInvestment = d.mao + d.repairs + d.holding + d.closing + d.other;
+  // Buyer-facing: the wholesaler's assignment fee is baked INTO the purchase price
+  // (never itemized). MAO already subtracts the fee, so the buyer's actual price = MAO + fee.
+  // This keeps the fee invisible AND keeps it OUT of the buyer's projected profit.
+  const buyerPrice = d.mao + d.fee;
+  const totalInvestment = buyerPrice + d.repairs + d.holding + d.closing + d.other;
   const projectedProfit = d.arv - totalInvestment;
   const roi = totalInvestment>0 ? (projectedProfit/totalInvestment)*100 : 0;
   const profitColor = projectedProfit>0 ? 'green' : 'red';
-  const s65=(d.arv*0.65)-d.repairs, s70=(d.arv*0.70)-d.repairs, s75=(d.arv*0.75)-d.repairs;
 
   // Check if rental data exists for dual exit
   const hasDualExit = _rData.price>0 && _rData.rent>0;
@@ -1318,7 +1804,7 @@ function buildWholesaleSheet({company,tagline,contact,address,deal,pitch,expiry,
     <div class="sheet-hero">
       <div class="sheet-hero-col">
         <div class="sheet-hero-label">Purchase Price</div>
-        <div class="sheet-hero-val">${fmt(d.mao)}</div>
+        <div class="sheet-hero-val">${fmt(buyerPrice)}</div>
         <div class="sheet-hero-sub">What you pay today</div>
       </div>
       <div class="sheet-hero-col">
@@ -1348,7 +1834,7 @@ function buildWholesaleSheet({company,tagline,contact,address,deal,pitch,expiry,
       <div class="sheet-section-title">Investment Breakdown</div>
       <div class="sheet-row">
         <div class="sheet-row-label"><span class="sheet-row-dot" style="background:#4f46e5"></span>Purchase Price</div>
-        <div class="sheet-row-value">${fmt(d.mao)}</div>
+        <div class="sheet-row-value">${fmt(buyerPrice)}</div>
       </div>
       ${d.repairs>0?`<div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#dc2626"></span>Estimated Repairs</div><div class="sheet-row-value deduct">+${fmt(d.repairs)}</div></div>`:''}
       ${d.holding>0?`<div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#dc2626"></span>Holding Costs</div><div class="sheet-row-value deduct">+${fmt(d.holding)}</div></div>`:''}
@@ -1372,8 +1858,11 @@ function buildWholesaleSheet({company,tagline,contact,address,deal,pitch,expiry,
 function buildDualExit(){
   const w=_wData, r=_rData;
   if(!w.mao||!r.cashflow) return '';
-  const flipProfit = w.arv-(w.mao+w.repairs+w.holding+w.closing+w.other);
-  const flipROI    = (w.mao+w.repairs+w.holding+w.closing+w.other)>0 ? (flipProfit/(w.mao+w.repairs+w.holding+w.closing+w.other)*100) : 0;
+  // Buyer's price includes the assignment fee (MAO + fee); profit must exclude the fee.
+  const flipPrice  = w.mao + w.fee;
+  const flipAllIn  = flipPrice + w.repairs + w.holding + w.closing + w.other;
+  const flipProfit = w.arv - flipAllIn;
+  const flipROI    = flipAllIn>0 ? (flipProfit/flipAllIn*100) : 0;
   return `
     <div class="dual-exit">
       <div class="dual-exit-title">Dual Exit Strategy — Which Works Best for You?</div>
@@ -1381,8 +1870,8 @@ function buildDualExit(){
         <div class="dual-col">
           <div class="dual-col-head flip-head">🔨 Fix &amp; Flip</div>
           <div class="dual-col-body">
-            <div class="dual-row"><span class="dual-row-label">Purchase Price</span><span class="dual-row-val">${fmt(w.mao)}</span></div>
-            <div class="dual-row"><span class="dual-row-label">All-In Cost</span><span class="dual-row-val">${fmt(w.mao+w.repairs+w.holding+w.closing+w.other)}</span></div>
+            <div class="dual-row"><span class="dual-row-label">Purchase Price</span><span class="dual-row-val">${fmt(flipPrice)}</span></div>
+            <div class="dual-row"><span class="dual-row-label">All-In Cost</span><span class="dual-row-val">${fmt(flipAllIn)}</span></div>
             <div class="dual-row"><span class="dual-row-label">ARV</span><span class="dual-row-val">${fmt(w.arv)}</span></div>
             <div class="dual-row"><span class="dual-row-label">Projected Profit</span><span class="dual-row-val ${flipProfit>0?'green':'red'}">${flipProfit>=0?fmt(flipProfit):'-'+fmt(flipProfit)}</span></div>
             <div class="dual-row"><span class="dual-row-label">ROI</span><span class="dual-row-val ${flipROI>0?'green':'red'}">${flipROI.toFixed(1)}%</span></div>
@@ -1407,15 +1896,29 @@ function buildRentalSheet({company,tagline,contact,address,deal,pitch,expiry,pro
   const rentComps = txt('r-comps');
   if(!d.price||!d.rent) return '<div style="padding:40px;text-align:center;color:#666;font-family:Inter,sans-serif">No data — fill in the Rental calculator first.</div>';
 
-  const cfColor  = d.cashflow>200?'green':d.cashflow>=0?'yellow':'red';
-  const cocColor = d.coc>=8?'green':d.coc>=0?'yellow':'red';
-  const capColor = d.capRate>=6?'green':d.capRate>=4?'yellow':'red';
+  const cfColor  = d.cashflow>=250?'green':d.cashflow>=0?'yellow':'red';
+  const cocStr   = d.coc===Infinity?'Infinite':fmtPct(d.coc);
+  const cocColor = (d.coc===Infinity||d.coc>=10)?'green':d.coc>=6?'yellow':'red';
+  const capColor = d.capRate>=8?'green':d.capRate>=6?'yellow':'red';
+  const noiMo    = d.noi/12;
 
-  const expRows=[
-    {label:'Mortgage (P&I)',value:d.mortgage},{label:'Property Taxes',value:d.taxes},
-    {label:'Insurance',value:d.insurance},{label:'Property Management',value:d.mgmtCost},
-    {label:'Maintenance / Reserves',value:d.maintenance},{label:'HOA',value:d.hoa},{label:'Other',value:d.other},
+  // Operating expenses only (no mortgage) — financing-agnostic
+  const opexRows=[
+    {label:'Property Taxes',value:d.taxes},{label:'Insurance',value:d.insurance},
+    {label:'Property Management',value:d.mgmtCost},{label:'Maintenance / Reserves',value:d.maintenance},
+    {label:'HOA',value:d.hoa},{label:'Other',value:d.other},
   ].filter(r=>r.value>0);
+
+  // Financing scenario assumption label
+  const downPct = d.price>0 ? (d.downAmt/d.price*100) : 0;
+  const annualRate = d.rate*12*100;
+  const termYrs = Math.round(d.termMo/12);
+  const financed = d.loanAmt>0;
+  const financeNote = financed
+    ? `<strong>Example financing only.</strong> Based on ${downPct.toFixed(0)}% down · ${annualRate.toFixed(2)}% · ${termYrs}-yr loan. Every buyer finances differently (cash, DSCR, conventional, private money) — these numbers change with your terms.`
+    : `<strong>Cash-purchase scenario.</strong> No financing assumed; a financed buyer's cash flow and cash-on-cash will differ.`;
+
+  const compsHtml = rentComps ? `<div class="sheet-comps-box"><div class="sheet-section-title">Rent Comps — Can It Rent for This?</div><div class="sheet-comps-list">${esc(rentComps)}</div></div>` : '';
 
   let equityHtml='';
   if(d.loanAmt>0&&d.rate>0){
@@ -1430,19 +1933,135 @@ function buildRentalSheet({company,tagline,contact,address,deal,pitch,expiry,pro
     ${sheetHead({company,tagline,contact,address,deal,pitch,expiry,comps:'',propDetails,dateStr,gradient,badge:'Buy & Hold Analysis'})}
     <div class="sheet-body-bg">
 
+    <!-- PROPERTY PERFORMANCE (financing-agnostic) -->
+    <div class="sheet-hero">
+      <div class="sheet-hero-col">
+        <div class="sheet-hero-label">Monthly Rent</div>
+        <div class="sheet-hero-val">${fmt(d.rent)}</div>
+        <div class="sheet-hero-sub">Gross scheduled rent</div>
+      </div>
+      <div class="sheet-hero-col">
+        <div class="sheet-hero-label">Net Operating Income</div>
+        <div class="sheet-hero-val">${fmt(noiMo)}<span style="font-size:13px;font-weight:600">/mo</span></div>
+        <div class="sheet-hero-sub">${fmt(d.noi)}/yr · excludes financing</div>
+      </div>
+      <div class="sheet-hero-col">
+        <div class="sheet-hero-label">Cap Rate</div>
+        <div class="sheet-hero-val ${capColor}">${fmtPct(d.capRate)}</div>
+        <div class="sheet-hero-sub">NOI ÷ purchase price</div>
+      </div>
+    </div>
+
+    <div class="sheet-section">
+      <div class="sheet-section-title">Property Performance — Income &amp; Operating Expenses</div>
+      <div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#16a34a"></span>Effective Gross Income</div><div class="sheet-row-value">${fmt(d.effectiveRent)}/mo</div></div>
+      ${opexRows.map(r=>`<div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#dc2626"></span>${esc(r.label)}</div><div class="sheet-row-value deduct">−${fmt(r.value)}/mo</div></div>`).join('')}
+      <div class="sheet-divider"></div>
+      <div class="sheet-row total-row"><div class="sheet-row-label">Net Operating Income (NOI)</div><div class="sheet-row-value">${fmt(noiMo)}/mo</div></div>
+    </div>
+
+    ${compsHtml}
+
+    <!-- EXAMPLE FINANCING SCENARIO (clearly labeled) -->
+    <div class="sheet-section-title" style="padding:0 36px;margin-bottom:10px">Example Financing Scenario</div>
+    <div class="sheet-finance-note">${financeNote}</div>
+
     <div class="upfront-box">
       <div class="upfront-item"><div class="upfront-item-label">Purchase Price</div><div class="upfront-item-val">${fmt(d.price)}</div></div>
-      ${d.rehab>0?`<div class="upfront-item"><div class="upfront-item-label">Rehab Cost</div><div class="upfront-item-val">${fmt(d.rehab)}</div></div>`:''}
       <div class="upfront-item"><div class="upfront-item-label">Down Payment</div><div class="upfront-item-val">${fmt(d.downAmt)}</div></div>
       <div class="upfront-item"><div class="upfront-item-label">Est. Closing Costs</div><div class="upfront-item-val">${fmt(d.closingEst)}</div></div>
-      ${d.rehab>0?`<div class="upfront-item" style="background:rgba(255,255,255,0.5);border-radius:8px;padding:8px"><div class="upfront-item-label" style="color:#1e3a5f">Total Cash Needed</div><div class="upfront-item-val" style="font-size:18px">${fmt(d.totalCashIn)}</div></div>`:''}
+      ${d.rehab>0?`<div class="upfront-item"><div class="upfront-item-label">Rehab Cost</div><div class="upfront-item-val">${fmt(d.rehab)}</div></div>`:''}
+      <div class="upfront-item" style="background:rgba(255,255,255,0.5);border-radius:8px;padding:8px"><div class="upfront-item-label" style="color:#1e3a5f">Total Cash Needed</div><div class="upfront-item-val" style="font-size:18px">${fmt(d.totalCashIn)}</div></div>
     </div>
 
     <div class="sheet-hero">
       <div class="sheet-hero-col">
         <div class="sheet-hero-label">Monthly Cash Flow</div>
         <div class="sheet-hero-val ${cfColor}">${d.cashflow>=0?'':'-'}${fmt(d.cashflow)}</div>
-        <div class="sheet-hero-sub">After all expenses</div>
+        <div class="sheet-hero-sub">NOI − mortgage</div>
+      </div>
+      <div class="sheet-hero-col">
+        <div class="sheet-hero-label">Annual Cash Flow</div>
+        <div class="sheet-hero-val ${cfColor}">${d.annualCF>=0?'':'-'}${fmt(d.annualCF)}</div>
+        <div class="sheet-hero-sub">Per year net</div>
+      </div>
+      <div class="sheet-hero-col">
+        <div class="sheet-hero-label">Cash-on-Cash</div>
+        <div class="sheet-hero-val ${cocColor}">${cocStr}</div>
+        <div class="sheet-hero-sub">Annual CF ÷ cash in</div>
+      </div>
+    </div>
+
+    <div class="sheet-section">
+      <div class="sheet-section-title">Financing Scenario — Cash Flow After Debt Service</div>
+      <div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#16a34a"></span>Net Operating Income</div><div class="sheet-row-value">${fmt(noiMo)}/mo</div></div>
+      ${d.mortgage>0?`<div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#dc2626"></span>Mortgage (P&I)</div><div class="sheet-row-value deduct">−${fmt(d.mortgage)}/mo</div></div>`:''}
+      <div class="sheet-divider"></div>
+      <div class="sheet-row total-row"><div class="sheet-row-label">Net Monthly Cash Flow</div><div class="sheet-row-value">${d.cashflow>=0?'':'-'}${fmt(d.cashflow)}/mo</div></div>
+    </div>
+
+    ${equityHtml}
+    </div>
+    ${sheetFooter(company,contact)}`;
+}
+
+function buildBRRRRSheet({company,tagline,contact,address,deal,pitch,expiry,propDetails,dateStr,gradient}){
+  const d=_bData;
+  const rentComps = txt('b-comps');
+  if(!d.arv||!d.rent) return '<div style="padding:40px;text-align:center;color:#666;font-family:Inter,sans-serif">No data — fill in the BRRRR calculator first (purchase price, ARV, rent &amp; refinance terms).</div>';
+
+  const cfColor       = d.cashflow>=250?'green':d.cashflow>=0?'yellow':'red';
+  const capRecColor   = d.capRecoveryPct>=90?'green':d.capRecoveryPct>=75?'yellow':'red';
+  const cashLeftColor = d.cashLeftPct<=5?'green':d.cashLeftPct<=15?'yellow':'red';
+
+  const expRows=[
+    {label:'New Mortgage (P&I)',value:d.mortgage},{label:'Property Taxes',value:d.taxes},
+    {label:'Insurance',value:d.insurance},{label:'Property Management',value:d.mgmtCost},
+    {label:'Maintenance / Reserves',value:d.maintenance},{label:'HOA',value:d.hoa},{label:'Other',value:d.other},
+  ].filter(r=>r.value>0);
+
+  const compsHtml = rentComps ? `<div class="sheet-comps-box"><div class="sheet-section-title">Rent Comps — Can It Rent for This?</div><div class="sheet-comps-list">${esc(rentComps)}</div></div>` : '';
+
+  return `
+    ${sheetHead({company,tagline,contact,address,deal,pitch,expiry,comps:'',propDetails,dateStr,gradient,badge:'BRRRR Investment Analysis'})}
+    <div class="sheet-body-bg">
+
+    <!-- Section 1: BRRRR Performance -->
+    <div class="sheet-hero">
+      <div class="sheet-hero-col">
+        <div class="sheet-hero-label">Capital Recovery</div>
+        <div class="sheet-hero-val ${capRecColor}">${fmtPct(d.capRecoveryPct)}</div>
+        <div class="sheet-hero-sub">of invested capital returned</div>
+      </div>
+      <div class="sheet-hero-col">
+        <div class="sheet-hero-label">Cash Left in Deal</div>
+        <div class="sheet-hero-val ${cashLeftColor}">${fmt(d.cashLeft)}</div>
+        <div class="sheet-hero-sub">${d.cashLeftPct.toFixed(1)}% of ARV</div>
+      </div>
+      <div class="sheet-hero-col">
+        <div class="sheet-hero-label">Equity Captured</div>
+        <div class="sheet-hero-val">${fmt(d.equityCapture)}</div>
+        <div class="sheet-hero-sub">ARV − total cash invested</div>
+      </div>
+    </div>
+
+    <div class="sheet-section">
+      <div class="sheet-section-title">BRRRR Performance — Refinance &amp; Equity</div>
+      <div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#16a34a"></span>After Repair Value (ARV)</div><div class="sheet-row-value">${fmt(d.arv)}</div></div>
+      <div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#4f46e5"></span>Total Cash Invested</div><div class="sheet-row-value">${fmt(d.totalCashIn)}</div></div>
+      <div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#4f46e5"></span>New Loan (${(d.ltv*100).toFixed(0)}% LTV)</div><div class="sheet-row-value">${fmt(d.newLoan)}</div></div>
+      ${d.refiCost>0?`<div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#dc2626"></span>Refinance Costs</div><div class="sheet-row-value deduct">−${fmt(d.refiCost)}</div></div>`:''}
+      <div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#16a34a"></span>Cash Returned from Refinance</div><div class="sheet-row-value">${fmt(d.cashReturned)}</div></div>
+      <div class="sheet-divider"></div>
+      <div class="sheet-row total-row"><div class="sheet-row-label">Cash Left in Deal</div><div class="sheet-row-value">${fmt(d.cashLeft)}</div></div>
+    </div>
+
+    <!-- Section 2: Rental Performance -->
+    <div class="sheet-hero">
+      <div class="sheet-hero-col">
+        <div class="sheet-hero-label">Monthly Cash Flow</div>
+        <div class="sheet-hero-val ${cfColor}">${d.cashflow>=0?'':'-'}${fmt(d.cashflow)}</div>
+        <div class="sheet-hero-sub">After refinance</div>
       </div>
       <div class="sheet-hero-col">
         <div class="sheet-hero-label">Annual Cash Flow</div>
@@ -1457,24 +2076,242 @@ function buildRentalSheet({company,tagline,contact,address,deal,pitch,expiry,pro
     </div>
 
     <div class="sheet-metrics">
-      <div class="sheet-metric"><div class="sheet-metric-label">Cash-on-Cash</div><div class="sheet-metric-val ${cocColor}">${fmtPct(d.coc)}</div></div>
-      <div class="sheet-metric"><div class="sheet-metric-label">Cap Rate</div><div class="sheet-metric-val ${capColor}">${fmtPct(d.capRate)}</div></div>
-      <div class="sheet-metric"><div class="sheet-metric-label">GRM</div><div class="sheet-metric-val">${d.grm.toFixed(1)}x</div></div>
-      <div class="sheet-metric"><div class="sheet-metric-label">Total Cash In</div><div class="sheet-metric-val" style="font-size:15px">${fmt(d.totalCashIn)}</div></div>
+      <div class="sheet-metric"><div class="sheet-metric-label">Cash-on-Cash</div><div class="sheet-metric-val ${d.cashflow>=0?'green':'red'}">${d.coc}</div></div>
+      <div class="sheet-metric"><div class="sheet-metric-label">Net Operating Income</div><div class="sheet-metric-val" style="font-size:15px">${fmt(d.noi)}/yr</div></div>
+      <div class="sheet-metric"><div class="sheet-metric-label">New Mortgage</div><div class="sheet-metric-val" style="font-size:15px">${fmt(d.mortgage)}/mo</div></div>
+      <div class="sheet-metric"><div class="sheet-metric-label">Operating Expenses</div><div class="sheet-metric-val" style="font-size:15px">${fmt(d.opExp)}/mo</div></div>
     </div>
 
     <div class="sheet-section">
-      <div class="sheet-section-title">Monthly Income &amp; Expense Breakdown</div>
+      <div class="sheet-section-title">Rental Performance — Monthly Income &amp; Expenses</div>
       <div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#16a34a"></span>Effective Gross Income</div><div class="sheet-row-value">${fmt(d.effectiveRent)}/mo</div></div>
       ${expRows.map(r=>`<div class="sheet-row"><div class="sheet-row-label"><span class="sheet-row-dot" style="background:#dc2626"></span>${esc(r.label)}</div><div class="sheet-row-value deduct">−${fmt(r.value)}/mo</div></div>`).join('')}
       <div class="sheet-divider"></div>
       <div class="sheet-row total-row"><div class="sheet-row-label">Net Monthly Cash Flow</div><div class="sheet-row-value">${d.cashflow>=0?'':'-'}${fmt(d.cashflow)}/mo</div></div>
     </div>
 
-    ${equityHtml}
+    ${compsHtml}
+
+    <!-- Section 3: BRRRR Summary -->
+    <div class="sheet-section">
+      <div class="sheet-section-title">BRRRR Summary</div>
+      <div class="sheet-summary-text">${esc(d.explanation)}</div>
     </div>
-    ${rentComps?`<div class="sheet-comp-notes"><strong>Rent Comps</strong>${esc(rentComps).replace(/\n/g,'<br>')}</div>`:''}
+
+    </div>
     ${sheetFooter(company,contact)}`;
+}
+
+// ════════════════════════════════════════════════════════════════════
+//  BRRRR SCORE (0–100)  ·  transparent · weighted · threshold-based
+//  Tier factor:  green = 1.0  ·  orange = 0.5  ·  red = 0.0
+//  Score = 40·CashLeft% + 30·CapRecovery% + 20·CoC + 10·CashFlow
+//    Cash Left (% of ARV)  : green ≤5   · orange ≤15  · red >15
+//    Capital Recovery %    : green ≥90  · orange ≥75  · red <75
+//    Cash-on-Cash %        : green ≥12  · orange ≥8   · red <8
+//    Monthly Cash Flow     : green ≥250 · orange ≥100 · red <100
+//  Badge: 85+ Excellent · 70+ Strong · 55+ Solid · 40+ Fair · <40 Weak
+//  Score color: ≥70 green · 45–69 orange · <45 red
+//  All inputs read live with val() — blank = 0, an explicit 0 is honored.
+//  Structural fields (LTV, rate, term) are GATED, never assumed.
+// ════════════════════════════════════════════════════════════════════
+let _bData = {};
+function calcBRRRR() {
+  const price       = val('b-price');
+  const rehab       = val('b-rehab');
+  const closing     = val('b-closing');
+  const arv         = val('b-arv');
+  const ltvPct      = val('b-ltv');
+  const rateAnnual  = val('b-rate');
+  const termYrs     = val('b-term');
+  const refiRaw     = val('b-refi');
+  const rent        = val('b-rent');
+  const vacancyPct  = val('b-vacancy') / 100;
+  const taxesRaw    = val('b-taxes');
+  const taxes       = brrrrTaxesMode==='mo' ? taxesRaw : taxesRaw/12;
+  const insRaw      = val('b-insurance');
+  const insurance   = brrrrInsuranceMode==='mo' ? insRaw : insRaw/12;
+  const mgmtPct     = val('b-mgmt') / 100;
+  const maintenance = val('b-maintenance');
+  const hoa         = val('b-hoa');
+  const other       = val('b-other');
+
+  const setM = (id, v, cls) => { const el=$(id); el.textContent=v; el.className='metric-box-value '+(cls||''); };
+  const blankAll = (headline, hint) => {
+    $('b-score-number').textContent='—'; $('b-score-denom').textContent='';
+    $('b-score-number').className='brrrr-score-num';
+    $('b-score-headline').textContent=headline;
+    $('b-deal-score').style.display='none';
+    $('b-insight').style.display='none';
+    ['b-cap-recovery','b-cash-left-display','b-equity-captured','b-coc','b-annual-cf'].forEach(id=>setM(id,'—',''));
+    $('b-cash-left-pct-sub').textContent='% of ARV';
+    $('b-coc-sub').textContent='Ann. CF ÷ cash left';
+    const cf=$('b-cashflow'); cf.textContent='—'; cf.className='cf-spotlight-value';
+    $('b-cashflow-sub').textContent = hint || 'After refi mortgage & all expenses';
+    $('b-cashflow-tag').style.display='none';
+    $('b-breakdown').innerHTML='<div class="breakdown-row"><span class="row-label" style="color:var(--text-subtle);font-style:italic">'+(hint||'Enter deal numbers to see breakdown')+'</span></div>';
+    _bData={};
+  };
+
+  // ── Gating ──
+  const hasCore = price>0 && arv>0 && rent>0;
+  if (!hasCore) { blankAll('Enter deal numbers to see your BRRRR analysis'); return; }
+  const hasFinancing = ltvPct>0 && rateAnnual>0 && termYrs>0;
+  if (!hasFinancing) { blankAll('Enter refinance terms to calculate', 'Enter LTV, interest rate & loan term to calculate the refinance.'); return; }
+
+  // ── Core math (all finite — guarded above) ──
+  const ltv     = ltvPct/100;
+  const rate    = rateAnnual/100/12;
+  const termMo  = termYrs*12;
+  const totalCashIn  = price + rehab + closing;
+  const newLoan      = arv * ltv;
+  const refiCost     = brrrrRefiMode==='pct' ? newLoan*(refiRaw/100) : refiRaw;
+  const cashReturned = Math.max(0, newLoan - refiCost);
+  const cashLeft     = Math.max(0, totalCashIn - cashReturned);
+
+  let mortgage = 0;
+  if (newLoan>0 && rate>0 && termMo>0) mortgage = newLoan*(rate*Math.pow(1+rate,termMo))/(Math.pow(1+rate,termMo)-1);
+
+  const effectiveRent  = rent*(1-vacancyPct);
+  const mgmtCost       = effectiveRent*mgmtPct;
+  const opExp          = taxes+insurance+mgmtCost+maintenance+hoa+other;
+  const cashflow       = effectiveRent - opExp - mortgage;
+  const annualCF       = cashflow*12;
+  const equityCapture  = arv - totalCashIn;                        // value created over all-in cost
+  const cashLeftPct    = arv>0 ? (cashLeft/arv)*100 : 0;
+  const capRecoveryPct = totalCashIn>0 ? (cashReturned/totalCashIn)*100 : 0;
+
+  // ── Cash-on-Cash (safe when cash left ≤ 0) ──
+  const fullRecovery = cashLeft <= 0;
+  let cocDisplay, cocSub, cocTier;
+  if (fullRecovery) {
+    if (cashflow>=0) { cocDisplay='Infinite'; cocSub='All cash out — judge on cash flow'; cocTier=1; }
+    else             { cocDisplay='N/A';      cocSub='$0 in deal · negative CF'; cocTier=0; }
+  } else {
+    const coc = (annualCF/cashLeft)*100;
+    cocDisplay = fmtPct(coc);
+    cocSub = coc>=75 ? 'Inflated by low cash left — focus on cash flow' : 'Ann. CF ÷ cash left';
+    cocTier = coc>=12 ? 1 : coc>=8 ? 0.5 : 0;
+  }
+
+  // ── Tier factors → weighted score ──
+  const cashLeftTier = cashLeftPct<=5 ? 1 : cashLeftPct<=15 ? 0.5 : 0;
+  const capRecTier   = capRecoveryPct>=90 ? 1 : capRecoveryPct>=75 ? 0.5 : 0;
+  const cfTier       = cashflow>=250 ? 1 : cashflow>=100 ? 0.5 : 0;
+  const score = Math.round(40*cashLeftTier + 30*capRecTier + 20*cocTier + 10*cfTier);
+
+  const tierCls    = t => t>=1 ? 'positive' : t>=0.5 ? 'caution' : 'negative';
+  let scoreColor = score>=75 ? 'green' : score>=40 ? 'yellow' : 'red';
+  let badgeLabel = (score>=90?'Excellent':score>=75?'Strong':score>=60?'Solid':score>=40?'Fair':'Weak')+' BRRRR';
+  // Guardrail: a money-losing rental is never a green "go" — structure aside, it bleeds cash monthly.
+  // The numeric score still reflects the BRRRR structure; the color & badge tell the rental truth.
+  if (cashflow < 0)      { scoreColor='red';    badgeLabel='Loses Money Monthly'; }
+  else if (cfTier===0)   { if(scoreColor==='green') scoreColor='yellow'; badgeLabel='Solid Refi · Thin Cash Flow'; }
+
+  // ── Two-part headline (computed independently so weak CF is never hidden) ──
+  const refiLabel = (capRecoveryPct>=90 && cashLeftPct<=5)  ? 'Strong Capital Recovery'
+                  : (capRecoveryPct>=75 && cashLeftPct<=15) ? 'Solid Capital Recovery'
+                  : 'Weak Capital Recovery';
+  const cfLabel   = cashflow<0   ? 'Negative Cash Flow'
+                  : cashflow<100 ? 'Thin Cash Flow'
+                  : cashflow<250 ? 'Moderate Cash Flow'
+                  : 'Strong Cash Flow';
+
+  // ── Explanation (investor voice: verdict → strengths → what to watch) ──
+  const verdict = score>=90 ? 'Excellent BRRRR execution.'
+                : score>=75 ? 'Strong BRRRR structure.'
+                : score>=60 ? 'Solid BRRRR, with trade-offs.'
+                : score>=40 ? 'Marginal BRRRR — proceed carefully.'
+                : 'Weak BRRRR — the refinance leaves too much cash in.';
+  let strengths;
+  if (capRecoveryPct>=90 && cashLeftPct<=5)
+    strengths = ` Only ${cashLeftPct.toFixed(1)}% of ARV stays invested (${fmt(cashLeft)} left in)`;
+  else if (capRecoveryPct>=75)
+    strengths = ` ${fmtPct(capRecoveryPct)} of your capital comes back, leaving ${fmt(cashLeft)} in the deal`;
+  else
+    strengths = ` Only ${fmtPct(capRecoveryPct)} of capital is recovered, leaving ${fmt(cashLeft)} tied up`;
+  strengths += equityCapture>0 ? ` while capturing ${fmt(equityCapture)} in equity.` : `.`;
+  let watch;
+  if (cashflow<0)        watch = ` The rental loses ${fmt(Math.abs(cashflow))}/month — revisit rent, expenses, or the refinance before moving forward.`;
+  else if (cashflow<100) watch = ` Rental performance is thin at ${fmt(cashflow)}/month; review it if you're targeting stronger monthly income.`;
+  else if (cashflow<250) watch = ` Rental performance is moderate at ${fmt(cashflow)}/month.`;
+  else                   watch = ` Rental performance is strong at ${fmt(cashflow)}/month — solid on both sides.`;
+  const explanation = verdict + strengths + watch;
+
+  // ── Score hero ──
+  $('b-score-number').textContent = score;
+  $('b-score-denom').textContent = '/100';
+  $('b-score-number').className = 'brrrr-score-num '+scoreColor;
+  $('b-score-headline').textContent = `${refiLabel} • ${cfLabel}`;
+  const badge=$('b-deal-score'); badge.className='deal-score '+scoreColor; badge.innerHTML='<span class="dot"></span> '+badgeLabel; badge.style.display='inline-flex';
+
+  // ── Phase 1: Did the BRRRR work? ──
+  setM('b-cap-recovery', fmtPct(capRecoveryPct), tierCls(capRecTier));
+  setM('b-cash-left-display', cashLeft===0?'$0':fmt(cashLeft), tierCls(cashLeftTier));
+  $('b-cash-left-pct-sub').textContent = `${cashLeftPct.toFixed(1)}% of ARV`;
+  setM('b-equity-captured', fmt(equityCapture), equityCapture>0?'positive':'negative');
+
+  // ── Phase 2: Is it a good rental? (spotlight CF) ──
+  const cfEl=$('b-cashflow');
+  cfEl.textContent = (cashflow>=0?'':'-')+fmt(Math.abs(cashflow))+'/mo';
+  cfEl.className = 'cf-spotlight-value '+tierCls(cfTier);
+  $('b-cashflow-sub').textContent = 'After refi mortgage & all expenses';
+  const cfTag=$('b-cashflow-tag');
+  cfTag.className='cf-spotlight-tag '+(cfTier>=1?'green':cfTier>=0.5?'yellow':'red');
+  cfTag.textContent=cfLabel; cfTag.style.display='inline-block';
+  setM('b-coc', cocDisplay, tierCls(cocTier)); $('b-coc-sub').textContent=cocSub;
+  setM('b-annual-cf', (annualCF>=0?'':'-')+fmt(Math.abs(annualCF)), annualCF>=0?'positive':'negative');
+
+  $('b-insight-text').textContent = explanation;
+  $('b-insight').style.display = 'flex';
+
+  // ── Store for the deal sheet ──
+  const noi = (effectiveRent - opExp) * 12;
+  _bData = { price, rehab, closing, arv, ltv, newLoan, refiCost, cashReturned, cashLeft, cashLeftPct,
+    capRecoveryPct, totalCashIn, equityCapture, mortgage, effectiveRent, taxes, insurance, mgmtCost,
+    maintenance, hoa, other, opExp, noi, cashflow, annualCF, rent, coc: cocDisplay,
+    score, scoreColor, badgeLabel, headline: `${refiLabel} • ${cfLabel}`, explanation };
+
+  // ── Breakdown ──
+  $('b-breakdown').innerHTML = `
+    <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>Purchase Price</span><span class="row-value deduct">${fmt(price)}</span></div>
+    <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>Rehab Cost</span><span class="row-value deduct">${fmt(rehab)}</span></div>
+    ${closing > 0 ? `<div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>Closing Costs</span><span class="row-value deduct">${fmt(closing)}</span></div>` : ''}
+    <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--text-subtle)"></span>Total Cash Invested</span><span class="row-value">${fmt(totalCashIn)}</span></div>
+    <div class="breakdown-divider"></div>
+    <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--green)"></span>After Repair Value (ARV)</span><span class="row-value" style="color:var(--green)">${fmt(arv)}</span></div>
+    <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--accent-light)"></span>New Loan (${(ltv*100).toFixed(0)}% LTV)</span><span class="row-value" style="color:var(--accent-light)">${fmt(newLoan)}</span></div>
+    ${refiCost > 0 ? `<div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>Refinance Costs</span><span class="row-value deduct">${fmt(refiCost)}</span></div>` : ''}
+    <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--green)"></span>Cash Returned from Refi</span><span class="row-value" style="color:var(--green)">${fmt(cashReturned)}</span></div>
+    <div class="breakdown-divider"></div>
+    <div class="breakdown-row total"><span class="row-label">Cash Left in Deal</span><span class="row-value">${fmt(cashLeft)} <span style="font-size:11px;font-weight:400;color:var(--text-muted)">(${cashLeftPct.toFixed(1)}% of ARV)</span></span></div>
+    <div class="breakdown-divider"></div>
+    <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--accent)"></span>Equity Captured</span><span class="row-value" style="color:var(--accent-light)">${fmt(equityCapture)}</span></div>
+    <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>New Mortgage (P&I)</span><span class="row-value deduct">${fmt(mortgage)}/mo</span></div>
+    <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:${cashflow>=0?'var(--green)':'var(--red)'}"></span>Monthly Cash Flow</span><span class="row-value" style="color:${cashflow>=0?'var(--green)':'var(--red)'}">${cashflow>=0?'':'-'}${fmt(Math.abs(cashflow))}/mo</span></div>
+  `;
+}
+
+function resetBRRRR() {
+  ['b-price','b-rehab','b-closing','b-arv','b-ltv','b-rate','b-term','b-refi','b-rent','b-vacancy','b-taxes','b-insurance','b-mgmt','b-maintenance','b-hoa','b-other','b-comps'].forEach(id=>$(id).value='');
+  setRefiMode('usd'); setBTaxesMode('yr'); setBInsuranceMode('yr');
+  calcBRRRR();
+}
+
+// ── Copy common fields between Rental & BRRRR ─────────────
+function copyRentalToBRRRR(){
+  const map={'r-price':'b-price','r-rehab':'b-rehab','r-rent':'b-rent','r-vacancy':'b-vacancy','r-taxes':'b-taxes','r-insurance':'b-insurance','r-mgmt':'b-mgmt','r-maintenance':'b-maintenance','r-hoa':'b-hoa','r-other':'b-other','r-comps':'b-comps'};
+  Object.entries(map).forEach(([from,to])=>{ const f=$(from); if(f && f.value!=='') $(to).value=f.value; });
+  setBTaxesMode(taxesMode); setBInsuranceMode(insuranceMode);   // match Mo/Yr modes
+  setMode('brrrr'); calcBRRRR();
+  showToast('Common fields copied to BRRRR ✓');
+}
+function copyBRRRRToRental(){
+  const map={'b-price':'r-price','b-rehab':'r-rehab','b-rent':'r-rent','b-vacancy':'r-vacancy','b-taxes':'r-taxes','b-insurance':'r-insurance','b-mgmt':'r-mgmt','b-maintenance':'r-maintenance','b-hoa':'r-hoa','b-other':'r-other','b-comps':'r-comps'};
+  Object.entries(map).forEach(([from,to])=>{ const f=$(from); if(f && f.value!=='') $(to).value=f.value; });
+  setTaxesMode(brrrrTaxesMode); setInsuranceMode(brrrrInsuranceMode);
+  setMode('rental'); calcRental();
+  showToast('Common fields copied to Rental ✓');
 }
 
 // ── Share URL ─────────────────────────────────────────────
@@ -1484,7 +2321,7 @@ function shareURL(mode){
   params.set('bc',brandColor);
   ['b-company','b-tagline','b-contact','prop-address','prop-deal','prop-beds','prop-baths','prop-sqft','prop-year','prop-pitch','prop-expiry'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
   if(mode==='wholesale'){
-    ['w-arv','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
+    ['w-arv','w-asking','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
   } else {
     ['r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr','r-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
     params.set('r-downMode',downMode); params.set('r-taxesMode',taxesMode); params.set('r-insuranceMode',insuranceMode);
@@ -1521,22 +2358,29 @@ function loadFromURL(){
   updateBranding();
   const mode=params.get('mode');
   setMode(mode);
-  // Number inputs — strip formatting chars (commas, $, spaces) Rentcast may include
-  const numericFields = new Set(['w-arv','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other',
-    'r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance',
-    'r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr']);
-  params.forEach((v,k)=>{ const skip=['mode','bc1','bc2','bg','brand','r-downMode','r-taxesMode','r-insuranceMode']; if(!skip.includes(k)&&$(k)) $(k).value = numericFields.has(k) ? v.replace(/[$,\s]/g,'') : v; });
-  // GHL strips newlines in URL params — convert pipe separators back to line breaks
-  ['w-comps','r-comps'].forEach(id => {
-    const el = $(id);
-    if (el && el.value) el.value = el.value.replace(/\s*\|\s*/g, '\n').replace(/\\n/g, '\n');
-  });
-  // Always apply rental toggle states and run both calcs so fields are ready whichever tab opens
+  // Apply toggle states FIRST — the mode-setters clear their own input, so they must
+  // run before we populate field values (otherwise down/closing/refi would be wiped).
   if(params.get('r-downMode')) setDownMode(params.get('r-downMode'));
   if(params.get('r-taxesMode')) setTaxesMode(params.get('r-taxesMode'));
   if(params.get('r-insuranceMode')) setInsuranceMode(params.get('r-insuranceMode'));
+  if(params.get('b-refiMode')) setRefiMode(params.get('b-refiMode'));
+  if(params.get('b-taxesMode')) setBTaxesMode(params.get('b-taxesMode'));
+  if(params.get('b-insuranceMode')) setBInsuranceMode(params.get('b-insuranceMode'));
+  // Number inputs — strip formatting chars (commas, $, spaces) Rentcast may include
+  const numericFields = new Set(['w-arv','w-asking','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other',
+    'r-price','r-rehab','r-down','r-closing','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance',
+    'r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr',
+    'b-price','b-rehab','b-closing','b-arv','b-ltv','b-rate','b-term','b-refi','b-rent','b-vacancy','b-taxes','b-insurance','b-mgmt','b-maintenance','b-hoa','b-other']);
+  params.forEach((v,k)=>{ const skip=['mode','bc1','bc2','bg','brand','r-downMode','r-taxesMode','r-insuranceMode','b-refiMode','b-taxesMode','b-insuranceMode']; if(!skip.includes(k)&&$(k)) $(k).value = numericFields.has(k) ? v.replace(/[$,\s]/g,'') : v; });
+  // GHL strips newlines in URL params — convert pipe separators back to line breaks
+  ['w-comps','r-comps','b-comps'].forEach(id => {
+    const el = $(id);
+    if (el && el.value) el.value = el.value.replace(/\s*\|\s*/g, '\n').replace(/\\n/g, '\n');
+  });
+  // Run all calcs so fields are ready whichever tab opens
   calcWholesale();
   calcRental();
+  calcBRRRR();
 }
 
 // Update shareURL to also encode brand colors
@@ -1551,9 +2395,12 @@ function shareURL(mode){
   params.set('bg',  $('b-use-gradient')?.checked?'1':'0');
   ['b-company','b-tagline','b-contact','prop-address','prop-deal','prop-beds','prop-baths','prop-sqft','prop-year','prop-pitch','prop-expiry'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
   if(mode==='wholesale'){
-    ['w-arv','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
+    ['w-arv','w-asking','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
+  } else if(mode==='brrrr'){
+    ['b-price','b-rehab','b-closing','b-arv','b-ltv','b-rate','b-term','b-refi','b-rent','b-vacancy','b-taxes','b-insurance','b-mgmt','b-maintenance','b-hoa','b-other','b-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
+    params.set('b-refiMode',brrrrRefiMode); params.set('b-taxesMode',brrrrTaxesMode); params.set('b-insuranceMode',brrrrInsuranceMode);
   } else {
-    ['r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr','r-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
+    ['r-price','r-rehab','r-down','r-closing','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr','r-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
     params.set('r-downMode',downMode); params.set('r-taxesMode',taxesMode); params.set('r-insuranceMode',insuranceMode);
   }
   const url=location.origin+location.pathname+'?'+params.toString();
