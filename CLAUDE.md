@@ -5,7 +5,7 @@ A single-page web app for a real estate wholesaler (Gabe Monroy) who runs deals 
 ## ⚠️ DEPLOY RULE — READ FIRST
 - **NEVER run `git push` without Gabe's explicit "yes."** Pushing to `main` auto-triggers a Netlify build/deploy and consumes his Netlify usage.
 - Free / no permission needed: editing files, testing in the local preview, and **local** `git commit`s.
-- Normal flow: edit → test locally → **ASK** → commit → push. Always pause for a yes before the push.
+- Normal flow: edit `index.html` directly → test locally → **ASK** → commit → push. Always pause for a yes before the push. `index.html` is the single working file — no preview sandbox.
 
 ## End-of-session memory check (Claude: do this proactively — don't wait to be asked)
 When a session is wrapping up — Gabe says things like "that's all", "we're good", "done for now", "thanks", or we just finished a meaningful change — pause and run a quick memory check:
@@ -17,7 +17,7 @@ Gabe usually can't track what's important mid-build, so it's on Claude to raise 
 
 ## Stack & files
 - **`index.html`** — the entire app (production; what Netlify deploys). Vanilla HTML/CSS/JS, no build step, no dependencies except the Google Fonts CDN.
-- `brrrr-preview.html` — local sandbox copy used to test before promoting. NOT tracked/deployed. (Currently identical to `index.html`. Optional — fine to delete; if kept, sync changes into `index.html` before deploying.)
+- `brrrr-preview.html` — DEPRECATED early sandbox; no longer used. Edit `index.html` directly. (Safe to delete; ignore if present.)
 - `brrrr-server.py`, `.claude/launch.json` — local preview server config only. (If this folder is renamed/moved: `brrrr-server.py` is path-independent, but `.claude/launch.json` has absolute paths — just regenerate it.)
 
 ## Deploy / hosting

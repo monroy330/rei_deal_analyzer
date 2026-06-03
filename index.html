@@ -835,7 +835,7 @@
                 <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="r-hoa" placeholder="0" oninput="calcRental()" /></div>
               </div>
               <div class="field">
-                <label>Other Expenses</label>
+                <label>Other Costs <span style="color:var(--text-subtle);font-weight:400">(one-time)</span></label>
                 <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="r-other" placeholder="0" oninput="calcRental()" /></div>
               </div>
             </div>
@@ -883,7 +883,7 @@
           <div class="metric-box"><div class="metric-box-label">Cash-on-Cash<span class="tip" data-tip="Cash-on-Cash = Annual Cash Flow ÷ Total Cash Required">i</span></div><div class="metric-box-value" id="r-coc">—</div><div class="metric-box-sub">Annual CF ÷ cash required</div></div>
           <div class="metric-box"><div class="metric-box-label">DSCR<span class="tip" data-tip="DSCR = Net Operating Income ÷ Annual Debt Service (P&I)">i</span></div><div class="metric-box-value" id="r-dscr">—</div><div class="metric-box-sub" id="r-dscr-sub">NOI ÷ debt service</div></div>
           <div class="metric-box"><div class="metric-box-label">Cap Rate<span class="tip" data-tip="Cap Rate = Net Operating Income ÷ Purchase Price">i</span></div><div class="metric-box-value" id="r-cap">—</div><div class="metric-box-sub">NOI ÷ purchase price</div></div>
-          <div class="metric-box"><div class="metric-box-label">Total Cash Required<span class="tip" data-tip="Total Cash Required = Down Payment + Closing + Rehab">i</span></div><div class="metric-box-value" id="r-cash-required">—</div><div class="metric-box-sub">Down + closing + rehab</div></div>
+          <div class="metric-box"><div class="metric-box-label">Total Cash Required<span class="tip" data-tip="Total Cash Required = Down Payment + Closing + Rehab + Other (one-time)">i</span></div><div class="metric-box-value" id="r-cash-required">—</div><div class="metric-box-sub">Down + closing + rehab + other</div></div>
         </div>
 
         <!-- Auto-generated Insight -->
@@ -1065,7 +1065,7 @@
                 <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-hoa" placeholder="0" oninput="calcBRRRR()" /></div>
               </div>
               <div class="field">
-                <label>Other Expenses <span style="color:var(--text-subtle);font-weight:400">(monthly)</span></label>
+                <label>Other Costs <span style="color:var(--text-subtle);font-weight:400">(one-time)</span></label>
                 <div class="input-wrap"><span class="input-prefix">$</span><input type="number" class="has-prefix" id="b-other" placeholder="0" oninput="calcBRRRR()" /></div>
               </div>
             </div>
@@ -1568,13 +1568,13 @@ function calcRental(){ saveRentalPrefs();
 
   const effectiveRent = rent*(1-vacancyPct);
   const mgmtCost      = effectiveRent*mgmtPct;
-  const opExp         = taxes+insurance+mgmtCost+maintenance+hoa+other;
+  const opExp         = taxes+insurance+mgmtCost+maintenance+hoa;   // 'other' is one-time, not monthly
   const totalExp      = opExp+mortgage;
   const cashflow      = effectiveRent-totalExp;
   const annualCF      = cashflow*12;
   const noi           = (effectiveRent-opExp)*12;
   const capRate       = price>0 ? (noi/price)*100 : 0;
-  const totalCashIn   = downAmt + closingAmt + rehab;
+  const totalCashIn   = downAmt + closingAmt + rehab + other;   // 'other' = one-time upfront cost
   const closingEst    = closingAmt;                          // alias kept for deal sheet
   const grm           = rent>0 ? price/(rent*12) : 0;
 
@@ -1638,9 +1638,9 @@ function calcRental(){ saveRentalPrefs();
       let mtg=0;
       if(lAmt>0&&rate>0&&termMo>0) mtg=lAmt*(rate*Math.pow(1+rate,termMo))/(Math.pow(1+rate,termMo)-1);
       const eff=rent*(1-vacancyPct), mgmt=eff*mgmtPct;
-      const exp=taxes+insurance+mgmt+maintenance+hoa+other+mtg;
+      const exp=taxes+insurance+mgmt+maintenance+hoa+mtg;
       const closeMid = closingRaw;
-      const cf12=(eff-exp)*12, cin=dAmt+rehab+closeMid;
+      const cf12=(eff-exp)*12, cin=dAmt+rehab+closeMid+other;
       const c=cin>0?(cf12/cin)*100:0;
       if(c>targetCoc) lo=mid; else hi=mid;
     }
@@ -1690,7 +1690,7 @@ function calcRental(){ saveRentalPrefs();
   const expRows=[
     {label:'Mortgage (P&I)',value:mortgage},{label:'Property Taxes',value:taxes},{label:'Insurance',value:insurance},
     {label:'Property Management',value:mgmtCost},{label:'Maintenance / Reserves',value:maintenance},
-    {label:'HOA',value:hoa},{label:'Other Expenses',value:other},
+    {label:'HOA',value:hoa},
   ].filter(r=>r.value>0);
   let html=`<div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--green)"></span>Effective Gross Income</span><span class="row-value">${fmt(effectiveRent)}/mo</span></div>`;
   html+=expRows.map(r=>`<div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>${r.label}</span><span class="row-value deduct">−${fmt(r.value)}/mo</span></div>`).join('');
@@ -1906,7 +1906,7 @@ function buildRentalSheet({company,tagline,contact,address,deal,pitch,expiry,pro
   const opexRows=[
     {label:'Property Taxes',value:d.taxes},{label:'Insurance',value:d.insurance},
     {label:'Property Management',value:d.mgmtCost},{label:'Maintenance / Reserves',value:d.maintenance},
-    {label:'HOA',value:d.hoa},{label:'Other',value:d.other},
+    {label:'HOA',value:d.hoa},
   ].filter(r=>r.value>0);
 
   // Financing scenario assumption label
@@ -1971,6 +1971,7 @@ function buildRentalSheet({company,tagline,contact,address,deal,pitch,expiry,pro
       <div class="upfront-item"><div class="upfront-item-label">Down Payment</div><div class="upfront-item-val">${fmt(d.downAmt)}</div></div>
       <div class="upfront-item"><div class="upfront-item-label">Est. Closing Costs</div><div class="upfront-item-val">${fmt(d.closingEst)}</div></div>
       ${d.rehab>0?`<div class="upfront-item"><div class="upfront-item-label">Rehab Cost</div><div class="upfront-item-val">${fmt(d.rehab)}</div></div>`:''}
+      ${d.other>0?`<div class="upfront-item"><div class="upfront-item-label">Other Costs (one-time)</div><div class="upfront-item-val">${fmt(d.other)}</div></div>`:''}
       <div class="upfront-item" style="background:rgba(255,255,255,0.5);border-radius:8px;padding:8px"><div class="upfront-item-label" style="color:#1e3a5f">Total Cash Needed</div><div class="upfront-item-val" style="font-size:18px">${fmt(d.totalCashIn)}</div></div>
     </div>
 
@@ -2017,7 +2018,7 @@ function buildBRRRRSheet({company,tagline,contact,address,deal,pitch,expiry,prop
   const expRows=[
     {label:'New Mortgage (P&I)',value:d.mortgage},{label:'Property Taxes',value:d.taxes},
     {label:'Insurance',value:d.insurance},{label:'Property Management',value:d.mgmtCost},
-    {label:'Maintenance / Reserves',value:d.maintenance},{label:'HOA',value:d.hoa},{label:'Other',value:d.other},
+    {label:'Maintenance / Reserves',value:d.maintenance},{label:'HOA',value:d.hoa},
   ].filter(r=>r.value>0);
 
   const compsHtml = rentComps ? `<div class="sheet-comps-box"><div class="sheet-section-title">Rent Comps — Can It Rent for This?</div><div class="sheet-comps-list">${esc(rentComps)}</div></div>` : '';
@@ -2163,7 +2164,7 @@ function calcBRRRR() {
   const ltv     = ltvPct/100;
   const rate    = rateAnnual/100/12;
   const termMo  = termYrs*12;
-  const totalCashIn  = price + rehab + closing;
+  const totalCashIn  = price + rehab + closing + other;   // 'other' = one-time upfront cost
   const newLoan      = arv * ltv;
   const refiCost     = brrrrRefiMode==='pct' ? newLoan*(refiRaw/100) : refiRaw;
   const cashReturned = Math.max(0, newLoan - refiCost);
@@ -2174,7 +2175,7 @@ function calcBRRRR() {
 
   const effectiveRent  = rent*(1-vacancyPct);
   const mgmtCost       = effectiveRent*mgmtPct;
-  const opExp          = taxes+insurance+mgmtCost+maintenance+hoa+other;
+  const opExp          = taxes+insurance+mgmtCost+maintenance+hoa;   // 'other' is one-time, not monthly
   const cashflow       = effectiveRent - opExp - mortgage;
   const annualCF       = cashflow*12;
   const equityCapture  = arv - totalCashIn;                        // value created over all-in cost
@@ -2277,6 +2278,7 @@ function calcBRRRR() {
     <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>Purchase Price</span><span class="row-value deduct">${fmt(price)}</span></div>
     <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>Rehab Cost</span><span class="row-value deduct">${fmt(rehab)}</span></div>
     ${closing > 0 ? `<div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>Closing Costs</span><span class="row-value deduct">${fmt(closing)}</span></div>` : ''}
+    ${other > 0 ? `<div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>Other Costs (one-time)</span><span class="row-value deduct">${fmt(other)}</span></div>` : ''}
     <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--text-subtle)"></span>Total Cash Invested</span><span class="row-value">${fmt(totalCashIn)}</span></div>
     <div class="breakdown-divider"></div>
     <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--green)"></span>After Repair Value (ARV)</span><span class="row-value" style="color:var(--green)">${fmt(arv)}</span></div>
