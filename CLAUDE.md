@@ -34,6 +34,8 @@ Gabe usually can't track what's important mid-build, so it's on Claude to raise 
 - Toggle state + setters: down `setDownMode`; taxes/insurance Mo↔Yr `setTaxesMode`/`setInsuranceMode` (rental) and `setBTaxesMode`/`setBInsuranceMode` (BRRRR); refi $↔% `setRefiMode`; holding `setHoldMode`.
 - Copy between tabs: `copyRentalToBRRRR()`, `copyBRRRRToRental()` (common fields only).
 - Share/load: `shareURL(mode)` builds a URL of field IDs; `loadFromURL()` applies them on page load.
+- localStorage keys: `rei_brand`, `rei_rental_prefs`, `rei_autosave` (full deal, restored on load), `rei_deals` (saved-deals library, max 20), `rei_logo` (data-URL logo shown on header + deal sheets).
+- Money inputs are `type=text` with live comma formatting (`MONEY_FIELDS` + `fmtMoneyField`); `val()` strips non-numerics. Deal-share/GHL links clear all `DEAL_FIELDS` first — the link is the source of truth.
 
 ## Field ID conventions
 `w-*` = Wholesale, `r-*` = Rental, `b-*` = BRRRR, `prop-*` = shared property info, `b-company/b-tagline/b-contact` = branding.
