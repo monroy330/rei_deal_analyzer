@@ -11,7 +11,7 @@
     :root {
       --bg:#0a0a0f; --surface:#111118; --surface2:#1a1a24;
       --border:#ffffff0f; --border-active:#ffffff1a;
-      --text:#f0f0f5; --text-muted:#8888a0; --text-subtle:#62627a;
+      --text:#f0f0f5; --text-muted:#8888a0; --text-subtle:#7a7a94;
       --accent:#6366f1; --accent-light:#818cf8; --accent-glow:#6366f133;
       --green:#22c55e; --green-bg:#22c55e14;
       --yellow:#f59e0b; --yellow-bg:#f59e0b14;
@@ -136,7 +136,7 @@
     .field-group-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.8px; color:var(--text-subtle); margin-bottom:12px; }
     .fields { display:flex; flex-direction:column; gap:10px; }
     .field { display:flex; flex-direction:column; gap:5px; }
-    .field label { font-size:12px; font-weight:500; color:var(--text-muted); }
+    .field label { font-size:13px; font-weight:500; color:var(--text-muted); }
     .input-wrap { position:relative; display:flex; align-items:center; }
     .input-prefix,.input-suffix { position:absolute; font-size:13px; font-weight:500; color:var(--text-subtle); pointer-events:none; }
     .input-prefix { left:12px; } .input-suffix { right:12px; }
@@ -553,6 +553,21 @@
 
     /* Keyboard focus visibility */
     button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+    /* ── Mobile readability ── */
+    @media(max-width:860px) {
+      /* 16px inputs stop iOS Safari's zoom-on-focus jump */
+      input[type="text"],input[type="number"],.property-field input,.branding-field input,.reverse-input,.equity-rate-input,.color-hex-input { font-size:16px; }
+      textarea { font-size:16px !important; }   /* comps textareas carry inline 13px styles */
+      input[type="text"],input[type="number"],.property-field input { padding-top:11px; padding-bottom:11px; }
+      .input-prefix,.input-suffix { font-size:15px; }
+      input.has-prefix { padding-left:28px; }
+      /* 44px-class tap targets */
+      .unit-toggle { height:44px; }
+      .unit-btn { padding:3px 12px; font-size:12px; }
+      .mode-btn { padding:11px 18px; }
+      .btn { padding:13px 16px; }
+    }
 
     /* ── Responsive ── */
     @media(max-width:640px) {
