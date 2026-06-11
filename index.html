@@ -11,7 +11,7 @@
     :root {
       --bg:#0a0a0f; --surface:#111118; --surface2:#1a1a24;
       --border:#ffffff0f; --border-active:#ffffff1a;
-      --text:#f0f0f5; --text-muted:#8888a0; --text-subtle:#555568;
+      --text:#f0f0f5; --text-muted:#8888a0; --text-subtle:#62627a;
       --accent:#6366f1; --accent-light:#818cf8; --accent-glow:#6366f133;
       --green:#22c55e; --green-bg:#22c55e14;
       --yellow:#f59e0b; --yellow-bg:#f59e0b14;
@@ -439,6 +439,121 @@
     .sheet-print-btn:hover { background:var(--accent-light); }
     .sheet-print-btn svg { width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; }
 
+    /* ════ UI ENHANCEMENTS ════ */
+    /* Sticky results column (desktop) */
+    @media(min-width:861px) {
+      .results-stack { position:sticky; top:16px; max-height:calc(100vh - 32px); overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#2a2a38 transparent; padding-right:4px; margin-right:-4px; }
+      .results-stack > * { flex-shrink:0; }
+      .results-stack::-webkit-scrollbar { width:6px; }
+      .results-stack::-webkit-scrollbar-thumb { background:#2a2a38; border-radius:3px; }
+      .results-stack::-webkit-scrollbar-track { background:transparent; }
+    }
+
+    /* Section cross-fade */
+    .section.active { animation:sectionIn 0.18s ease; }
+    @keyframes sectionIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
+
+    /* Tap-friendly tooltips (mobile) */
+    .tip.show { border-color:var(--accent-light); color:var(--accent-light); }
+    .tip.show::after, .tip.show::before { opacity:1; visibility:visible; }
+
+    /* Toast action button (e.g. Undo) */
+    .toast { display:flex; align-items:center; gap:14px; }
+    .toast-action { background:none; border:none; color:var(--accent-light); font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; padding:0; flex-shrink:0; }
+    .toast-action:hover { color:#fff; }
+
+    /* Score gauge ring */
+    .score-gauge-wrap { position:relative; width:132px; height:132px; margin:8px auto 4px; }
+    .score-gauge-wrap svg { width:100%; height:100%; transform:rotate(-90deg); }
+    .score-gauge-track { fill:none; stroke:var(--surface2); stroke-width:9; }
+    .score-gauge-arc { fill:none; stroke:var(--text-subtle); stroke-width:9; stroke-linecap:round; transition:stroke-dashoffset 0.7s cubic-bezier(0.22,1,0.36,1), stroke 0.3s; }
+    .score-gauge-arc.green { stroke:var(--green); }
+    .score-gauge-arc.yellow { stroke:var(--yellow); }
+    .score-gauge-arc.red { stroke:var(--red); }
+    .score-gauge-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+    .score-gauge-center .brrrr-score-num { font-size:36px; letter-spacing:-1.5px; }
+    .score-gauge-center .brrrr-score-denom { font-size:12px; letter-spacing:0; color:var(--text-subtle); }
+
+    /* "Why this score?" factor breakdown */
+    .score-factors-toggle { margin-top:12px; background:none; border:none; color:var(--text-subtle); font-size:11px; font-weight:600; cursor:pointer; font-family:inherit; display:none; align-items:center; gap:5px; position:relative; }
+    .score-factors-toggle.visible { display:inline-flex; }
+    .score-factors-toggle:hover { color:var(--accent-light); }
+    .score-factors-toggle .chev { transition:transform 0.2s; font-size:8px; }
+    .score-factors-toggle.open .chev { transform:rotate(180deg); }
+    .score-factors { display:none; margin-top:12px; text-align:left; border-top:1px solid var(--border); padding-top:10px; position:relative; }
+    .score-factors.open { display:block; }
+    .factor-row { display:flex; align-items:center; justify-content:space-between; padding:5px 0; font-size:12px; }
+    .factor-name { color:var(--text-muted); display:flex; align-items:center; gap:8px; }
+    .factor-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+    .factor-dot.green { background:var(--green); } .factor-dot.yellow { background:var(--yellow); } .factor-dot.red { background:var(--red); }
+    .factor-val { font-weight:600; color:var(--text); font-variant-numeric:tabular-nums; }
+    .factor-pts { color:var(--text-subtle); font-size:11px; margin-left:10px; display:inline-block; min-width:48px; text-align:right; }
+
+    /* Negotiation range bar */
+    .range-bar-wrap { padding:6px 18px 10px; border-bottom:1px solid var(--border); }
+    .range-track { position:relative; height:10px; border-radius:5px; background:var(--surface2); }
+    .range-seg { position:absolute; top:0; bottom:0; border-radius:5px; }
+    .range-tick { position:absolute; top:-4px; width:2px; height:18px; border-radius:1px; background:var(--text-muted); transform:translateX(-50%); }
+    .range-tick-label { position:absolute; top:18px; transform:translateX(-50%); font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-subtle); white-space:nowrap; }
+    .range-pin { position:absolute; bottom:13px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; }
+    .range-pin-label { font-size:10px; font-weight:700; padding:3px 9px; border-radius:6px; white-space:nowrap; border:1px solid transparent; }
+    .range-pin-stem { width:2px; height:6px; }
+    .range-pin.green .range-pin-label { background:var(--green-bg); color:var(--green); border-color:#22c55e44; }
+    .range-pin.green .range-pin-stem { background:var(--green); }
+    .range-pin.yellow .range-pin-label { background:var(--yellow-bg); color:var(--yellow); border-color:#f59e0b44; }
+    .range-pin.yellow .range-pin-stem { background:var(--yellow); }
+    .range-pin.red .range-pin-label { background:var(--red-bg); color:var(--red); border-color:#ef444444; }
+    .range-pin.red .range-pin-stem { background:var(--red); }
+
+    /* Cost composition bar */
+    .costbar-wrap { padding:12px 18px 4px; }
+    .costbar { display:flex; height:12px; border-radius:6px; overflow:hidden; }
+    .costbar-seg { height:100%; min-width:2px; }
+    .costbar-legend { display:flex; flex-wrap:wrap; gap:6px 14px; padding:8px 0 2px; }
+    .costbar-key { display:flex; align-items:center; gap:5px; font-size:10px; color:var(--text-muted); }
+    .costbar-key i { width:8px; height:8px; border-radius:2px; display:inline-block; font-style:normal; flex-shrink:0; }
+
+    /* Mode tab status dots */
+    .tab-dot { display:none; width:6px; height:6px; border-radius:50%; margin-left:7px; vertical-align:middle; }
+    .tab-dot.show { display:inline-block; }
+    .tab-dot.green { background:var(--green); } .tab-dot.yellow { background:var(--yellow); } .tab-dot.red { background:var(--red); }
+
+    /* My Deals menu */
+    .deals-wrap { position:relative; }
+    .btn-deals { display:inline-flex; align-items:center; gap:6px; padding:7px 14px; background:var(--surface); border:1px solid var(--border-active); border-radius:8px; font-size:12px; font-weight:600; color:var(--text-muted); cursor:pointer; font-family:inherit; transition:all 0.15s; }
+    .btn-deals:hover { color:var(--text); border-color:var(--accent); }
+    .btn-deals svg { width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .deals-count { background:var(--accent); color:#fff; font-size:10px; font-weight:700; border-radius:10px; padding:1px 6px; }
+    .deals-panel { display:none; position:absolute; right:0; top:calc(100% + 8px); width:320px; max-width:calc(100vw - 40px); background:var(--surface); border:1px solid var(--border-active); border-radius:var(--radius); box-shadow:0 16px 48px #00000070; z-index:120; padding:10px; }
+    .deals-panel.open { display:block; }
+    .deals-save-btn { width:100%; padding:9px; border-radius:8px; border:1px dashed var(--border-active); background:var(--surface2); color:var(--accent-light); font-size:12px; font-weight:600; cursor:pointer; font-family:inherit; transition:all 0.15s; }
+    .deals-save-btn:hover { border-color:var(--accent); color:#fff; }
+    .deals-list { margin-top:8px; max-height:300px; overflow-y:auto; display:flex; flex-direction:column; gap:2px; }
+    .deal-item { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; border-radius:8px; cursor:pointer; }
+    .deal-item:hover { background:var(--surface2); }
+    .deal-item-name { font-size:12px; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .deal-item-meta { font-size:10px; color:var(--text-subtle); margin-top:1px; }
+    .deal-item-del { background:none; border:none; color:var(--text-subtle); cursor:pointer; font-size:13px; padding:2px 7px; border-radius:5px; flex-shrink:0; font-family:inherit; line-height:1; }
+    .deal-item-del:hover { color:var(--red); background:var(--red-bg); }
+    .deals-empty { padding:14px 10px; font-size:11px; color:var(--text-subtle); text-align:center; font-style:italic; }
+
+    /* Mobile sticky summary bar */
+    .mobile-bar { display:none; }
+    @media(max-width:860px) {
+      .mobile-bar.show { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:90; align-items:center; justify-content:space-between; gap:12px; padding:10px 18px calc(10px + env(safe-area-inset-bottom)); background:#111118f0; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-top:1px solid var(--border-active); }
+      body.has-mobile-bar .app { padding-bottom:150px; }
+    }
+    .mb-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:var(--text-subtle); }
+    .mb-value { font-size:17px; font-weight:800; letter-spacing:-0.4px; font-variant-numeric:tabular-nums; color:var(--text); }
+    .mb-value.green { color:var(--green); } .mb-value.yellow { color:var(--yellow); } .mb-value.red { color:var(--red); }
+    .mb-btn { padding:9px 16px; border-radius:8px; background:var(--accent); border:none; color:#fff; font-size:12px; font-weight:700; font-family:inherit; cursor:pointer; flex-shrink:0; }
+
+    /* Logo on deal sheet */
+    .sheet-brand-icon img { width:100%; height:100%; object-fit:contain; padding:5px; }
+
+    /* Keyboard focus visibility */
+    button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
     /* ── Responsive ── */
     @media(max-width:640px) {
       .sheet-head,.sheet-property,.sheet-pitch,.sheet-comp-notes,.sheet-hero,.sheet-section,.sheet-metrics,.sheet-footer,.dual-exit,.upfront-box { padding-left:20px; padding-right:20px; }
@@ -466,10 +581,11 @@
       header { flex-wrap:wrap; gap:10px; }
     }
     @media print {
-      .app,.sheet-action-row { display:none !important; }
+      .app,.sheet-action-row,.toast,.mobile-bar { display:none !important; }
       .sheet-overlay { position:static !important; background:none !important; padding:0 !important; display:block !important; opacity:1 !important; pointer-events:none !important; }
       .sheet-modal { border-radius:0 !important; box-shadow:none !important; max-width:none !important; }
       .sheet-head { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+      .sheet-section,.sheet-hero,.sheet-metrics,.dual-exit,.profit-highlight,.upfront-box,.sheet-comps-box { break-inside:avoid; page-break-inside:avoid; }
     }
   </style>
 </head>
@@ -487,7 +603,18 @@
         <div class="logo-tagline" id="header-tagline"></div>
       </div>
     </a>
-    <div class="header-right"></div>
+    <div class="header-right">
+      <div class="deals-wrap">
+        <button class="btn-deals" onclick="toggleDealsMenu()">
+          <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          My Deals <span class="deals-count" id="deals-count" style="display:none"></span>
+        </button>
+        <div class="deals-panel" id="deals-panel">
+          <button class="deals-save-btn" onclick="saveCurrentDeal()">+ Save current deal</button>
+          <div class="deals-list" id="deals-list"></div>
+        </div>
+      </div>
+    </div>
   </header>
 
   <!-- Branding Panel -->
@@ -516,6 +643,22 @@
           <label>Phone / Email</label>
           <input type="text" id="b-contact" placeholder="(555) 000-0000" oninput="onBrandChange()" />
         </div>
+      </div>
+
+      <!-- Logo upload -->
+      <div class="logo-upload-area">
+        <div class="logo-preview" id="logo-preview" onclick="$('b-logo-file').click()" title="Upload your logo">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <div class="logo-upload-right">
+          <button class="logo-upload-btn" onclick="$('b-logo-file').click()">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Upload Logo
+          </button>
+          <button class="logo-clear-btn" id="logo-clear-btn" onclick="clearLogo()" style="display:none">Remove logo</button>
+          <span class="logo-hint">PNG or JPG · appears on the header &amp; deal sheets (saved to this device)</span>
+        </div>
+        <input type="file" class="hidden-file" id="b-logo-file" accept="image/*" onchange="onLogoFile(this)" />
       </div>
 
       <!-- Color builder -->
@@ -592,9 +735,9 @@
 
   <!-- Mode Toggle -->
   <div class="mode-toggle">
-    <button class="mode-btn active" onclick="setMode('wholesale')" id="btn-wholesale">Wholesale / MAO</button>
-    <button class="mode-btn" onclick="setMode('rental')" id="btn-rental">Rental / Buy &amp; Hold</button>
-    <button class="mode-btn" onclick="setMode('brrrr')" id="btn-brrrr">BRRRR</button>
+    <button class="mode-btn active" onclick="setMode('wholesale')" id="btn-wholesale">Wholesale / MAO<span class="tab-dot" id="tab-dot-wholesale"></span></button>
+    <button class="mode-btn" onclick="setMode('rental')" id="btn-rental">Rental / Buy &amp; Hold<span class="tab-dot" id="tab-dot-rental"></span></button>
+    <button class="mode-btn" onclick="setMode('brrrr')" id="btn-brrrr">BRRRR<span class="tab-dot" id="tab-dot-brrrr"></span></button>
   </div>
 
   <!-- ══════ WHOLESALE ══════ -->
@@ -688,6 +831,7 @@
 
         <div class="offer-range-card">
           <div class="offer-range-header">Your Negotiation Range</div>
+          <div class="range-bar-wrap" id="w-range-bar" style="display:none"></div>
           <div class="offer-range-grid">
             <div class="offer-col">
               <div class="offer-col-label">Opening Offer</div>
@@ -718,6 +862,7 @@
 
         <div class="breakdown-card">
           <div class="breakdown-header">Cost Breakdown</div>
+          <div class="costbar-wrap" id="w-costbar" style="display:none"></div>
           <div class="breakdown-rows" id="w-breakdown">
             <div class="breakdown-row"><span class="row-label" style="color:var(--text-subtle);font-style:italic">Enter deal numbers to see breakdown</span></div>
           </div>
@@ -860,12 +1005,20 @@
         <!-- Rental Score Hero -->
         <div class="result-hero">
           <div class="result-hero-label">Rental Score</div>
-          <div class="brrrr-score-row">
-            <span class="brrrr-score-num" id="r-score-number">—</span>
-            <span class="brrrr-score-denom" id="r-score-denom"></span>
+          <div class="score-gauge-wrap">
+            <svg viewBox="0 0 120 120">
+              <circle class="score-gauge-track" cx="60" cy="60" r="52"/>
+              <circle class="score-gauge-arc" id="r-score-arc" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+            </svg>
+            <div class="score-gauge-center">
+              <span class="brrrr-score-num" id="r-score-number">—</span>
+              <span class="brrrr-score-denom" id="r-score-denom"></span>
+            </div>
           </div>
           <div class="result-hero-sub" id="r-score-headline">Enter deal numbers to see your rental analysis</div>
           <div class="deal-score" id="r-deal-score" style="display:none"></div>
+          <button class="score-factors-toggle" id="r-factors-toggle" onclick="toggleFactors('r')">Why this score? <span class="chev">▼</span></button>
+          <div class="score-factors" id="r-score-factors"></div>
         </div>
 
         <!-- Cash Flow spotlight -->
@@ -1090,12 +1243,20 @@
         <!-- BRRRR Score Hero -->
         <div class="result-hero">
           <div class="result-hero-label">BRRRR Score</div>
-          <div class="brrrr-score-row">
-            <span class="brrrr-score-num" id="b-score-number">—</span>
-            <span class="brrrr-score-denom" id="b-score-denom"></span>
+          <div class="score-gauge-wrap">
+            <svg viewBox="0 0 120 120">
+              <circle class="score-gauge-track" cx="60" cy="60" r="52"/>
+              <circle class="score-gauge-arc" id="b-score-arc" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+            </svg>
+            <div class="score-gauge-center">
+              <span class="brrrr-score-num" id="b-score-number">—</span>
+              <span class="brrrr-score-denom" id="b-score-denom"></span>
+            </div>
           </div>
           <div class="result-hero-sub" id="b-score-headline">Enter deal numbers to see your BRRRR analysis</div>
           <div class="deal-score" id="b-deal-score" style="display:none"></div>
+          <button class="score-factors-toggle" id="b-factors-toggle" onclick="toggleFactors('b')">Why this score? <span class="chev">▼</span></button>
+          <div class="score-factors" id="b-score-factors"></div>
         </div>
 
         <!-- Phase 1: Did the BRRRR work? -->
@@ -1183,6 +1344,15 @@
 
 </div><!-- /.app -->
 
+<!-- Mobile sticky summary bar -->
+<div class="mobile-bar" id="mobile-bar">
+  <div>
+    <div class="mb-label" id="mb-label">—</div>
+    <div class="mb-value" id="mb-value">—</div>
+  </div>
+  <button class="mb-btn" onclick="openSheet(currentMode)">Deal Sheet</button>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <!-- Deal Sheet Modal -->
@@ -1193,7 +1363,7 @@
 <script>
 // ── Helpers ──────────────────────────────────────────────
 const $ = id => document.getElementById(id);
-const val = id => parseFloat($( id)?.value) || 0;
+const val = id => { const el = $(id); if (!el) return 0; const n = parseFloat(String(el.value).replace(/[^0-9.\-]/g, '')); return isFinite(n) ? n : 0; };
 const isBlank = id => { const el=$( id); return !el || String(el.value).trim()===''; };
 const txt = id => $( id)?.value?.trim() || '';
 
@@ -1201,10 +1371,330 @@ function fmt(n) { return '$' + Math.abs(n).toLocaleString('en-US',{minimumFracti
 function fmtPct(n) { return n.toFixed(2) + '%'; }
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-function showToast(msg) {
-  const t=$('toast'); t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
+let _toastTimer = null;
+function showToast(msg, actionLabel, actionFn) {
+  const t=$('toast');
+  t.innerHTML = esc(msg) + (actionLabel ? ` <button class="toast-action" id="toast-action-btn">${esc(actionLabel)}</button>` : '');
+  if (actionLabel) $('toast-action-btn').onclick = () => { t.classList.remove('show'); actionFn && actionFn(); };
+  t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(()=>t.classList.remove('show'), actionLabel ? 6500 : 3000);
 }
+
+// ════ UI ENHANCEMENT HELPERS ════════════════════════════
+
+// ── Money inputs: live thousands separators ──────────────
+// These fields are converted to type=text (inputmode=decimal) at init and
+// formatted with commas as the user types. val() strips the commas back out.
+const MONEY_FIELDS = ['w-arv','w-asking','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-hold-mo',
+  'r-price','r-rehab','r-down','r-closing','r-rent','r-taxes','r-insurance','r-maintenance','r-hoa','r-other',
+  'b-price','b-rehab','b-closing','b-arv','b-refi','b-rent','b-taxes','b-insurance','b-maintenance','b-hoa','b-other'];
+
+function fmtMoneyField(el) {
+  const v = el.value;
+  const caret = el.selectionStart;
+  const digitsBefore = v.slice(0, caret || 0).replace(/[^0-9.]/g, '').length;
+  let raw = v.replace(/[^0-9.]/g, '');
+  const firstDot = raw.indexOf('.');
+  if (firstDot !== -1) raw = raw.slice(0, firstDot + 1) + raw.slice(firstDot + 1).replace(/\./g, '');
+  if (!raw) { if (v !== '') el.value = ''; return; }
+  const hasDot = raw.includes('.');
+  const [intPart, decPart = ''] = raw.split('.');
+  const intFmt = intPart ? Number(intPart).toLocaleString('en-US') : '';
+  const out = intFmt + (hasDot ? '.' + decPart.slice(0, 2) : '');
+  if (out === v) return;
+  el.value = out;
+  if (document.activeElement === el) {
+    let pos = 0, count = 0;
+    while (pos < out.length && count < digitsBefore) { if (/[0-9.]/.test(out[pos])) count++; pos++; }
+    try { el.setSelectionRange(pos, pos); } catch (e) {}
+  }
+}
+
+function initMoneyFields() {
+  MONEY_FIELDS.forEach(id => {
+    const el = $(id); if (!el) return;
+    el.type = 'text'; el.inputMode = 'decimal'; el.autocomplete = 'off';
+    el.addEventListener('input', () => fmtMoneyField(el));
+  });
+}
+
+// ── Animated numbers ──────────────────────────────────────
+function countUp(el, target, formatter) {
+  if (!el) return;
+  const f = formatter || (n => String(Math.round(n)));
+  if (!isFinite(target)) { el.textContent = '—'; delete el.dataset.prev; return; }
+  const prev = parseFloat(el.dataset.prev);
+  const from = isFinite(prev) ? prev : 0;
+  el.dataset.prev = target;
+  if (el._raf) cancelAnimationFrame(el._raf);
+  if (from === target) { el.textContent = f(target); return; }
+  const start = performance.now(), dur = 380;
+  const step = now => {
+    const p = Math.min(1, (now - start) / dur);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = f(from + (target - from) * e);
+    if (p < 1) el._raf = requestAnimationFrame(step);
+  };
+  el._raf = requestAnimationFrame(step);
+}
+
+// ── Score gauge ring ──────────────────────────────────────
+const GAUGE_CIRC = 2 * Math.PI * 52;
+function setGauge(prefix, score, color) {
+  const arc = $(prefix + '-score-arc');
+  if (!arc) return;
+  const pct = score == null ? 0 : Math.max(0, Math.min(100, score)) / 100;
+  arc.style.strokeDashoffset = (GAUGE_CIRC * (1 - pct)).toFixed(1);
+  arc.setAttribute('class', 'score-gauge-arc' + (color ? ' ' + color : ''));
+}
+
+// ── "Why this score?" factor breakdown ────────────────────
+function renderFactors(prefix, factors) {
+  const box = $(prefix + '-score-factors'), tog = $(prefix + '-factors-toggle');
+  if (!box || !tog) return;
+  box.innerHTML = factors.map(f => {
+    const c = f.tier >= 1 ? 'green' : f.tier >= 0.5 ? 'yellow' : 'red';
+    const pts = Math.round(f.weight * f.tier);
+    return `<div class="factor-row"><span class="factor-name"><span class="factor-dot ${c}"></span>${f.name}</span><span><span class="factor-val">${f.value}</span><span class="factor-pts">${pts}/${f.weight} pts</span></span></div>`;
+  }).join('');
+  tog.classList.add('visible');
+}
+function hideFactors(prefix) {
+  const box = $(prefix + '-score-factors'), tog = $(prefix + '-factors-toggle');
+  if (!box || !tog) return;
+  box.innerHTML = ''; box.classList.remove('open');
+  tog.classList.remove('visible', 'open');
+}
+function toggleFactors(prefix) {
+  $(prefix + '-score-factors').classList.toggle('open');
+  $(prefix + '-factors-toggle').classList.toggle('open');
+}
+
+// ── Negotiation range bar (wholesale) ─────────────────────
+function renderRangeBar(mao, asking) {
+  const wrap = $('w-range-bar');
+  if (!wrap) return;
+  if (!(mao > 0)) { wrap.style.display = 'none'; wrap.innerHTML = ''; return; }
+  const open = mao * 0.845, target = mao * 0.92;
+  const lo = open * 0.93, hi = mao * 1.10;
+  const posN = v => Math.max(1.5, Math.min(98.5, (v - lo) / (hi - lo) * 100));
+  const pOpen = posN(open), pTarget = posN(target), pMax = posN(mao);
+  let pin = '';
+  if (asking > 0) {
+    const cls = asking <= mao ? 'green' : asking <= mao * 1.05 ? 'yellow' : 'red';
+    const pinPos = Math.max(8, Math.min(92, posN(asking)));
+    pin = `<div class="range-pin ${cls}" style="left:${pinPos.toFixed(2)}%"><div class="range-pin-label">Asking ${fmt(asking)}</div><div class="range-pin-stem"></div></div>`;
+  }
+  wrap.innerHTML = `
+    <div class="range-track" style="margin:${asking > 0 ? '42px' : '14px'} 0 26px">
+      <div class="range-seg" style="left:${pOpen.toFixed(2)}%;width:${(pMax - pOpen).toFixed(2)}%;background:linear-gradient(90deg,var(--yellow),var(--green) 60%,var(--accent-light))"></div>
+      <div class="range-seg" style="left:${pMax.toFixed(2)}%;right:0;background:var(--red-bg)"></div>
+      <div class="range-tick" style="left:${pOpen.toFixed(2)}%"></div><div class="range-tick-label" style="left:${pOpen.toFixed(2)}%">Open</div>
+      <div class="range-tick" style="left:${pTarget.toFixed(2)}%"></div><div class="range-tick-label" style="left:${pTarget.toFixed(2)}%">Target</div>
+      <div class="range-tick" style="left:${pMax.toFixed(2)}%"></div><div class="range-tick-label" style="left:${pMax.toFixed(2)}%">Max</div>
+      ${pin}
+    </div>`;
+  wrap.style.display = 'block';
+}
+
+// ── Cost composition bar (wholesale breakdown) ────────────
+function renderCostBar(d) {
+  const el = $('w-costbar');
+  if (!el) return;
+  if (!d || !(d.arv > 0)) { el.style.display = 'none'; el.innerHTML = ''; return; }
+  const segs = [
+    { label: 'Max Offer (Seller)', v: Math.max(0, d.mao), c: '#22c55e' },
+    { label: 'Repairs', v: d.repairs, c: '#ef4444' },
+    { label: 'Your Fee', v: d.fee, c: '#f97316' },
+    { label: 'Holding', v: d.holding, c: '#eab308' },
+    { label: 'Closing', v: d.closing, c: '#a855f7' },
+    { label: 'Buyer Profit', v: d.profit, c: '#3b82f6' },
+    { label: 'Other', v: d.other, c: '#64748b' },
+  ].filter(s => s.v > 0);
+  const total = segs.reduce((a, s) => a + s.v, 0);
+  if (total <= 0 || segs.length < 2) { el.style.display = 'none'; el.innerHTML = ''; return; }
+  el.innerHTML =
+    `<div class="costbar">` + segs.map(s => `<div class="costbar-seg" style="width:${(s.v / total * 100).toFixed(2)}%;background:${s.c}" title="${s.label}: ${fmt(s.v)}"></div>`).join('') + `</div>` +
+    `<div class="costbar-legend">` + segs.map(s => `<span class="costbar-key"><i style="background:${s.c}"></i>${s.label}</span>`).join('') + `</div>`;
+  el.style.display = 'block';
+}
+
+// ── Mode tab status dots ──────────────────────────────────
+function setTabDot(mode, color) {
+  const dot = $('tab-dot-' + mode);
+  if (!dot) return;
+  dot.className = 'tab-dot' + (color ? ' show ' + color : '');
+}
+
+// ── Mobile sticky summary bar ─────────────────────────────
+function updateMobileBar() {
+  const bar = $('mobile-bar');
+  if (!bar) return;
+  let label = '', value = '', cls = '';
+  if (currentMode === 'wholesale' && _wData.arv > 0) {
+    label = 'Max Allowable Offer';
+    value = (_wData.mao < 0 ? '-' : '') + fmt(_wData.mao);
+    cls = _wData.mao > 0 ? 'green' : 'red';
+  } else if (currentMode === 'rental' && _rData.score !== undefined) {
+    label = 'Rental Score';
+    value = _rData.score + '/100 · ' + (_rData.cashflow < 0 ? '-' : '') + fmt(_rData.cashflow) + '/mo';
+    cls = _rData.scoreColor;
+  } else if (currentMode === 'brrrr' && _bData.score !== undefined) {
+    label = 'BRRRR Score';
+    value = _bData.score + '/100 · ' + (_bData.cashflow < 0 ? '-' : '') + fmt(_bData.cashflow) + '/mo';
+    cls = _bData.scoreColor;
+  }
+  if (!value) { bar.classList.remove('show'); document.body.classList.remove('has-mobile-bar'); return; }
+  $('mb-label').textContent = label;
+  $('mb-value').textContent = value;
+  $('mb-value').className = 'mb-value ' + (cls || '');
+  bar.classList.add('show'); document.body.classList.add('has-mobile-bar');
+}
+
+// ── Undo-able reset helpers ───────────────────────────────
+function snapshotFields(ids) { const s = {}; ids.forEach(id => { const el = $(id); if (el) s[id] = el.value; }); return s; }
+function restoreSnapshot(s) { Object.entries(s).forEach(([id, v]) => { const el = $(id); if (el) el.value = v; }); }
+
+// ── Deal autosave (survives refresh) ──────────────────────
+const DEAL_FIELDS = ['prop-address','prop-deal','prop-beds','prop-baths','prop-sqft','prop-year','prop-pitch','prop-expiry',
+  'w-arv','w-asking','w-repairs','w-fee','w-holding','w-hold-mo','w-hold-months','w-closing','w-profit','w-other','w-comps',
+  'r-price','r-rehab','r-down','r-closing','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr','r-comps',
+  'b-price','b-rehab','b-closing','b-arv','b-ltv','b-rate','b-term','b-refi','b-rent','b-vacancy','b-taxes','b-insurance','b-mgmt','b-maintenance','b-hoa','b-other','b-comps'];
+const CORE_DEAL_KEYS = ['w-arv','r-price','r-rent','b-price','b-arv','prop-address','prop-deal'];
+
+let _dealSaveTimer = null;
+function scheduleDealSave() { clearTimeout(_dealSaveTimer); _dealSaveTimer = setTimeout(saveDealToStorage, 500); }
+
+function collectDeal() {
+  const data = {};
+  DEAL_FIELDS.forEach(id => { const el = $(id); if (el && el.value !== '') data[id] = el.value; });
+  return {
+    data,
+    modes: { holdMode, downMode, taxesMode, insuranceMode, brrrrRefiMode, brrrrTaxesMode, brrrrInsuranceMode },
+    mode: currentMode, ts: Date.now()
+  };
+}
+function saveDealToStorage() { try { localStorage.setItem('rei_autosave', JSON.stringify(collectDeal())); } catch (e) {} }
+
+function applyDeal(d) {
+  const m = d.modes || {};
+  // Mode setters clear their own inputs, so apply them BEFORE field values
+  if (m.holdMode) setHoldMode(m.holdMode);
+  if (m.downMode) setDownMode(m.downMode);
+  if (m.taxesMode) setTaxesMode(m.taxesMode);
+  if (m.insuranceMode) setInsuranceMode(m.insuranceMode);
+  if (m.brrrrRefiMode) setRefiMode(m.brrrrRefiMode);
+  if (m.brrrrTaxesMode) setBTaxesMode(m.brrrrTaxesMode);
+  if (m.brrrrInsuranceMode) setBInsuranceMode(m.brrrrInsuranceMode);
+  Object.entries(d.data || {}).forEach(([id, v]) => { const el = $(id); if (el) el.value = v; });
+  if (d.mode) setMode(d.mode);
+  calcWholesale(); calcRental(); calcBRRRR();
+}
+
+function restoreAutosave() {
+  try {
+    const raw = localStorage.getItem('rei_autosave'); if (!raw) return false;
+    const d = JSON.parse(raw); if (!d || !d.data) return false;
+    applyDeal(d);
+    return CORE_DEAL_KEYS.some(k => d.data[k]);
+  } catch (e) { return false; }
+}
+
+function clearEverything() {
+  DEAL_FIELDS.forEach(id => { const el = $(id); if (el) el.value = ''; });
+  $('r-appr').value = '3';
+  setHoldMode('lump'); setDownMode('pct'); setTaxesMode('yr'); setInsuranceMode('yr');
+  setRefiMode('usd'); setBTaxesMode('yr'); setBInsuranceMode('yr');
+  try { localStorage.removeItem('rei_autosave'); } catch (e) {}
+  setMode('wholesale');
+  calcWholesale(); calcRental(); calcBRRRR();
+  showToast('Started fresh ✓');
+}
+
+// ── Saved deals library ───────────────────────────────────
+const MODE_LABELS = { wholesale: 'Wholesale', rental: 'Rental', brrrr: 'BRRRR' };
+function getDeals() { try { return JSON.parse(localStorage.getItem('rei_deals')) || []; } catch (e) { return []; } }
+function setDealsList(list) {
+  try { localStorage.setItem('rei_deals', JSON.stringify(list.slice(0, 20))); }
+  catch (e) { showToast('Could not save — browser storage is full'); }
+  renderDealsList();
+}
+function saveCurrentDeal() {
+  const deal = collectDeal();
+  if (!CORE_DEAL_KEYS.some(k => deal.data[k])) { showToast('Nothing to save yet — enter some deal numbers first'); return; }
+  const name = txt('prop-address') || txt('prop-deal') || 'Deal — ' + new Date().toLocaleDateString();
+  const list = getDeals().filter(x => x.name !== name);
+  list.unshift({ id: Date.now(), name, ...deal });
+  setDealsList(list);
+  showToast('Deal saved ✓');
+}
+function loadDeal(id) {
+  const d = getDeals().find(x => x.id === id); if (!d) return;
+  DEAL_FIELDS.forEach(fid => { const el = $(fid); if (el) el.value = ''; });
+  applyDeal(d);
+  saveDealToStorage();
+  $('deals-panel').classList.remove('open');
+  showToast('Loaded: ' + d.name + ' ✓');
+}
+function deleteDeal(id, ev) { ev.stopPropagation(); setDealsList(getDeals().filter(x => x.id !== id)); }
+function renderDealsList() {
+  const list = getDeals(), box = $('deals-list'), cnt = $('deals-count');
+  if (!box) return;
+  if (cnt) { cnt.style.display = list.length ? 'inline-block' : 'none'; cnt.textContent = list.length; }
+  box.innerHTML = list.length
+    ? list.map(d => `<div class="deal-item" onclick="loadDeal(${d.id})">
+        <div style="min-width:0">
+          <div class="deal-item-name">${esc(d.name)}</div>
+          <div class="deal-item-meta">${MODE_LABELS[d.mode] || d.mode} · ${new Date(d.ts || d.id).toLocaleDateString()}</div>
+        </div>
+        <button class="deal-item-del" onclick="deleteDeal(${d.id},event)" title="Delete deal">✕</button>
+      </div>`).join('')
+    : '<div class="deals-empty">No saved deals yet — fill in a deal and hit save</div>';
+}
+function toggleDealsMenu() { $('deals-panel').classList.toggle('open'); }
+
+// ── Logo upload (saved to this device) ────────────────────
+let _logoData = null;
+const HOUSE_SVG = '<svg viewBox="0 0 24 24" fill="#fff"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22" style="fill:none;stroke:#fff;stroke-width:2"/></svg>';
+const LOGO_PLACEHOLDER = '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>';
+function onLogoFile(input) {
+  const file = input.files && input.files[0]; if (!file) return;
+  if (!file.type.startsWith('image/')) { showToast('Please choose an image file (PNG or JPG)'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      const max = 320, scale = Math.min(1, max / Math.max(img.width, img.height));
+      const cv = document.createElement('canvas');
+      cv.width = Math.max(1, Math.round(img.width * scale));
+      cv.height = Math.max(1, Math.round(img.height * scale));
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      _logoData = cv.toDataURL('image/png');
+      try { localStorage.setItem('rei_logo', _logoData); flashSaved(); }
+      catch (err) { showToast('Logo too large to save — it will show until you reload'); }
+      applyLogo();
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+function applyLogo() {
+  const headerIcon = document.querySelector('.logo-icon');
+  const preview = $('logo-preview'), clearBtn = $('logo-clear-btn');
+  if (_logoData) {
+    if (headerIcon) { headerIcon.innerHTML = `<img src="${_logoData}" alt="logo">`; headerIcon.style.background = 'var(--surface2)'; }
+    if (preview) preview.innerHTML = `<img src="${_logoData}" alt="logo">`;
+    if (clearBtn) clearBtn.style.display = 'block';
+  } else {
+    if (headerIcon) { headerIcon.innerHTML = HOUSE_SVG; headerIcon.style.background = ''; }
+    if (preview) preview.innerHTML = LOGO_PLACEHOLDER;
+    if (clearBtn) clearBtn.style.display = 'none';
+  }
+}
+function clearLogo() { _logoData = null; try { localStorage.removeItem('rei_logo'); } catch (e) {} applyLogo(); }
+function loadLogo() { try { _logoData = localStorage.getItem('rei_logo'); } catch (e) {} if (_logoData) applyLogo(); }
 
 // ── Brand color ──────────────────────────────────────────
 let _saveTimer = null;
@@ -1337,11 +1827,15 @@ function copyBrandLink() {
 }
 
 // ── Mode Toggle ───────────────────────────────────────────
+let currentMode = 'wholesale';
 function setMode(mode) {
+  currentMode = mode;
   ['wholesale','rental','brrrr'].forEach(m=>{
     $('section-'+m).classList.toggle('active',m===mode);
     $('btn-'+m).classList.toggle('active',m===mode);
   });
+  updateMobileBar();
+  scheduleDealSave();
 }
 
 // ── Holding cost auto-calc ────────────────────────────────
@@ -1356,7 +1850,7 @@ function setHoldMode(mode) {
 }
 function autoHolding() {
   const total = val('w-hold-mo') * val('w-hold-months');
-  $('w-holding').value = total > 0 ? total : '';
+  $('w-holding').value = total > 0 ? Math.round(total).toLocaleString('en-US') : '';
   calcWholesale();
 }
 
@@ -1393,9 +1887,9 @@ function calcWholesale() {
   }
 
   const display=$('w-mao-display'), score=$('w-deal-score'), posDetail=$('w-position-detail');
-  if(!arv){ display.textContent='—'; display.className='result-hero-value'; score.style.display='none'; posDetail.style.display='none'; $('w-breakdown').innerHTML='<div class="breakdown-row"><span class="row-label" style="color:var(--text-subtle);font-style:italic">Enter deal numbers to see breakdown</span></div>'; return; }
+  if(!arv){ display.textContent='—'; delete display.dataset.prev; display.className='result-hero-value'; score.style.display='none'; posDetail.style.display='none'; $('w-breakdown').innerHTML='<div class="breakdown-row"><span class="row-label" style="color:var(--text-subtle);font-style:italic">Enter deal numbers to see breakdown</span></div>'; renderRangeBar(0,0); renderCostBar(_wData); setTabDot('wholesale',null); updateMobileBar(); return; }
 
-  display.textContent = mao>=0 ? fmt(mao) : '-'+fmt(mao);
+  countUp(display, mao, n => (n<0?'-':'') + fmt(n));
   // Pricing guidance, not property "deal quality": judge the seller's asking price vs your MAO.
   if(mao<=0){
     display.className='result-hero-value negative';
@@ -1436,11 +1930,19 @@ function calcWholesale() {
   html+='<div class="breakdown-divider"></div>';
   html+=`<div class="breakdown-row total"><span class="row-label">Maximum Allowable Offer</span><span class="row-value">${mao>=0?fmt(mao):'-'+fmt(mao)}</span></div>`;
   $('w-breakdown').innerHTML=html;
+
+  renderRangeBar(mao, asking);
+  renderCostBar(_wData);
+  setTabDot('wholesale', mao>0 ? (asking>0 ? (asking<=mao?'green':asking<=mao*1.05?'yellow':'red') : 'green') : 'red');
+  updateMobileBar();
 }
 
 function resetWholesale(){
-  ['w-arv','w-asking','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-hold-mo','w-hold-months','w-comps'].forEach(id=>$(id).value='');
-  calcWholesale();
+  const ids=['w-arv','w-asking','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-hold-mo','w-hold-months','w-comps'];
+  const snap=snapshotFields(ids), snapHold=holdMode;
+  ids.forEach(id=>$(id).value='');
+  calcWholesale(); saveDealToStorage();
+  showToast('Wholesale inputs cleared', 'Undo', ()=>{ setHoldMode(snapHold); restoreSnapshot(snap); calcWholesale(); saveDealToStorage(); });
 }
 
 // ── Toggle states ─────────────────────────────────────────
@@ -1543,7 +2045,7 @@ function calcRental(){ saveRentalPrefs();
     $('r-deal-score').style.display='none';
     $('r-insight').style.display='none';
     ['r-coc','r-dscr','r-cap','r-cash-required'].forEach(id=>setM(id,'','—'));
-    const cf=$('r-cashflow-display'); cf.textContent='—'; cf.className='cf-spotlight-value';
+    const cf=$('r-cashflow-display'); cf.textContent='—'; delete cf.dataset.prev; cf.className='cf-spotlight-value';
     $('r-cashflow-sub').textContent=hint||'After all expenses & debt service';
     $('r-cashflow-tag').style.display='none';
     $('r-current-price').textContent = price>0?fmt(price):'—'; $('r-current-price').className='maxprice-item-value';
@@ -1551,7 +2053,9 @@ function calcRental(){ saveRentalPrefs();
     $('r-gap-label').textContent=hint||'Enter deal numbers'; $('r-gap-value').textContent=''; $('r-gap-value').className='maxprice-gap-value';
     $('r-breakdown').innerHTML='<div class="breakdown-row"><span class="row-label" style="color:var(--text-subtle);font-style:italic">'+(hint||'Enter deal numbers to see breakdown')+'</span></div>';
     $('r-equity-body').innerHTML='<div class="equity-empty">Enter purchase price and loan details to see projections</div>';
+    setGauge('r', null); hideFactors('r'); delete $('r-score-number').dataset.prev;
     _rData={};
+    setTabDot('rental', null); updateMobileBar();
   };
 
   // ── Gating ──
@@ -1607,14 +2111,22 @@ function calcRental(){ saveRentalPrefs();
   const retLabel = (coc===Infinity||coc>=10)?'Strong Return':coc>=6?'Below Target Return':'Weak Return';
 
   // ── Score hero ──
-  $('r-score-number').textContent=score; $('r-score-denom').textContent='/100';
+  countUp($('r-score-number'), score); $('r-score-denom').textContent='/100';
   $('r-score-number').className='brrrr-score-num '+scoreColor;
+  setGauge('r', score, scoreColor);
+  _rData.score=score; _rData.scoreColor=scoreColor;
+  renderFactors('r', [
+    {name:'Cash-on-Cash', value:cocDisplay, tier:cocTier, weight:40},
+    {name:'Monthly Cash Flow', value:(cashflow<0?'-':'')+fmt(cashflow)+'/mo', tier:cfTier, weight:25},
+    {name:'DSCR', value:dscrDisplay, tier:dscrTier, weight:20},
+    {name:'Cap Rate', value:fmtPct(capRate), tier:capTier, weight:15},
+  ]);
   $('r-score-headline').textContent=`${cfLabel} • ${retLabel}`;
   const badge=$('r-deal-score'); badge.className='deal-score '+scoreColor; badge.innerHTML='<span class="dot"></span> '+badgeLabel; badge.style.display='inline-flex';
 
   // ── Cash Flow spotlight ──
   const cfEl=$('r-cashflow-display');
-  cfEl.textContent=(cashflow>=0?'':'-')+fmt(Math.abs(cashflow))+'/mo';
+  countUp(cfEl, cashflow, n => (n<0?'-':'')+fmt(n)+'/mo');
   cfEl.className='cf-spotlight-value '+tierCls(cfTier);
   $('r-cashflow-sub').textContent=`${(annualCF>=0?'':'-')+fmt(Math.abs(annualCF))}/yr after all expenses & debt service`;
   const cfTag=$('r-cashflow-tag'); cfTag.className='cf-spotlight-tag '+(cfTier>=1?'green':cfTier>=0.5?'yellow':'red');
@@ -1706,6 +2218,9 @@ function calcRental(){ saveRentalPrefs();
     et+='</tbody></table>';
     $('r-equity-body').innerHTML=et;
   } else { $('r-equity-body').innerHTML='<div class="equity-empty">Cash purchase — no loan. Enter a down payment below 100% to see leveraged projections.</div>'; }
+
+  setTabDot('rental', scoreColor);
+  updateMobileBar();
 }
 
 function buildEquityRows(price,loanAmt,monthlyRate,termMo,apprRate,annualCF){
@@ -1719,8 +2234,11 @@ function buildEquityRows(price,loanAmt,monthlyRate,termMo,apprRate,annualCF){
 }
 
 function resetRental(){
-  ['r-price','r-rehab','r-down','r-closing','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-comps'].forEach(id=>$(id).value='');
-  calcRental();
+  const ids=['r-price','r-rehab','r-down','r-closing','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-comps'];
+  const snap=snapshotFields(ids), m={downMode,taxesMode,insuranceMode};
+  ids.forEach(id=>$(id).value='');
+  calcRental(); saveDealToStorage();
+  showToast('Rental inputs cleared', 'Undo', ()=>{ setDownMode(m.downMode); setTaxesMode(m.taxesMode); setInsuranceMode(m.insuranceMode); restoreSnapshot(snap); calcRental(); saveDealToStorage(); });
 }
 
 // ── Deal Sheet ────────────────────────────────────────────
@@ -1760,7 +2278,7 @@ function sheetHead({company,tagline,contact,address,deal,pitch,expiry,comps,prop
   return `
     <div class="sheet-head" style="background:${gradient}">
       <div class="sheet-brand">
-        <div class="sheet-brand-icon"><svg viewBox="0 0 24 24" fill="#fff"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22" style="fill:none;stroke:#fff;stroke-width:2"/></svg></div>
+        <div class="sheet-brand-icon">${_logoData ? `<img src="${_logoData}" alt="">` : '<svg viewBox="0 0 24 24" fill="#fff"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22" style="fill:none;stroke:#fff;stroke-width:2"/></svg>'}</div>
         <div><div class="sheet-brand-name">${esc(company)}</div><div class="sheet-brand-tagline">${esc(tagline)}</div></div>
       </div>
       <div class="sheet-type-badge">${esc(badge)}</div>
@@ -2147,11 +2665,13 @@ function calcBRRRR() {
     ['b-cap-recovery','b-cash-left-display','b-equity-captured','b-coc','b-annual-cf'].forEach(id=>setM(id,'—',''));
     $('b-cash-left-pct-sub').textContent='% of ARV';
     $('b-coc-sub').textContent='Ann. CF ÷ cash left';
-    const cf=$('b-cashflow'); cf.textContent='—'; cf.className='cf-spotlight-value';
+    const cf=$('b-cashflow'); cf.textContent='—'; delete cf.dataset.prev; cf.className='cf-spotlight-value';
     $('b-cashflow-sub').textContent = hint || 'After refi mortgage & all expenses';
     $('b-cashflow-tag').style.display='none';
     $('b-breakdown').innerHTML='<div class="breakdown-row"><span class="row-label" style="color:var(--text-subtle);font-style:italic">'+(hint||'Enter deal numbers to see breakdown')+'</span></div>';
+    setGauge('b', null); hideFactors('b'); delete $('b-score-number').dataset.prev;
     _bData={};
+    setTabDot('brrrr', null); updateMobileBar();
   };
 
   // ── Gating ──
@@ -2240,9 +2760,16 @@ function calcBRRRR() {
   const explanation = verdict + strengths + watch;
 
   // ── Score hero ──
-  $('b-score-number').textContent = score;
+  countUp($('b-score-number'), score);
   $('b-score-denom').textContent = '/100';
   $('b-score-number').className = 'brrrr-score-num '+scoreColor;
+  setGauge('b', score, scoreColor);
+  renderFactors('b', [
+    {name:'Cash Left (% of ARV)', value:cashLeftPct.toFixed(1)+'%', tier:cashLeftTier, weight:40},
+    {name:'Capital Recovery', value:fmtPct(capRecoveryPct), tier:capRecTier, weight:30},
+    {name:'Cash-on-Cash', value:cocDisplay, tier:cocTier, weight:20},
+    {name:'Monthly Cash Flow', value:(cashflow<0?'-':'')+fmt(cashflow)+'/mo', tier:cfTier, weight:10},
+  ]);
   $('b-score-headline').textContent = `${refiLabel} • ${cfLabel}`;
   const badge=$('b-deal-score'); badge.className='deal-score '+scoreColor; badge.innerHTML='<span class="dot"></span> '+badgeLabel; badge.style.display='inline-flex';
 
@@ -2254,7 +2781,7 @@ function calcBRRRR() {
 
   // ── Phase 2: Is it a good rental? (spotlight CF) ──
   const cfEl=$('b-cashflow');
-  cfEl.textContent = (cashflow>=0?'':'-')+fmt(Math.abs(cashflow))+'/mo';
+  countUp(cfEl, cashflow, n => (n<0?'-':'')+fmt(n)+'/mo');
   cfEl.className = 'cf-spotlight-value '+tierCls(cfTier);
   $('b-cashflow-sub').textContent = 'After refi mortgage & all expenses';
   const cfTag=$('b-cashflow-tag');
@@ -2292,12 +2819,18 @@ function calcBRRRR() {
     <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>New Mortgage (P&I)</span><span class="row-value deduct">${fmt(mortgage)}/mo</span></div>
     <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:${cashflow>=0?'var(--green)':'var(--red)'}"></span>Monthly Cash Flow</span><span class="row-value" style="color:${cashflow>=0?'var(--green)':'var(--red)'}">${cashflow>=0?'':'-'}${fmt(Math.abs(cashflow))}/mo</span></div>
   `;
+
+  setTabDot('brrrr', scoreColor);
+  updateMobileBar();
 }
 
 function resetBRRRR() {
-  ['b-price','b-rehab','b-closing','b-arv','b-ltv','b-rate','b-term','b-refi','b-rent','b-vacancy','b-taxes','b-insurance','b-mgmt','b-maintenance','b-hoa','b-other','b-comps'].forEach(id=>$(id).value='');
+  const ids=['b-price','b-rehab','b-closing','b-arv','b-ltv','b-rate','b-term','b-refi','b-rent','b-vacancy','b-taxes','b-insurance','b-mgmt','b-maintenance','b-hoa','b-other','b-comps'];
+  const snap=snapshotFields(ids), m={refi:brrrrRefiMode,taxes:brrrrTaxesMode,ins:brrrrInsuranceMode};
+  ids.forEach(id=>$(id).value='');
   setRefiMode('usd'); setBTaxesMode('yr'); setBInsuranceMode('yr');
-  calcBRRRR();
+  calcBRRRR(); saveDealToStorage();
+  showToast('BRRRR inputs cleared', 'Undo', ()=>{ setRefiMode(m.refi); setBTaxesMode(m.taxes); setBInsuranceMode(m.ins); restoreSnapshot(snap); calcBRRRR(); saveDealToStorage(); });
 }
 
 // ── Copy common fields between Rental & BRRRR ─────────────
@@ -2316,22 +2849,7 @@ function copyBRRRRToRental(){
   showToast('Common fields copied to Rental ✓');
 }
 
-// ── Share URL ─────────────────────────────────────────────
-function shareURL(mode){
-  const params=new URLSearchParams();
-  params.set('mode',mode);
-  params.set('bc',brandColor);
-  ['b-company','b-tagline','b-contact','prop-address','prop-deal','prop-beds','prop-baths','prop-sqft','prop-year','prop-pitch','prop-expiry'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
-  if(mode==='wholesale'){
-    ['w-arv','w-asking','w-repairs','w-fee','w-holding','w-closing','w-profit','w-other','w-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
-  } else {
-    ['r-price','r-rehab','r-down','r-rate','r-term','r-rent','r-vacancy','r-taxes','r-insurance','r-mgmt','r-maintenance','r-hoa','r-other','r-target-coc','r-appr','r-comps'].forEach(id=>{ if($(id)?.value) params.set(id,$(id).value); });
-    params.set('r-downMode',downMode); params.set('r-taxesMode',taxesMode); params.set('r-insuranceMode',insuranceMode);
-  }
-  const url=location.origin+location.pathname+'?'+params.toString();
-  navigator.clipboard.writeText(url).then(()=>showToast('Link copied to clipboard ✓'));
-}
-
+// ── Share URL & link loading ──────────────────────────────
 function loadFromURL(){
   const params=new URLSearchParams(location.search);
 
@@ -2349,6 +2867,12 @@ function loadFromURL(){
   }
 
   if(!params.has('mode')) return;
+
+  // A deal link is the source of truth — start from a clean slate so leftovers
+  // from a previous session (autosave) can't mix into this deal's numbers.
+  DEAL_FIELDS.forEach(id => { const el=$(id); if(el) el.value=''; });
+  $('r-appr').value='3';
+  loadRentalPrefs();   // re-apply sticky defaults (rate, term, vacancy, mgmt) to blank fields
 
   // Inline brand overrides inside a deal share link
   if(params.has('bc1')){ $('b-color1').value=$('b-color1-hex').value=params.get('bc1'); }
@@ -2379,14 +2903,16 @@ function loadFromURL(){
     const el = $(id);
     if (el && el.value) el.value = el.value.replace(/\s*\|\s*/g, '\n').replace(/\\n/g, '\n');
   });
+  // Re-apply thousands separators to money fields populated from the URL
+  MONEY_FIELDS.forEach(id => { const el=$(id); if(el && el.value) fmtMoneyField(el); });
   // Run all calcs so fields are ready whichever tab opens
   calcWholesale();
   calcRental();
   calcBRRRR();
+  saveDealToStorage();
+  const addr = txt('prop-address');
+  showToast('Deal loaded from link' + (addr ? ': ' + addr : '') + ' ✓');
 }
-
-// Update shareURL to also encode brand colors
-const _origShareURL = typeof shareURL === 'function' ? shareURL : null;
 
 function shareURL(mode){
   const params=new URLSearchParams();
@@ -2406,18 +2932,49 @@ function shareURL(mode){
     params.set('r-downMode',downMode); params.set('r-taxesMode',taxesMode); params.set('r-insuranceMode',insuranceMode);
   }
   const url=location.origin+location.pathname+'?'+params.toString();
-  navigator.clipboard.writeText(url).then(()=>showToast('Link copied to clipboard ✓'));
+  const addr = txt('prop-address');
+  if(navigator.share && matchMedia('(pointer:coarse)').matches){
+    // Mobile: open the native share sheet; fall back to clipboard
+    navigator.share({ title: addr ? 'Deal: '+addr : 'REI Deal Analysis', url }).catch(err=>{
+      if(err && err.name==='AbortError') return;
+      navigator.clipboard.writeText(url).then(()=>showToast('Link copied to clipboard ✓'));
+    });
+  } else {
+    navigator.clipboard.writeText(url).then(()=>showToast('Link copied to clipboard ✓'));
+  }
 }
 
 
 document.addEventListener('DOMContentLoaded',()=>{
-  // 1. Load saved brand from localStorage first
+  // 1. Load saved brand + logo from localStorage first
   loadBrandFromStorage();
+  loadLogo();
   // 2. Load saved rental preferences (rate, term, vacancy, mgmt)
   loadRentalPrefs();
-  // 3. Apply any URL params (deal share or brand link) — overrides localStorage for that session
+  // 3. Convert money fields to text inputs with live thousands separators
+  initMoneyFields();
+  // 4. Restore the autosaved deal (URL params below override it)
+  const restored = restoreAutosave();
+  // 5. Apply any URL params (deal share or brand link)
   loadFromURL();
+  // 6. Saved-deals menu
+  renderDealsList();
+  // 7. Initial paint (blank-state UI, tab dots, mobile bar)
+  calcWholesale(); calcRental(); calcBRRRR();
+  if(restored && !new URLSearchParams(location.search).has('mode')){
+    showToast('Restored your last session', 'Start fresh', clearEverything);
+  }
+  // Global listeners
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeSheet(); });
+  document.addEventListener('input',e=>{ if(e.target && e.target.closest && e.target.closest('.app')) scheduleDealSave(); });
+  document.addEventListener('click',e=>{
+    // Tap-to-toggle formula tooltips (mobile friendly)
+    const tip = e.target.closest('.tip');
+    document.querySelectorAll('.tip.show').forEach(t=>{ if(t!==tip) t.classList.remove('show'); });
+    if(tip) tip.classList.toggle('show');
+    // Close the deals menu when clicking outside it
+    if(!e.target.closest('.deals-wrap')){ const p=$('deals-panel'); if(p) p.classList.remove('open'); }
+  });
 });
 </script>
 </body>
