@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>REI Deal Analyzer</title>
+  <meta name="description" content="Analyze wholesale, rental, and BRRRR deals in seconds. MAO, cash flow, cap rate, and investor-ready deal sheets with your own branding." />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="REI Deal Analyzer" />
+  <meta property="og:description" content="Analyze wholesale, rental, and BRRRR deals in seconds. MAO, cash flow, cap rate, and investor-ready deal sheets." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0f'/%3E%3Cpath d='M32 13 L53 31 h-7 v19 h-10 v-12 h-8 v12 H18 V31 h-7 Z' fill='%236366f1'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -221,7 +227,8 @@
     .metric-box-label { display:flex; align-items:center; }
 
     /* ── Formula tooltip ── */
-    .tip { display:inline-flex; align-items:center; justify-content:center; width:13px; height:13px; border-radius:50%; border:1px solid var(--text-subtle); color:var(--text-subtle); font-size:9px; font-weight:700; font-style:normal; cursor:help; margin-left:5px; position:relative; line-height:1; text-transform:none; letter-spacing:0; flex-shrink:0; vertical-align:middle; }
+    .tip { display:inline-flex; align-items:center; justify-content:center; width:13px; height:13px; border-radius:50%; border:1px solid var(--text-subtle); color:var(--text-subtle); font-size:10px; font-weight:700; font-style:normal; cursor:help; margin-left:5px; position:relative; line-height:1; text-transform:none; letter-spacing:0; flex-shrink:0; vertical-align:middle; }
+    .tip::after { content:''; position:absolute; inset:-12px; } /* invisible 37px hit area for touch */
     .tip:hover { border-color:var(--accent-light); color:var(--accent-light); }
     .tip::after { content:attr(data-tip); position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); background:#06060b; color:#e8e8f0; font-size:11px; font-weight:500; line-height:1.45; padding:7px 10px; border-radius:7px; border:1px solid var(--border-active); width:max-content; max-width:210px; white-space:normal; text-align:center; opacity:0; visibility:hidden; transition:opacity 0.15s; z-index:60; box-shadow:0 8px 24px #00000077; pointer-events:none; }
     .tip::before { content:''; position:absolute; bottom:calc(100% + 3px); left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:#06060b; opacity:0; visibility:hidden; transition:opacity 0.15s; z-index:60; }
@@ -295,9 +302,9 @@
 
     /* ── Buttons ── */
     .actions { display:flex; gap:8px; margin-top:4px; flex-wrap:wrap; }
+    .btn { flex:1; padding:10px 16px; border-radius:var(--radius-sm); font-size:12px; font-weight:600; cursor:pointer; border:1px solid var(--border); font-family:inherit; transition:all 0.15s; display:flex; align-items:center; justify-content:center; gap:6px; letter-spacing:-0.1px; }
     .btn-copy { background:var(--surface2); color:var(--accent-light); border-color:var(--border-active); }
     .btn-copy:hover { color:#fff; background:var(--accent); border-color:var(--accent); }
-    .btn { flex:1; padding:10px 16px; border-radius:var(--radius-sm); font-size:12px; font-weight:600; cursor:pointer; border:1px solid var(--border); font-family:inherit; transition:all 0.15s; display:flex; align-items:center; justify-content:center; gap:6px; letter-spacing:-0.1px; }
     .btn-primary { background:var(--accent); border-color:var(--accent); color:#fff; }
     .btn-primary:hover { background:var(--accent-light); border-color:var(--accent-light); }
     .btn-secondary { background:transparent; color:var(--text-muted); }
@@ -350,13 +357,13 @@
     .sheet-hero { padding:24px 36px; border-bottom:1px solid #f0eef8; display:flex; gap:0; }
     .sheet-hero-col { flex:1; text-align:center; padding:0 12px; border-right:1px solid #e8e6f0; }
     .sheet-hero-col:last-child { border-right:none; }
-    .sheet-hero-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#9ca3af; margin-bottom:6px; }
+    .sheet-hero-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#6b7280; margin-bottom:6px; }
     .sheet-hero-val { font-size:26px; font-weight:800; letter-spacing:-1px; color:#1e1b4b; line-height:1; font-variant-numeric:tabular-nums; }
     .sheet-hero-val.green { color:#16a34a; } .sheet-hero-val.yellow { color:#d97706; } .sheet-hero-val.red { color:#dc2626; }
-    .sheet-hero-sub { font-size:11px; color:#9ca3af; margin-top:4px; }
+    .sheet-hero-sub { font-size:11px; color:#6b7280; margin-top:4px; }
 
     .sheet-section { padding:20px 36px; border-bottom:1px solid #f0eef8; }
-    .sheet-section-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#9ca3af; margin-bottom:14px; }
+    .sheet-section-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#6b7280; margin-bottom:14px; }
     .sheet-row { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid #faf9ff; font-size:13px; }
     .sheet-row:last-child { border-bottom:none; }
     .sheet-row-label { color:#4b5563; display:flex; align-items:center; gap:7px; }
@@ -379,12 +386,12 @@
     /* ARV Rule section on sheet */
     .sheet-arv-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
     .sheet-arv-box { text-align:center; padding:14px 8px; background:#f8f7ff; border-radius:10px; border:1px solid #ece9f8; }
-    .sheet-arv-box-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#9ca3af; margin-bottom:6px; }
+    .sheet-arv-box-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#6b7280; margin-bottom:6px; }
     .sheet-arv-box-val { font-size:19px; font-weight:800; letter-spacing:-0.5px; font-variant-numeric:tabular-nums; }
 
     /* Comp notes — subtle footer style */
-    .sheet-comp-notes { padding:10px 36px; border-top:1px solid #f0eef8; font-size:11px; color:#9ca3af; line-height:1.6; }
-    .sheet-comp-notes strong { display:inline; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#c4c9d4; margin-right:6px; }
+    .sheet-comp-notes { padding:10px 36px; border-top:1px solid #f0eef8; font-size:11px; color:#6b7280; line-height:1.6; }
+    .sheet-comp-notes strong { display:inline; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#6b7280; margin-right:6px; }
     .sheet-finance-note { margin:0 36px 16px; background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; padding:10px 13px; font-size:11px; color:#9a3412; line-height:1.5; }
     .sheet-finance-note strong { color:#7c2d12; }
     .sheet-comps-box { margin:0 36px 4px; }
@@ -394,13 +401,13 @@
     /* Sheet Metrics */
     .sheet-metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:20px 36px; border-bottom:1px solid #f0eef8; }
     .sheet-metric { text-align:center; }
-    .sheet-metric-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.7px; color:#9ca3af; margin-bottom:5px; }
+    .sheet-metric-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.7px; color:#6b7280; margin-bottom:5px; }
     .sheet-metric-val { font-size:18px; font-weight:800; color:#1e1b4b; letter-spacing:-0.5px; font-variant-numeric:tabular-nums; }
-    .sheet-metric-val.green { color:#16a34a; } .sheet-metric-val.yellow { color:#d97706; } .sheet-metric-val.red { color:#dc2626; }
+    .sheet-metric-val.green { color:#15803d; } .sheet-metric-val.yellow { color:#b45309; } .sheet-metric-val.red { color:#dc2626; }
 
     /* Dual Exit Comparison */
     .dual-exit { padding:20px 36px; border-bottom:1px solid #f0eef8; }
-    .dual-exit-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#9ca3af; margin-bottom:14px; }
+    .dual-exit-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#6b7280; margin-bottom:14px; }
     .dual-exit-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .dual-col { border-radius:10px; overflow:hidden; border:1px solid #e8e6f0; }
     .dual-col-head { padding:10px 16px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
@@ -410,11 +417,11 @@
     .dual-row { display:flex; justify-content:space-between; font-size:12px; }
     .dual-row-label { color:#6b7280; }
     .dual-row-val { font-weight:600; color:#111; font-variant-numeric:tabular-nums; }
-    .dual-row-val.green { color:#16a34a; } .dual-row-val.red { color:#dc2626; }
+    .dual-row-val.green { color:#15803d; } .dual-row-val.red { color:#b91c1c; }
 
     /* Equity table on sheet */
     .sheet-equity-table { width:100%; border-collapse:collapse; font-size:12px; }
-    .sheet-equity-table th { text-align:left; padding:6px 0; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#9ca3af; border-bottom:1px solid #e8e6f0; }
+    .sheet-equity-table th { text-align:left; padding:6px 0; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#6b7280; border-bottom:1px solid #e8e6f0; }
     .sheet-equity-table th:not(:first-child) { text-align:right; }
     .sheet-equity-table td { padding:9px 0; color:#4b5563; border-bottom:1px solid #faf9ff; font-weight:500; }
     .sheet-equity-table td:not(:first-child) { text-align:right; font-weight:700; color:#1e1b4b; font-variant-numeric:tabular-nums; }
@@ -430,7 +437,7 @@
     .sheet-footer { padding:16px 36px; background:#f8f7ff; border-top:1px solid #e8e6f0; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
     .sheet-footer-contact { font-size:12px; color:#6b7280; }
     .sheet-footer-contact strong { color:#4b5563; }
-    .sheet-disclaimer { font-size:10px; color:#d1d5db; max-width:280px; text-align:right; line-height:1.4; }
+    .sheet-disclaimer { font-size:10px; color:#9ca3af; max-width:280px; text-align:right; line-height:1.4; }
     .sheet-action-row { display:flex; justify-content:flex-end; gap:8px; padding:16px 36px 20px; }
     .sheet-close { padding:9px 18px; border-radius:var(--radius-sm); font-size:13px; font-weight:600; cursor:pointer; border:1px solid var(--border); background:var(--surface2); color:var(--text-muted); font-family:inherit; transition:all 0.15s; display:inline-flex; align-items:center; gap:6px; }
     .sheet-close:hover { color:var(--text); }
@@ -494,7 +501,7 @@
     .range-track { position:relative; height:10px; border-radius:5px; background:var(--surface2); }
     .range-seg { position:absolute; top:0; bottom:0; border-radius:5px; }
     .range-tick { position:absolute; top:-4px; width:2px; height:18px; border-radius:1px; background:var(--text-muted); transform:translateX(-50%); }
-    .range-tick-label { position:absolute; top:18px; transform:translateX(-50%); font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-subtle); white-space:nowrap; }
+    .range-tick-label { position:absolute; top:18px; transform:translateX(-50%); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-subtle); white-space:nowrap; }
     .range-pin { position:absolute; bottom:13px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; }
     .range-pin-label { font-size:10px; font-weight:700; padding:3px 9px; border-radius:6px; white-space:nowrap; border:1px solid transparent; }
     .range-pin-stem { width:2px; height:6px; }
@@ -543,7 +550,7 @@
       .mobile-bar.show { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:90; align-items:center; justify-content:space-between; gap:12px; padding:10px 18px calc(10px + env(safe-area-inset-bottom)); background:#111118f0; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-top:1px solid var(--border-active); }
       body.has-mobile-bar .app { padding-bottom:150px; }
     }
-    .mb-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:var(--text-subtle); }
+    .mb-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:var(--text-subtle); }
     .mb-value { font-size:17px; font-weight:800; letter-spacing:-0.4px; font-variant-numeric:tabular-nums; color:var(--text); }
     .mb-value.green { color:var(--green); } .mb-value.yellow { color:var(--yellow); } .mb-value.red { color:var(--red); }
     .mb-btn { padding:9px 16px; border-radius:8px; background:var(--accent); border:none; color:#fff; font-size:12px; font-weight:700; font-family:inherit; cursor:pointer; flex-shrink:0; }
@@ -592,6 +599,9 @@
       .result-hero-value { font-size:32px; }
       .brrrr-score-num { font-size:40px; }
       .metrics-grid { grid-template-columns:1fr; }
+      .scenarios-grid, .offer-range-grid { grid-template-columns:1fr; }
+      .scenario:not(:last-child), .offer-col:not(:last-child) { border-bottom:1px solid var(--border); }
+      .sheet-arv-grid { grid-template-columns:1fr 1fr; }
       .brrrr-metrics-5 { grid-template-columns:1fr 1fr; }
       header { flex-wrap:wrap; gap:10px; }
     }
@@ -1383,6 +1393,7 @@ const isBlank = id => { const el=$( id); return !el || String(el.value).trim()==
 const txt = id => $( id)?.value?.trim() || '';
 
 function fmt(n) { return '$' + Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+function fmtS(n) { return (n<0?'-':'') + fmt(n); } // sign-aware: use anywhere a value can legitimately be negative
 function fmtPct(n) { return n.toFixed(2) + '%'; }
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
@@ -1884,9 +1895,10 @@ function calcWholesale() {
   const mao     = arv - costs;
   _wData = { arv, repairs, fee, holding, closing, profit, other, costs, mao, asking };
 
-  // ARV scenarios
+  // ARV scenarios — the WHOLESALER's rule-based offer ceiling: buyer's rule price minus
+  // repairs AND minus the assignment fee (omitting the fee overstates the offer by the fee).
   ['65','70','75'].forEach(p=>{
-    const el=$('w-s'+p), v = arv>0 ? (arv*(parseInt(p)/100))-repairs : null;
+    const el=$('w-s'+p), v = arv>0 ? (arv*(parseInt(p)/100))-repairs-fee : null;
     if(!v && v!==0){ el.textContent='—'; el.className='scenario-val'; return; }
     el.textContent = v>=0 ? fmt(v) : '-'+fmt(v);
     el.className   = 'scenario-val '+(v>0?'positive':v===0?'caution':'negative');
@@ -1911,7 +1923,7 @@ function calcWholesale() {
     score.className='deal-score red'; score.innerHTML='<span class="dot"></span> No Deal — Costs exceed ARV';
     posDetail.style.display='none';
   } else {
-    display.className='result-hero-value positive';
+    display.className='result-hero-value' + (asking>0 ? (asking<=mao?' positive':(asking<=mao*1.05?' caution':' negative')) : '');
     if(asking>0){
       if(asking<=mao){
         score.className='deal-score green'; score.innerHTML='<span class="dot"></span> Strong Negotiation Position';
@@ -2229,7 +2241,7 @@ function calcRental(){ saveRentalPrefs();
   if(price>0&&loanAmt>0){
     const rows=buildEquityRows(price,loanAmt,rate,termMo,apprRate,annualCF);
     let et=`<table class="equity-table"><thead><tr><th>Yr</th><th>Value</th><th>Balance</th><th>Equity</th></tr></thead><tbody>`;
-    rows.forEach(r=>{ et+=`<tr><td style="font-weight:600;color:var(--text)">${r.yr}</td><td>${fmt(r.propVal)}</td><td>${fmt(r.balance)}</td><td style="color:var(--green)">${fmt(r.equity)}</td></tr>`; });
+    rows.forEach(r=>{ et+=`<tr><td style="font-weight:600;color:var(--text)">${r.yr}</td><td>${fmt(r.propVal)}</td><td>${fmt(r.balance)}</td><td style="color:${r.equity>=0?'var(--green)':'var(--red)'}">${fmtS(r.equity)}</td></tr>`; });
     et+='</tbody></table>';
     $('r-equity-body').innerHTML=et;
   } else { $('r-equity-body').innerHTML='<div class="equity-empty">Cash purchase — no loan. Enter a down payment below 100% to see leveraged projections.</div>'; }
@@ -2242,7 +2254,7 @@ function buildEquityRows(price,loanAmt,monthlyRate,termMo,apprRate,annualCF){
   return [1,5,10].map(yr=>{
     const mo=yr*12, propVal=price*Math.pow(1+apprRate,yr);
     let balance=0;
-    if(monthlyRate>0&&termMo>0) balance=Math.max(0,loanAmt*Math.pow(1+monthlyRate,mo)-((loanAmt*monthlyRate*(Math.pow(1+monthlyRate,termMo)-Math.pow(1+monthlyRate,mo)))/(Math.pow(1+monthlyRate,termMo)-1)));
+    if(monthlyRate>0&&termMo>0) balance=Math.max(0,loanAmt*(Math.pow(1+monthlyRate,termMo)-Math.pow(1+monthlyRate,mo))/(Math.pow(1+monthlyRate,termMo)-1));
     const equity=propVal-balance, initEq=price-loanAmt, totalReturn=equity-initEq+(annualCF*yr);
     return {yr,propVal,balance,equity,totalReturn};
   });
@@ -2318,6 +2330,7 @@ function sheetFooter(company,contact){
 function buildWholesaleSheet({company,tagline,contact,address,deal,pitch,expiry,comps,propDetails,dateStr,gradient}){
   const d=_wData;
   if(!d.arv) return '<div style="padding:40px;text-align:center;color:#666;font-family:Inter,sans-serif">No data — fill in the Wholesale calculator first.</div>';
+  if(!(d.mao>0)) return '<div style="padding:40px;text-align:center;color:#666;font-family:Inter,sans-serif">No deal to present — total costs exceed the ARV, so there is no workable purchase price. Adjust the numbers in the Wholesale calculator first.</div>';
 
   // Buyer-facing: the wholesaler's assignment fee is baked INTO the purchase price
   // (never itemized). MAO already subtracts the fee, so the buyer's actual price = MAO + fee.
@@ -2390,7 +2403,7 @@ function buildWholesaleSheet({company,tagline,contact,address,deal,pitch,expiry,
 
 function buildDualExit(){
   const w=_wData, r=_rData;
-  if(!w.mao||!r.cashflow) return '';
+  if(!(w.mao>0)||!r.cashflow) return '';
   // Buyer's price includes the assignment fee (MAO + fee); profit must exclude the fee.
   const flipPrice  = w.mao + w.fee;
   const flipAllIn  = flipPrice + w.repairs + w.holding + w.closing + w.other;
@@ -2401,7 +2414,7 @@ function buildDualExit(){
       <div class="dual-exit-title">Dual Exit Strategy — Which Works Best for You?</div>
       <div class="dual-exit-grid">
         <div class="dual-col">
-          <div class="dual-col-head flip-head">🔨 Fix &amp; Flip</div>
+          <div class="dual-col-head flip-head"><svg viewBox="0 0 24 24" style="width:12px;height:12px;vertical-align:-1px;margin-right:5px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M14.7 6.3a5 5 0 00-7.07 0L3 10.93l2.12 2.12 4.64-4.64M14 7l7 7-2 2-7-7"/><path d="M5 19l4-4"/></svg>Fix &amp; Flip</div>
           <div class="dual-col-body">
             <div class="dual-row"><span class="dual-row-label">Purchase Price</span><span class="dual-row-val">${fmt(flipPrice)}</span></div>
             <div class="dual-row"><span class="dual-row-label">All-In Cost</span><span class="dual-row-val">${fmt(flipAllIn)}</span></div>
@@ -2411,11 +2424,11 @@ function buildDualExit(){
           </div>
         </div>
         <div class="dual-col">
-          <div class="dual-col-head hold-head">🏠 Buy &amp; Hold</div>
+          <div class="dual-col-head hold-head"><svg viewBox="0 0 24 24" style="width:12px;height:12px;vertical-align:-1px;margin-right:5px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Buy &amp; Hold</div>
           <div class="dual-col-body">
             <div class="dual-row"><span class="dual-row-label">Monthly Cash Flow</span><span class="dual-row-val ${r.cashflow>0?'green':'red'}">${r.cashflow>=0?fmt(r.cashflow):'-'+fmt(r.cashflow)}/mo</span></div>
             <div class="dual-row"><span class="dual-row-label">Annual Cash Flow</span><span class="dual-row-val ${r.annualCF>0?'green':'red'}">${r.annualCF>=0?fmt(r.annualCF):'-'+fmt(r.annualCF)}</span></div>
-            <div class="dual-row"><span class="dual-row-label">Cash-on-Cash</span><span class="dual-row-val ${r.coc>=8?'green':r.coc>=0?'':'red'}">${fmtPct(r.coc)}</span></div>
+            <div class="dual-row"><span class="dual-row-label">Cash-on-Cash</span><span class="dual-row-val ${r.coc>=8?'green':r.coc>=0?'':'red'}">${r.coc===Infinity?'Infinite':fmtPct(r.coc)}</span></div>
             <div class="dual-row"><span class="dual-row-label">Cap Rate</span><span class="dual-row-val">${fmtPct(r.capRate)}</span></div>
             <div class="dual-row"><span class="dual-row-label">Monthly Rent</span><span class="dual-row-val">${fmt(r.rent)}/mo</span></div>
           </div>
@@ -2458,7 +2471,7 @@ function buildRentalSheet({company,tagline,contact,address,deal,pitch,expiry,pro
     const rows=buildEquityRows(d.price,d.loanAmt,d.rate,d.termMo,d.apprRate,d.annualCF);
     equityHtml=`<div class="sheet-section"><div class="sheet-section-title">Equity &amp; Appreciation Projection (${(d.apprRate*100).toFixed(1)}%/yr)</div>
       <table class="sheet-equity-table"><thead><tr><th>Year</th><th>Property Value</th><th>Loan Balance</th><th>Equity</th><th>Total Return</th></tr></thead><tbody>
-      ${rows.map(r=>`<tr><td><strong>Year ${r.yr}</strong></td><td>${fmt(r.propVal)}</td><td>${fmt(r.balance)}</td><td style="color:#16a34a">${fmt(r.equity)}</td><td style="color:#4f46e5">${fmt(r.totalReturn)}</td></tr>`).join('')}
+      ${rows.map(r=>`<tr><td><strong>Year ${r.yr}</strong></td><td>${fmt(r.propVal)}</td><td>${fmt(r.balance)}</td><td style="color:${r.equity>=0?'#15803d':'#b91c1c'}">${fmtS(r.equity)}</td><td style="color:#4f46e5">${fmtS(r.totalReturn)}</td></tr>`).join('')}
       </tbody></table></div>`;
   }
 
@@ -2574,7 +2587,7 @@ function buildBRRRRSheet({company,tagline,contact,address,deal,pitch,expiry,prop
       </div>
       <div class="sheet-hero-col">
         <div class="sheet-hero-label">Equity Captured</div>
-        <div class="sheet-hero-val">${fmt(d.equityCapture)}</div>
+        <div class="sheet-hero-val" style="${d.equityCapture<0?'color:#b91c1c':''}">${fmtS(d.equityCapture)}</div>
         <div class="sheet-hero-sub">ARV − total cash invested</div>
       </div>
     </div>
@@ -2792,7 +2805,7 @@ function calcBRRRR() {
   setM('b-cap-recovery', fmtPct(capRecoveryPct), tierCls(capRecTier));
   setM('b-cash-left-display', cashLeft===0?'$0':fmt(cashLeft), tierCls(cashLeftTier));
   $('b-cash-left-pct-sub').textContent = `${cashLeftPct.toFixed(1)}% of ARV`;
-  setM('b-equity-captured', fmt(equityCapture), equityCapture>0?'positive':'negative');
+  setM('b-equity-captured', fmtS(equityCapture), equityCapture>0?'positive':'negative');
 
   // ── Phase 2: Is it a good rental? (spotlight CF) ──
   const cfEl=$('b-cashflow');
@@ -2830,7 +2843,7 @@ function calcBRRRR() {
     <div class="breakdown-divider"></div>
     <div class="breakdown-row total"><span class="row-label">Cash Left in Deal</span><span class="row-value">${fmt(cashLeft)} <span style="font-size:11px;font-weight:400;color:var(--text-muted)">(${cashLeftPct.toFixed(1)}% of ARV)</span></span></div>
     <div class="breakdown-divider"></div>
-    <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--accent)"></span>Equity Captured</span><span class="row-value" style="color:var(--accent-light)">${fmt(equityCapture)}</span></div>
+    <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--accent)"></span>Equity Captured</span><span class="row-value" style="color:${equityCapture>=0?'var(--accent-light)':'var(--red)'}">${fmtS(equityCapture)}</span></div>
     <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:var(--red)"></span>New Mortgage (P&I)</span><span class="row-value deduct">${fmt(mortgage)}/mo</span></div>
     <div class="breakdown-row"><span class="row-label"><span class="row-dot" style="background:${cashflow>=0?'var(--green)':'var(--red)'}"></span>Monthly Cash Flow</span><span class="row-value" style="color:${cashflow>=0?'var(--green)':'var(--red)'}">${cashflow>=0?'':'-'}${fmt(Math.abs(cashflow))}/mo</span></div>
   `;
