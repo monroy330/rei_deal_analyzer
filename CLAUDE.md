@@ -30,6 +30,8 @@ Gabe usually can't track what's important mid-build, so it's on Claude to raise 
 - Data globals for the deal sheets: `_wData`, `_rData`, `_bData`.
 - Deal sheets: `openSheet(mode)` → `buildWholesaleSheet()` / `buildRentalSheet()` / `buildBRRRRSheet()`; plus `buildDualExit()`, `sheetHead()`, `sheetFooter()`.
 - Helpers: `val(id)` (number; blank OR "0" → 0), `isBlank(id)`, `fmt()` ($), `fmtPct()` (%), `txt(id)`.
+- **`fmt()` strips signs (Math.abs) — use `fmtS()` anywhere a value can legitimately be negative** (equity, total return, equity captured). Forgetting this made losses display as gains (3 bugs found in the 2026-07-02 audit).
+- Functional smoke-test pattern: serve the folder (session launch.json config "rei-calculator", port 3457), then drive `calcWholesale()`/`calcRental()` etc. via preview_eval and assert on `_wData`/`_rData` + DOM — this catches math bugs a code read misses.
 - Toggle state + setters: down `setDownMode`; taxes/insurance Mo↔Yr `setTaxesMode`/`setInsuranceMode` (rental) and `setBTaxesMode`/`setBInsuranceMode` (BRRRR); refi $↔% `setRefiMode`; holding `setHoldMode`.
 - Copy between tabs: `copyRentalToBRRRR()`, `copyBRRRRToRental()` (common fields only).
 - Share/load: `shareURL(mode)` builds a URL of field IDs; `loadFromURL()` applies them on page load.
