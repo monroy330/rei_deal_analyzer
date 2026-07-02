@@ -5,7 +5,7 @@ A single-page web app for a real estate wholesaler (Gabe Monroy) who runs deals 
 ## ⚠️ DEPLOY RULE — READ FIRST
 - **NEVER run `git push` without Gabe's explicit "yes."** Pushing to `main` auto-triggers a Netlify build/deploy and consumes his Netlify usage.
 - Free / no permission needed: editing files, testing in the local preview, and **local** `git commit`s.
-- Normal flow: edit `index.html` directly → test locally → **ASK** → commit → push. Always pause for a yes before the push. `index.html` is the single working file — no preview sandbox.
+- Normal flow: edit `index.html` directly → open it in a browser to preview → **ASK** → commit → push. Always pause for a yes before the push. `index.html` is the single working file — no preview server, just open the file.
 
 ## End-of-session memory check (Claude: do this proactively — don't wait to be asked)
 When a session is wrapping up — Gabe says things like "that's all", "we're good", "done for now", "thanks", or we just finished a meaningful change — pause and run a quick memory check:
@@ -16,12 +16,11 @@ When a session is wrapping up — Gabe says things like "that's all", "we're goo
 Gabe usually can't track what's important mid-build, so it's on Claude to raise this at the end.
 
 ## Stack & files
-- **`index.html`** — the entire app (production; what Netlify deploys). Vanilla HTML/CSS/JS, no build step, no dependencies except the Google Fonts CDN.
-- `brrrr-preview.html` — DEPRECATED early sandbox; no longer used. Edit `index.html` directly. (Safe to delete; ignore if present.)
-- `brrrr-server.py`, `.claude/launch.json` — local preview server config only. (If this folder is renamed/moved: `brrrr-server.py` is path-independent, but `.claude/launch.json` has absolute paths — just regenerate it.)
+- **`index.html`** — the entire app (production; what Netlify deploys). Vanilla HTML/CSS/JS, no build step, no dependencies except the Google Fonts CDN. To preview, just open it in a browser.
+- `.claude/launch.json` — leftover config from an old local preview server (`brrrr-server.py`, since deleted). Dead/unused; safe to delete.
 
 ## Deploy / hosting
-- GitHub: `monroy330/rei_deal_analyzer`, branch **`main`** (auth token is embedded in the remote URL).
+- GitHub: `monroy330/rei_deal_analyzer`, branch **`main`** (plain HTTPS remote; auth via the macOS keychain like the other repos — the old embedded PAT was removed and revoked 2026-07-02).
 - Push to `main` → Netlify auto-deploys → https://reidealanalyzer.netlify.app
 - To deploy: make sure changes are in `index.html`, commit, then (WITH PERMISSION) `git push origin main`. End commit messages with the Co-Authored-By line.
 
